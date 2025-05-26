@@ -1,0 +1,39 @@
+import 'package:chat_box/core/resources/strings/endpoints.dart';
+import 'package:chat_box/features/auth/data/data_source/remote_ds/auth_remote_ds.dart';
+import 'package:chat_box/features/auth/data/models/register_request.dart';
+import 'package:chat_box/features/auth/data/models/register_response.dart';
+import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
+
+import '../../../../../core/network/api_manager/api_manager.dart';
+
+@Injectable(as: AuthRemoteDs)
+class AuthRemoteDsImpl extends AuthRemoteDs {
+  APIManager apiManager;
+  AuthRemoteDsImpl(this.apiManager);
+  @override
+  Future<RegisterResponse> register({RegisterRequest? request}) async {
+    var response = await apiManager.postRequest(
+      Endpoints.register,
+      request!.toJson(),
+    );
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return RegisterResponse.fromJson(response.data);
+      } else {
+        String errorMessage = "Register Failed";
+        if (response.data is Map<String, dynamic>) {
+          errorMessage = response.data['error'] ?? errorMessage;
+        }
+        throw ServerException(errorMessage);
+      }
+    } on DioException catch (e) {
+      throw ServerException(e.message ?? "Network error");
+    }
+  }
+}
+
+class ServerException implements Exception {
+  final String message;
+  ServerException(this.message);
+}
