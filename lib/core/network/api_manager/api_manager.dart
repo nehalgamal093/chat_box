@@ -53,4 +53,14 @@ class APIManager {
       throw Exception('Failed To POST $e');
     }
   }
+
+  Future<Response> getRequest(String endpoint,
+      {Map<String, dynamic>? params, Map<String, dynamic>? headers}) async {
+    try {
+      return await _dio.get(endpoint,
+          queryParameters: params, options: Options(headers: headers));
+    } on DioException catch (e) {
+      throw Exception('Failed to GET $e');
+    }
+  }
 }

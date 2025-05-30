@@ -2,13 +2,14 @@ import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatItem extends StatelessWidget {
-  const ChatItem({super.key});
+  final String userId;
+  const ChatItem({super.key,required this.userId});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.pushNamed(context, ChatScreen.routeName);
+        // Navigator.push(context,MaterialPageRoute(builder: (context)=>ChatScreen(userId: userId)));
       },
       child: ListTile(
         leading: Badge(

@@ -1,0 +1,43 @@
+part of 'socket_bloc.dart';
+
+
+abstract class SocketEvent {
+  const SocketEvent();
+
+  List<Object> get props =>[];
+
+}
+
+class SocketConnect extends SocketEvent{
+
+
+  @override
+  List<Object> get props => [];
+}
+
+class SocketDisconnect extends SocketEvent{}
+
+class SendMessage extends SocketEvent{
+  final Message message;
+  const SendMessage(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class LoadMessages extends SocketEvent{
+  final String otherUserId;
+  const LoadMessages(this.otherUserId);
+
+  @override
+  List<Object> get props => [otherUserId];
+}
+
+class NewMessageReceived extends SocketEvent{
+  final Message message;
+
+  const NewMessageReceived(this.message);
+  @override
+  List<Object> get props => [message];
+}
+

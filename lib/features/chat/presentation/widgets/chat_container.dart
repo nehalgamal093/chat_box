@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class ChatContainer extends StatelessWidget {
   final bool isSender;
-  const ChatContainer({super.key,required this.isSender});
+  final String message;
+  const ChatContainer({super.key,required this.isSender,required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ChatContainer extends StatelessWidget {
           ),
         ),
         child: Text(
-          'Hi, How Are you?',
+          message,
           style: Theme.of(
           context,
         ).textTheme.bodyMedium!.copyWith(fontSize: 16),

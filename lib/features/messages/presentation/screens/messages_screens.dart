@@ -20,7 +20,7 @@ class MessagesScreens extends StatelessWidget {
       body: ListView.builder(
         itemCount: 5,
         itemBuilder: (context, index) {
-          return ChatItem();
+          return ChatItem(userId: '1293939',);
         },
       ),
     );
