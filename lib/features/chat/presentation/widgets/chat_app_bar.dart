@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import '../../../../core/resources/images/images_manager.dart';
 
-PreferredSizeWidget chatAppBar(BuildContext context) {
+PreferredSizeWidget chatAppBar(BuildContext context,String fullName,String image) {
   return AppBar(
     title: Row(
       children: [
         Badge(
           backgroundColor: Colors.green,
           smallSize: 10,
-          child: Image.asset('assets/images/avatar2.png', width: 40),
+          child: Image.network(image, width: 40),
         ),
         SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Jhon Abraham',
+              fullName,
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.copyWith(fontSize: 16),

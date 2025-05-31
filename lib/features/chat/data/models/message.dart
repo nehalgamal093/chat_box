@@ -4,6 +4,7 @@ class Message {
     String? id,
     String? senderId,
     String? receiverId,
+    String? mediaUrl,
     String? message,
     String? createdAt,
     String? updatedAt,
@@ -13,6 +14,7 @@ class Message {
     _id = id;
     _senderId = senderId;
     _receiverId = receiverId;
+    _mediaUrl = mediaUrl;
     _message = message;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
@@ -24,6 +26,7 @@ class Message {
     _id = json['_id'];
     _senderId = json['senderId'];
     _receiverId = json['receiverId'];
+    _mediaUrl = json['mediaUrl'];
     _message = json['message'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
@@ -32,6 +35,7 @@ class Message {
   String? _mediaType;
   String? _id;
   String? _senderId;
+  String? _mediaUrl;
   String? _receiverId;
   String? _message;
   String? _createdAt;
@@ -42,6 +46,7 @@ class Message {
     String? id,
     String? senderId,
     String? receiverId,
+    String? mediaUrl,
     String? message,
     String? createdAt,
     String? updatedAt,
@@ -51,12 +56,14 @@ class Message {
     id: id ?? _id,
     senderId: senderId ?? _senderId,
     receiverId: receiverId ?? _receiverId,
+    mediaUrl: mediaUrl ?? _mediaUrl,
     message: message ?? _message,
     createdAt: createdAt ?? _createdAt,
     updatedAt: updatedAt ?? _updatedAt,
     v: v ?? _v,
   );
   String? get mediaType => _mediaType;
+  String? get mediaUrl => _mediaUrl;
   String? get id => _id;
   String? get senderId => _senderId;
   String? get receiverId => _receiverId;
@@ -68,6 +75,7 @@ class Message {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['mediaType'] = _mediaType;
+    map['mediaUrl'] = _mediaUrl;
     map['_id'] = _id;
     map['senderId'] = _senderId;
     map['receiverId'] = _receiverId;

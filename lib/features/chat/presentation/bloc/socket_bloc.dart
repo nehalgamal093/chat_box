@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:chat_box/core/resources/socket/socket_service.dart';
-import 'package:chat_box/features/chat/data/models/send_message_response.dart';
 import 'package:chat_box/features/chat/domain/use_cases/chat_use_case.dart';
 import 'package:chat_box/features/chat/domain/use_cases/send_message_usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -24,6 +22,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     on<SocketConnect>(_onConnect);
     on<SocketDisconnect>(_onDisconnect);
     on<SendMessage>(_onSendMessage);
+    on<SendMessageWithFile>(_onSendMessageWithFile);
     on<LoadMessages>(_onLoadMessage);
     on<NewMessageReceived>(_onNewMessageReceived);
   }
@@ -51,15 +50,66 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       emit(MessagesLoaded([...currentMessages, event.message]));
     }
     try {
-
       var result = await sendMessageUseCase.call(
         event.message.message!,
         event.message.receiverId!,
       );
-      result.fold((error) {
-        print('SocketError $error');
-        // emit(SocketError('Failed to get messages: $error'));
-      }, (model) {});
+      result.fold(
+        (error) {
+          print('SocketError $error');
+          // emit(SocketError('Failed to get messages: $error'));
+        },
+        (model) {
+          Message message = Message(
+            message: model.newMessage?.message,
+            mediaType: model.newMessage?.mediaType ?? "none",
+            receiverId: model.newMessage?.receiverId,
+            mediaUrl: model.newMessage?.mediaUrl ?? null,
+            senderId: model.newMessage?.senderId,
+            createdAt: model.newMessage?.createdAt,
+            updatedAt: model.newMessage?.updatedAt,
+          );
+          emit(MessagesLoaded([...currentMessages, message]));
+        },
+      );
+    } catch (e) {
+      print('error send $e');
+      // emit(SocketError('Failed to send message: $e'));
+    }
+  }
+
+  void _onSendMessageWithFile(
+    SendMessageWithFile event,
+    Emitter<SocketState> emit,
+  ) async {
+    final currentMessages = (state as MessagesLoaded).messages;
+    if (state is MessagesLoaded) {
+      emit(MessagesLoaded([...currentMessages, event.message]));
+    }
+    try {
+      var result = await sendMessageUseCase.callWithFile(
+        event.message.message!,
+        event.message.receiverId!,
+        event.file,
+      );
+      result.fold(
+        (error) {
+          print('SocketError $error');
+          // emit(SocketError('Failed to get messages: $error'));
+        },
+        (model) {
+          Message message = Message(
+            message: model.newMessage?.message,
+            mediaType: model.newMessage?.mediaType ?? "none",
+            receiverId: model.newMessage?.receiverId,
+            mediaUrl: model.newMessage?.mediaUrl ?? null,
+            senderId: model.newMessage?.senderId,
+            createdAt: model.newMessage?.createdAt,
+            updatedAt: model.newMessage?.updatedAt,
+          );
+          emit(MessagesLoaded([...currentMessages, message]));
+        },
+      );
     } catch (e) {
       print('error send $e');
       // emit(SocketError('Failed to send message: $e'));

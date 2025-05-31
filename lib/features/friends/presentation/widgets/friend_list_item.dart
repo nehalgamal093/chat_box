@@ -14,7 +14,7 @@ class FriendListItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ChatScreen(userId: dataList.id!),
+            builder: (context) => ChatScreen(userId: dataList.id!, fullName: dataList.fullName!, image: dataList.profilePic!,),
           ),
         );
       },

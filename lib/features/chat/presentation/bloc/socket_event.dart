@@ -24,7 +24,14 @@ class SendMessage extends SocketEvent{
   @override
   List<Object> get props => [message];
 }
+class SendMessageWithFile extends SocketEvent{
+  final Message message;
+  final String file;
+  const SendMessageWithFile(this.message, this.file);
 
+  @override
+  List<Object> get props => [message,file];
+}
 class LoadMessages extends SocketEvent{
   final String otherUserId;
   const LoadMessages(this.otherUserId);

@@ -38,20 +38,56 @@ class ChatRemoteDsImpl extends ChatRemoteDs {
   }
 
   @override
-  Future<SendMessageResponse> sendMessage(
+  Future<SendMessageResponse> sendMessage(String message, String id) async {
+    FormData formMessage = FormData.fromMap({"message": message});
+
+    var response = await apiManager.postRequest(
+      Endpoints.sendMessage(id),
+      formMessage,
+      headers: {
+        "token": CacheHelper.getToken(),
+        'Content-Type': 'multipart/form-data',
+      },
+    );
+
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        SendMessageResponse sendMessageResponse = SendMessageResponse.fromJson(
+          response.data,
+        );
+        return sendMessageResponse;
+      } else {
+        String errorMessage = "Sending Message Failed";
+        if (response.data is Map<String, dynamic>) {
+          errorMessage = response.data['error'] ?? errorMessage;
+        }
+        throw ServerException(errorMessage);
+      }
+    } on DioException catch (e) {
+      throw ServerException(e.message ?? "Network error");
+    }
+  }
+
+  @override
+  Future<SendMessageResponse> sendMessageAndFile(
     String message,
-      String id,
-
-
+    String id,
+    String file,
   ) async {
     FormData formData = FormData.fromMap({
       "message": message,
+      "file": await MultipartFile.fromFile(file, filename: file),
     });
+
     var response = await apiManager.postRequest(
       Endpoints.sendMessage(id),
       formData,
-      headers: {"token": CacheHelper.getToken()},
+      headers: {
+        "token": CacheHelper.getToken(),
+        'Content-Type': 'multipart/form-data',
+      },
     );
+
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
         SendMessageResponse sendMessageResponse = SendMessageResponse.fromJson(

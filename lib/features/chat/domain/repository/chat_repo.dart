@@ -6,8 +6,15 @@ import 'package:dartz/dartz.dart';
 
 import '../../data/models/send_message_response.dart';
 
-abstract class ChatRepo{
-  Future<Either<AppFailures,Messages>> getMessages(String id);
-  Future<Either<AppFailures,SendMessageResponse>> sendMessage(String message,String id
-      );
+abstract class ChatRepo {
+  Future<Either<AppFailures, Messages>> getMessages(String id);
+  Future<Either<AppFailures, SendMessageResponse>> sendMessage(
+    String message,
+    String id,
+  );
+  Future<Either<AppFailures, SendMessageResponse>> sendMessageAndFile(
+    String message,
+    String id,
+    String file,
+  );
 }

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         StartingScreen.routeName: (context) => StartingScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
         RegisterScreen.routeName: (context) => RegisterScreen(),
-        ChatScreen.routeName: (context) => ChatScreen(userId: ''),
+        ChatScreen.routeName: (context) => ChatScreen(userId: '',fullName: '',image: '',),
       },
     );
   }

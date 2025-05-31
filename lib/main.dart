@@ -1,3 +1,4 @@
+import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ void main() async{
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => BottomNavProvider()),
+        ChangeNotifierProvider(create: (context) => FilePickerProvider()),
       ],
       child: const MyApp(),
     ),

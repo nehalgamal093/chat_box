@@ -39,4 +39,16 @@ class ChatRepoImpl extends ChatRepo {
       return Left(RemoteFailures("An unexpected error occurred"));
     }
   }
+
+  @override
+  Future<Either<AppFailures, SendMessageResponse>> sendMessageAndFile(String message, String id, String file) async{
+    var result = await chatRemoteDs.sendMessageAndFile(message, id,file);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(RemoteFailures(e.message));
+    } catch (e) {
+      return Left(RemoteFailures("An unexpected error occurred"));
+    }
+  }
 }

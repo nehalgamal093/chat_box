@@ -13,7 +13,11 @@ class SendMessageUseCase {
   SendMessageUseCase(this.chatRepo);
   Future<Either<AppFailures, SendMessageResponse>> call(
     String message,
-
     String id,
   ) => chatRepo.sendMessage(message, id);
+  Future<Either<AppFailures, SendMessageResponse>> callWithFile(
+    String message,
+    String id,
+    String file,
+  ) => chatRepo.sendMessageAndFile(message, id, file);
 }
