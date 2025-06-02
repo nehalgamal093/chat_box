@@ -1,4 +1,9 @@
 part of 'chatted_users_bloc.dart';
 
-@immutable
-sealed class ChattedUsersEvent {}
+abstract class ChattedUsersEvent extends Equatable {
+  const ChattedUsersEvent();
+  @override
+  List<Object> get props => [];
+}
+
+class LoadChattedUsers extends ChattedUsersEvent {}

@@ -15,4 +15,7 @@ class ImagesManager{
   static const String mic = "assets/icons/mic.png";
   static const String files = "assets/icons/files.png";
   static const String send = "assets/icons/send.png";
+  static const String friendRequest = "assets/icons/friend_request.png";
+  static const String friends = "assets/icons/friends.png";
+  static const String friendsPending = "assets/icons/pending.png";
 }

@@ -66,6 +66,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     state.messages[index].mediaUrl == null
                                         ? ""
                                         : state.messages[index].mediaUrl!,
+                                time: state.messages[index].createdAt!,
                               );
                             },
                           ),

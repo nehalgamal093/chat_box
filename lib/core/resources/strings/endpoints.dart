@@ -6,4 +6,9 @@ class Endpoints{
   static  String friends = dotenv.env['FRIENDS_ENDPOINT']!;
   static  String getMessages(String id) => '${dotenv.env['MESSAGES_ENDPOINT']!}/$id';
   static  String sendMessage(String id) => '${dotenv.env['SEND_MESSAGE']!}/$id';
+  static  String chattedUsers = dotenv.env['CHATTED_USERS']!;
+  static  String userProfile(String id) => '${dotenv.env['USER_PROFILE']!}/$id';
+  static  String friendRequests = dotenv.env['FRIEND_REQUEST']!;
+  static  String acceptRequest(String id) => '${dotenv.env['ACCEPT_REQUEST']!}/$id';
+  static  String declineRequest(String id) => '${dotenv.env['DECLINE_REQUEST']!}/$id';
 }

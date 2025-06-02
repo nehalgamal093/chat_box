@@ -96,6 +96,7 @@ class _ChatInputState extends State<ChatInput> {
                         receiverId: widget.id,
                         senderId: CacheHelper.getUserId(),
                         message: messageEditingController.text,
+                        createdAt: DateTime.now().toString()
                       );
                       if (provider.file.path.isNotEmpty) {
                         context.read<SocketBloc>().add(

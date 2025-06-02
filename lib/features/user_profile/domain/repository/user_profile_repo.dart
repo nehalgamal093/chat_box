@@ -1,0 +1,8 @@
+import 'package:chat_box/features/user_profile/data/models/user_profile.dart';
+import 'package:dartz/dartz.dart';
+
+import '../../../../core/network/AppFailures/app_failures.dart';
+
+abstract class UserProfileRepo{
+  Future<Either<AppFailures,UserProfile>> getFriends(String id);
+}

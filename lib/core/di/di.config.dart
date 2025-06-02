@@ -43,6 +43,42 @@ import '../../features/friends/domain/repository/friends_repo.dart' as _i661;
 import '../../features/friends/domain/usecases/get_friends_usecase.dart'
     as _i119;
 import '../../features/friends/presentation/bloc/friends_bloc.dart' as _i1033;
+import '../../features/friends_requests/data/data_source/remote_data_source/friend_request_remote_ds.dart'
+    as _i753;
+import '../../features/friends_requests/data/data_source/remote_data_source/friend_request_remote_ds_impl.dart'
+    as _i1028;
+import '../../features/friends_requests/data/repository/friend_requests_repo_impl.dart'
+    as _i472;
+import '../../features/friends_requests/domain/repository/friend_requests_repo.dart'
+    as _i943;
+import '../../features/friends_requests/domain/use_cases/friend_requests_use_case.dart'
+    as _i230;
+import '../../features/friends_requests/presentation/bloc/friend_requests_bloc/friend_requests_bloc.dart'
+    as _i847;
+import '../../features/messages/data/data_source/remote_data_source/chatted_users_remote_ds.dart'
+    as _i726;
+import '../../features/messages/data/data_source/remote_data_source/chatted_users_remote_ds_impl.dart'
+    as _i315;
+import '../../features/messages/data/repository/chatted_users_repo_impl.dart'
+    as _i358;
+import '../../features/messages/domain/repository/chatted_users_repo.dart'
+    as _i45;
+import '../../features/messages/domain/use_cases/chatted_users_usecase.dart'
+    as _i1068;
+import '../../features/messages/presentation/bloc/chatted_users_bloc.dart'
+    as _i806;
+import '../../features/user_profile/data/data_source/remote_data_source/user_profile_remote_ds.dart'
+    as _i820;
+import '../../features/user_profile/data/data_source/remote_data_source/user_profile_remote_ds_impl.dart'
+    as _i190;
+import '../../features/user_profile/data/repository/user_profile_repo_impl.dart'
+    as _i940;
+import '../../features/user_profile/domain/repository/user_profile_repo.dart'
+    as _i307;
+import '../../features/user_profile/domain/use_cases/user_profile_use_case.dart'
+    as _i537;
+import '../../features/user_profile/presentation/bloc/user_profile_bloc.dart'
+    as _i989;
 import '../network/api_manager/api_manager.dart' as _i576;
 import '../resources/socket/socket_service.dart' as _i439;
 
@@ -55,8 +91,17 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.factory<_i439.SocketService>(() => _i439.SocketService());
     gh.lazySingleton<_i576.APIManager>(() => _i576.APIManager());
+    gh.factory<_i726.ChattedUsersRemoteDs>(
+      () => _i315.ChattedUsersRemoteDsImpl(gh<_i576.APIManager>()),
+    );
+    gh.factory<_i820.UserProfileRemoteDs>(
+      () => _i190.UserProfileRemoteDsImpl(gh<_i576.APIManager>()),
+    );
     gh.factory<_i458.ChatRemoteDs>(
       () => _i454.ChatRemoteDsImpl(gh<_i576.APIManager>()),
+    );
+    gh.factory<_i307.UserProfileRepo>(
+      () => _i940.UserProfileRepoImpl(gh<_i820.UserProfileRemoteDs>()),
     );
     gh.factory<_i843.AuthRemoteDs>(
       () => _i541.AuthRemoteDsImpl(gh<_i576.APIManager>()),
@@ -64,8 +109,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i68.FriendsRemoteDs>(
       () => _i740.FriendsRemoteDsImpl(gh<_i576.APIManager>()),
     );
+    gh.factory<_i753.FriendRequestRemoteDs>(
+      () => _i1028.FriendRequestRemoteDsImpl(gh<_i576.APIManager>()),
+    );
+    gh.factory<_i537.UserProfileUseCase>(
+      () => _i537.UserProfileUseCase(gh<_i307.UserProfileRepo>()),
+    );
+    gh.factory<_i943.FriendRequestsRepo>(
+      () => _i472.FriendRequestsRepoImpl(gh<_i753.FriendRequestRemoteDs>()),
+    );
+    gh.factory<_i989.UserProfileBloc>(
+      () => _i989.UserProfileBloc(gh<_i537.UserProfileUseCase>()),
+    );
+    gh.factory<_i45.ChattedUsersRepo>(
+      () => _i358.ChattedUsersRepoImpl(gh<_i726.ChattedUsersRemoteDs>()),
+    );
     gh.factory<_i359.ChatRepo>(
       () => _i67.ChatRepoImpl(gh<_i458.ChatRemoteDs>()),
+    );
+    gh.factory<_i230.FriendRequestUseCase>(
+      () => _i230.FriendRequestUseCase(gh<_i943.FriendRequestsRepo>()),
     );
     gh.factory<_i976.AuthRepo>(
       () => _i751.AuthRepoImpl(gh<_i843.AuthRemoteDs>()),
@@ -73,14 +136,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i661.FriendsRepo>(
       () => _i320.FriendsRepoImpl(gh<_i68.FriendsRemoteDs>()),
     );
+    gh.factory<_i847.FriendRequestsBloc>(
+      () => _i847.FriendRequestsBloc(gh<_i230.FriendRequestUseCase>()),
+    );
     gh.factory<_i1039.ChatUseCase>(
       () => _i1039.ChatUseCase(gh<_i359.ChatRepo>()),
     );
     gh.factory<_i703.SendMessageUseCase>(
       () => _i703.SendMessageUseCase(gh<_i359.ChatRepo>()),
     );
+    gh.factory<_i1068.ChattedUsersUseCase>(
+      () => _i1068.ChattedUsersUseCase(gh<_i45.ChattedUsersRepo>()),
+    );
     gh.factory<_i119.GetFriendsUseCase>(
       () => _i119.GetFriendsUseCase(gh<_i661.FriendsRepo>()),
+    );
+    gh.factory<_i806.ChattedUsersBloc>(
+      () => _i806.ChattedUsersBloc(gh<_i1068.ChattedUsersUseCase>()),
     );
     gh.factory<_i1033.FriendsBloc>(
       () => _i1033.FriendsBloc(gh<_i119.GetFriendsUseCase>()),

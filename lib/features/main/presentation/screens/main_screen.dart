@@ -1,6 +1,7 @@
 import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends/presentation/screens/friends_screen.dart';
+import 'package:chat_box/features/friends/presentation/screens/friends_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../messages/presentation/screens/messages_screens.dart';
@@ -49,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> screens = [
     MessagesScreens(),
-    FriendsScreen(),
+    FriendsTabs(),
     Center(child: Text('Settings', style: TextStyle(color: Colors.white))),
   ];
 }

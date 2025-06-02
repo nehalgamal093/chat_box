@@ -3,8 +3,9 @@ class DataList {
   String? fullName;
   String? username;
   String? profilePic;
+  String? status;
 
-  DataList({this.id, this.fullName, this.username, this.profilePic});
+  DataList({this.id, this.fullName, this.username, this.profilePic,this.status});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
