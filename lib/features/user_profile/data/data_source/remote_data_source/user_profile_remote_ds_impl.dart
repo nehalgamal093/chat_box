@@ -38,4 +38,48 @@ class UserProfileRemoteDsImpl extends UserProfileRemoteDs{
     }
   }
 
+  @override
+  Future<String> cancelFriendRequest(String id) async{
+    var response = await apiManager.postRequest(
+      Endpoints.sendFriendRequest(id),
+      {},
+      headers: {"token": CacheHelper.getToken()},
+    );
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data['message'];
+      } else {
+        String errorMessage = "Send Request Failed";
+        if (response.data is Map<String, dynamic>) {
+          errorMessage = response.data['error'] ?? errorMessage;
+        }
+        throw ServerException(errorMessage);
+      }
+    } on DioException catch (e) {
+      throw ServerException(e.message ?? "Network error");
+    }
+  }
+
+  @override
+  Future<String> sendFriendRequest(String id) async{
+    var response = await apiManager.postRequest(
+      Endpoints.cancelFriendRequest(id),
+      {},
+      headers: {"token": CacheHelper.getToken()},
+    );
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data['message'];
+      } else {
+        String errorMessage = "Cancel Request Failed";
+        if (response.data is Map<String, dynamic>) {
+          errorMessage = response.data['error'] ?? errorMessage;
+        }
+        throw ServerException(errorMessage);
+      }
+    } on DioException catch (e) {
+      throw ServerException(e.message ?? "Network error");
+    }
+  }
+
 }

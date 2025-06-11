@@ -113,7 +113,7 @@ class _ChatInputState extends State<ChatInput> {
                     children: [
                       SizedBox(width: 10),
                       CircleAvatar(
-                        backgroundColor: Colors.cyan,
+                        backgroundColor: ColorsManager.cyan,
                         child: Image.asset(ImagesManager.send),
                       ),
                     ],

@@ -24,4 +24,28 @@ class UserProfileRepoImpl extends UserProfileRepo {
       return Left(RemoteFailures("An unexpected error occurred"));
     }
   }
+
+  @override
+  Future<Either<AppFailures, String>> cancelFriendRequest(String id) async{
+    var result = await userProfileRemoteDs.sendFriendRequest(id);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(RemoteFailures(e.message));
+    } catch (e) {
+      return Left(RemoteFailures("An unexpected error occurred"));
+    }
+  }
+
+  @override
+  Future<Either<AppFailures, String>> sendFriendRequest(String id) async{
+    var result = await userProfileRemoteDs.cancelFriendRequest(id);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(RemoteFailures(e.message));
+    } catch (e) {
+      return Left(RemoteFailures("An unexpected error occurred"));
+    }
+  }
 }

@@ -21,36 +21,46 @@ class ChatItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>ChatScreen(userId: userId)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder:
+                (context) => ChatScreen(
+                  userId: userId,
+                  fullName: fullName,
+                  image: image,
+                ),
+          ),
+        );
       },
       child: ListTile(
         leading: Badge(
           backgroundColor: Colors.green,
           smallSize: 15,
           child: InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>UserProfileScreen(id: userId,)));
-              },
-              child: Image.network(image)),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfileScreen(id: userId),
+                ),
+              );
+            },
+            child: Image.network(image),
+          ),
         ),
-        title: Text(
-          fullName,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+        title: Text(fullName, style: Theme.of(context).textTheme.bodyMedium),
         subtitle: Text(
           lastMessage,
           style: Theme.of(context).textTheme.bodySmall,
         ),
         trailing: Column(
           children: [
-            Text(time.substring(15,19), style: Theme.of(context).textTheme.bodySmall),
-            Spacer(),
-            Badge(
-              label: Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Text('1'),
-              ),
+            Text(
+              time.substring(15, 19),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
+
           ],
         ),
       ),

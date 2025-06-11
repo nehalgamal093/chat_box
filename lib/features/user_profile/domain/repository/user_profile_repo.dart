@@ -5,4 +5,6 @@ import '../../../../core/network/AppFailures/app_failures.dart';
 
 abstract class UserProfileRepo{
   Future<Either<AppFailures,UserProfile>> getFriends(String id);
+  Future<Either<AppFailures,String>> sendFriendRequest(String id);
+  Future<Either<AppFailures,String>> cancelFriendRequest(String id);
 }

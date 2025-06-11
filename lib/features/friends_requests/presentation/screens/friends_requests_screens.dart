@@ -20,7 +20,6 @@ class FriendsRequestsScreens extends StatelessWidget {
             if (state is FriendRequestsLoading) {
               return LoadingList();
             } else if (state is FriendRequestsLoaded) {
-              print("------------------------> ${state.status}");
               return ListView.separated(
                 itemCount: state.list.length,
                 separatorBuilder: (context, index) => SizedBox(height: 10),

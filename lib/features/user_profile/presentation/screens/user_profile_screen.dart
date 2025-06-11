@@ -1,12 +1,12 @@
-import 'package:chat_box/core/common_widgets/circle_icon.dart';
 import 'package:chat_box/core/di/di.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
-import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/features/user_profile/presentation/bloc/user_profile_bloc.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/friend_of_user_list.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/icons_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../widgets/loading_profile.dart';
 
 class UserProfileScreen extends StatelessWidget {
   final String id;
@@ -22,7 +22,7 @@ class UserProfileScreen extends StatelessWidget {
         child: BlocBuilder<UserProfileBloc,UserProfileState>(
           builder: (context,state) {
            if(state.profileStates == ProfileStates.loading){
-             return CircularProgressIndicator();
+             return ProfileLoading();
            } else if(state.profileStates == ProfileStates.success){
              return Stack(
                alignment: Alignment.bottomCenter,
@@ -33,7 +33,8 @@ class UserProfileScreen extends StatelessWidget {
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.center,
                      children: [
-                       Image.network(state.userProfile!.profilePic!, width: 80),
+
+                        Image.network(state.userProfile!.profilePic!, width: 80),
                        Text(state.userProfile!.fullName!),
                        Text(
                          '@${state.userProfile!.username}',
@@ -42,7 +43,7 @@ class UserProfileScreen extends StatelessWidget {
                          ),
                        ),
                        SizedBox(height: 20),
-                       IconsRow(friendStatus:state.userProfile!.friendStatus! ,),
+                       IconsRow(friendStatus:state.status! ,id:state.userProfile!.id!),
                        SizedBox(height: 20),
                      ],
                    ),

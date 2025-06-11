@@ -32,7 +32,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: chatAppBar(context, widget.fullName, widget.image),
+      appBar: chatAppBar(context, widget.fullName, widget.image,widget.userId),
       body: SingleChildScrollView(
         child: BlocProvider(
           create:
