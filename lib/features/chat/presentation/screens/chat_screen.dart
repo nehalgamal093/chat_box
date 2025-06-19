@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
+import '../../data/models/message.dart';
 import '../bloc/socket_bloc.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -13,11 +14,17 @@ class ChatScreen extends StatefulWidget {
   final String userId;
   final String fullName;
   final String image;
-  const ChatScreen({
+  final String gender;
+   Message? msg;
+  final String? path;
+   ChatScreen({
     super.key,
     required this.userId,
     required this.fullName,
     required this.image,
+    this.path,
+    required this.gender,
+    this.msg,
   });
 
   @override
@@ -27,64 +34,84 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
 
-
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: chatAppBar(context, widget.fullName, widget.image,widget.userId),
-      body: SingleChildScrollView(
-        child: BlocProvider(
-          create:
-              (context) =>
-                  getIt<SocketBloc>()
-                    ..add(SocketConnect())
-                    ..add(LoadMessages(widget.userId)),
-          child: SizedBox(
-            height: size.height * .92,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: Column(
-                children: [
-                  BlocBuilder<SocketBloc, SocketState>(
-                    builder: (context, state) {
-                      if (state is MessagesLoaded) {
-                        scrollToEnd();
-                        return Expanded(
-                          child: ListView.separated(
-                            controller: _scrollController,
-                            separatorBuilder:
-                                (context, index) => SizedBox(height: 10),
-                            itemCount: state.messages.length,
-                            itemBuilder: (context, index) {
-                              return MessageImageBubble(
-                                isSender:
-                                    state.messages[index].senderId! !=
-                                    widget.userId,
-                                message: state.messages[index].message!,
-                                image:
-                                    state.messages[index].mediaUrl == null
-                                        ? ""
-                                        : state.messages[index].mediaUrl!,
-                                time: state.messages[index].createdAt!,
-                              );
-                            },
-                          ),
-                        );
-                      } else if (state is LoadingMessages) {
-                        return Expanded(
-                          child: Center(child: CircularProgressIndicator()),
-                        );
-                      } else {
-                        return Text('Error');
-                      }
-                    },
-                  ),
-                  SizedBox(height: 10),
-                  ChatInput(id: widget.userId),
-                ],
+      appBar: chatAppBar(
+        context,
+        widget.fullName,
+        widget.image,
+        widget.userId,
+        widget.gender,
+      ),
+      body: BlocProvider(
+        create:
+            (context) =>
+                getIt<SocketBloc>()
+                  ..add(SocketConnect())
+                  ..add(LoadMessages(widget.userId)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+          child: Column(
+            children: [
+              BlocBuilder<SocketBloc, SocketState>(
+                builder: (context, state) {
+                  if (state is MessagesLoaded) {
+                    if (widget.msg != null) {
+                      context.read<SocketBloc>().add(
+                        SendMessageWithFile(widget.msg!, widget.path!),
+                      );
+                      widget.msg = null;
+                    }
+                    scrollToEnd();
+                    return Expanded(
+                      child: ListView.separated(
+                        controller: _scrollController,
+                        cacheExtent: 2000,
+                        separatorBuilder:
+                            (context, index) => SizedBox(height: 10),
+                        itemCount:
+                            state.messages.length <= 15
+                                ? state.messages.length
+                                : 15,
+                        itemBuilder: (context, index) {
+                          List<Message> messages = [];
+                          if (state.messages.length <= 15) {
+                            messages = state.messages;
+                          } else {
+                            int size = state.messages.length - 15;
+                            messages = state.messages.sublist(size);
+                          }
+                          return MessageImageBubble(
+                            isSender:
+                                messages[index].senderId! != widget.userId,
+                            message: messages[index].message!,
+                            image:
+                                messages[index].mediaUrl == null
+                                    ? ""
+                                    : messages[index].mediaUrl!,
+                            time: messages[index].createdAt!,
+                          );
+                        },
+                      ),
+                    );
+                  } else if (state is LoadingMessages) {
+                    return Expanded(
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  } else {
+                    return Text('Error');
+                  }
+                },
               ),
-            ),
+              SizedBox(height: 10),
+              ChatInput(
+                id: widget.userId,
+                image: widget.image,
+                fullName: widget.fullName,
+                gender: widget.gender,
+              ),
+            ],
           ),
         ),
       ),

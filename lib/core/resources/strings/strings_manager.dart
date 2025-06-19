@@ -32,4 +32,7 @@ class StringsManager {
   static const String registerScreenRoute = "/register-screen";
   static const String chatScreenRoute = "/chat-screen";
 
+  static const String female = "https://images.icon-icons.com/3708/PNG/512/girl_female_woman_person_people_avatar_icon_230018.png";
+  static const String male = "https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png";
+
 }

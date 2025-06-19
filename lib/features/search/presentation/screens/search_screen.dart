@@ -1,10 +1,12 @@
 import 'package:chat_box/features/friends/presentation/widgets/loading_list.dart';
+import 'package:chat_box/features/qr_scanner_screen/presentation/screens/qr_scanner_screen.dart';
 import 'package:chat_box/features/search/presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:chat_box/features/search/presentation/widgets/searched_user_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
+import '../../../../core/resources/colors/colors_manager.dart';
 import '../widgets/search_field.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -30,7 +32,16 @@ class _SearchScreenState extends State<SearchScreen> {
                   var bloc = BlocProvider.of<SearchBloc>(context);
                   bloc.add(SearchTextEvent(val));
                 }
-              },);
+              },icon: IconButton(
+                onPressed: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=> QrScannerScreen()));
+                },
+                icon: Icon(
+                  Icons.qr_code_2,
+                  color: ColorsManager.whiteColor,
+                  size: 30,
+                ),
+              ),);
             }
           ),
         ),

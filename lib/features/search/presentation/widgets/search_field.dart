@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../../core/resources/colors/colors_manager.dart';
 import '../../../../core/resources/images/images_manager.dart';
 import '../../../../core/resources/strings/strings_manager.dart';
+import '../../../user_profile/presentation/widgets/qr_view.dart';
 
 class SearchField extends StatelessWidget {
   final TextEditingController textEditingController;
   final void Function(String)? onChanged;
-  const SearchField({super.key,required this.textEditingController,required this.onChanged});
+  final Widget icon;
+  const SearchField({super.key,required this.textEditingController,required this.onChanged,required this.icon
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,7 @@ class SearchField extends StatelessWidget {
         contentPadding: EdgeInsets.only(bottom: 10, left: 10),
         filled: true,
         prefixIcon: Image.asset(ImagesManager.search,width: 35,),
+        suffixIcon: icon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(

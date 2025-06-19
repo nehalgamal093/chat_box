@@ -1,7 +1,9 @@
+import 'package:camera/camera.dart';
 import 'package:chat_box/core/caching/cache_helper.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
+import 'package:chat_box/features/camera_screen/presentation/screens/camera_screen.dart';
 import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
@@ -13,9 +15,17 @@ import '../bloc/socket_bloc.dart';
 
 class ChatInput extends StatefulWidget {
   final String id;
-
+  final String fullName;
+  final String image;
+  final String gender;
   static const String routeName = StringsManager.chatScreenRoute;
-  const ChatInput({super.key, required this.id});
+  const ChatInput({
+    super.key,
+    required this.id,
+    required this.fullName,
+    required this.image,
+    required this.gender
+  });
 
   @override
   State<ChatInput> createState() => _ChatInputState();
@@ -89,14 +99,15 @@ class _ChatInputState extends State<ChatInput> {
               ),
             ),
             _textFieldFocusNode.hasFocus
-                ? InkWell(
+                ?
+            InkWell(
                   onTap: () {
                     if (messageEditingController.text.isNotEmpty) {
                       Message message = Message(
                         receiverId: widget.id,
                         senderId: CacheHelper.getUserId(),
                         message: messageEditingController.text,
-                        createdAt: DateTime.now().toString()
+                        createdAt: DateTime.now().toString(),
                       );
                       if (provider.file.path.isNotEmpty) {
                         context.read<SocketBloc>().add(
@@ -122,7 +133,28 @@ class _ChatInputState extends State<ChatInput> {
                 : Row(
                   children: [
                     SizedBox(width: 5),
-                    Image.asset(ImagesManager.camera),
+                    InkWell(
+                      onTap: () async {
+                        final cameras = await availableCameras();
+
+                        final firstCamera = cameras.first;
+                        final secondCamera = cameras[1];
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => CameraScreen(
+                                  camera: firstCamera,
+                                  frontCamera: secondCamera,
+                                  id: widget.id,
+                                  fullName: widget.fullName,
+                                  photo: widget.image, gender: widget.gender,
+                                ),
+                          ),
+                        );
+                      },
+                      child: Image.asset(ImagesManager.camera),
+                    ),
                     SizedBox(width: 10),
                     Image.asset(ImagesManager.mic),
                   ],

@@ -1,3 +1,4 @@
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:chat_box/features/user_profile/presentation/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class ChatItem extends StatelessWidget {
   final String lastMessage;
   final String time;
   final String fullName;
+  final String gender;
   const ChatItem({
     super.key,
     required this.userId,
@@ -15,6 +17,7 @@ class ChatItem extends StatelessWidget {
     required this.lastMessage,
     required this.time,
     required this.fullName,
+    required this.gender
   });
 
   @override
@@ -29,6 +32,7 @@ class ChatItem extends StatelessWidget {
                   userId: userId,
                   fullName: fullName,
                   image: image,
+                  gender: gender,
                 ),
           ),
         );
@@ -46,7 +50,7 @@ class ChatItem extends StatelessWidget {
                 ),
               );
             },
-            child: Image.network(image),
+            child: Image.network(gender=="male"?StringsManager.male:StringsManager.female),
           ),
         ),
         title: Text(fullName, style: Theme.of(context).textTheme.bodyMedium),

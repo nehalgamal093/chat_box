@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/resources/images/images_manager.dart';
+import '../../../../core/resources/strings/strings_manager.dart';
 import '../../../user_profile/presentation/screens/user_profile_screen.dart';
 
-PreferredSizeWidget chatAppBar(BuildContext context,String fullName,String image,String id) {
+PreferredSizeWidget chatAppBar(BuildContext context,String fullName,String image,String id,String gender) {
   return AppBar(
     title: InkWell(
       onTap: (){
@@ -18,7 +19,7 @@ PreferredSizeWidget chatAppBar(BuildContext context,String fullName,String image
           Badge(
             backgroundColor: Colors.green,
             smallSize: 10,
-            child: Image.network(image, width: 40),
+            child:  Image.network(gender=="male"?StringsManager.male:StringsManager.female,width:40),
           ),
           SizedBox(width: 10),
           Column(
