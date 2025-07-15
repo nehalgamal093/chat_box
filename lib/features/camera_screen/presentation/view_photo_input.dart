@@ -7,21 +7,14 @@ import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
 import 'package:flutter/material.dart';
 
+import '../../messages/data/models/chatted_users.dart';
+
 class ViewPhotoInput extends StatefulWidget {
-  final String id;
+  final User user;
   final String path;
-  final String fullName;
-  final String image;
-  final String gender;
+
   static const String routeName = StringsManager.chatScreenRoute;
-  const ViewPhotoInput({
-    super.key,
-    required this.id,
-    required this.path,
-    required this.fullName,
-    required this.image,
-    required this.gender,
-  });
+  const ViewPhotoInput({super.key, required this.path, required this.user});
 
   @override
   State<ViewPhotoInput> createState() => _ViewPhotoInputState();
@@ -83,7 +76,7 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
             InkWell(
               onTap: () {
                 Message message = Message(
-                  receiverId: widget.id,
+                  receiverId: widget.user.id,
                   senderId: CacheHelper.getUserId(),
                   message: messageEditingController.text,
                   createdAt: DateTime.now().toString(),
@@ -95,10 +88,7 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
                   MaterialPageRoute(
                     builder:
                         (context) => ChatScreen(
-                          userId: widget.id,
-                          fullName: widget.fullName,
-                          image: widget.image,
-                          gender: widget.gender,
+                          user: widget.user,
                           path: widget.path,
                           msg: message,
                         ),

@@ -7,7 +7,7 @@ import 'package:dartz/dartz.dart';
 import '../../data/models/send_message_response.dart';
 
 abstract class ChatRepo {
-  Future<Either<AppFailures, Messages>> getMessages(String id);
+  Future<Either<AppFailures, Messages>> getMessages(String id,String page);
   Future<Either<AppFailures, SendMessageResponse>> sendMessage(
     String message,
     String id,

@@ -80,7 +80,6 @@ class _MessageImageBubbleState extends State<MessageImageBubble>
               SizedBox(height: 5),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
 
                   Text(

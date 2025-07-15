@@ -16,10 +16,10 @@ class SocketConnected extends SocketState {}
 class SocketDisconnected extends SocketState {}
 
 class LoadingMessages extends SocketState {}
-
 class MessagesLoaded extends SocketState {
   final List<Message> messages;
-  const MessagesLoaded(this.messages);
+  final bool hasReachedMax;
+  const MessagesLoaded(this.messages, this.hasReachedMax);
   @override
   List<Object> get props => [messages];
 }

@@ -1,111 +1,69 @@
 class Message {
-  Message({
-    String? mediaType,
-    String? id,
-    String? senderId,
-    String? receiverId,
-    String? mediaUrl,
-    String? message,
-    String? createdAt,
-    String? updatedAt,
-    num? v,
-  }) {
-    _mediaType = mediaType;
-    _id = id;
-    _senderId = senderId;
-    _receiverId = receiverId;
-    _mediaUrl = mediaUrl;
-    _message = message;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _v = v;
-  }
+  String? id;
+  String? senderId;
+  String? receiverId;
+  String? message;
+  String? mediaUrl;
+  String? mediaType;
+  String? createdAt;
+  String? updatedAt;
+  num? v;
 
-  Message.fromJson(dynamic json) {
-    _mediaType = json['mediaType'];
-    _id = json['_id'];
-    _senderId = json['senderId'];
-    _receiverId = json['receiverId'];
-    _mediaUrl = json['mediaUrl'];
-    _message = json['message'];
-    _createdAt = json['createdAt'];
-    _updatedAt = json['updatedAt'];
-    _v = json['__v'];
-  }
-  String? _mediaType;
-  String? _id;
-  String? _senderId;
-  String? _mediaUrl;
-  String? _receiverId;
-  String? _message;
-  String? _createdAt;
-  String? _updatedAt;
-  num? _v;
-  Message copyWith({
-    String? mediaType,
-    String? id,
-    String? senderId,
-    String? receiverId,
-    String? mediaUrl,
-    String? message,
-    String? createdAt,
-    String? updatedAt,
-    num? v,
-  }) => Message(
-    mediaType: mediaType ?? _mediaType,
-    id: id ?? _id,
-    senderId: senderId ?? _senderId,
-    receiverId: receiverId ?? _receiverId,
-    mediaUrl: mediaUrl ?? _mediaUrl,
-    message: message ?? _message,
-    createdAt: createdAt ?? _createdAt,
-    updatedAt: updatedAt ?? _updatedAt,
-    v: v ?? _v,
-  );
-  String? get mediaType => _mediaType;
-  String? get mediaUrl => _mediaUrl;
-  String? get id => _id;
-  String? get senderId => _senderId;
-  String? get receiverId => _receiverId;
-  String? get message => _message;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  num? get v => _v;
+  Message(
+      {this.id, this.senderId, this.receiverId, this.message, this.mediaUrl, this.mediaType, this.createdAt, this.updatedAt, this.v});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['mediaType'] = _mediaType;
-    map['mediaUrl'] = _mediaUrl;
-    map['_id'] = _id;
-    map['senderId'] = _senderId;
-    map['receiverId'] = _receiverId;
-    map['message'] = _message;
-    map['createdAt'] = _createdAt;
-    map['updatedAt'] = _updatedAt;
-    map['__v'] = _v;
+    map["_id"] = id;
+    map["senderId"] = senderId;
+    map["receiverId"] = receiverId;
+    map["message"] = message;
+    map["mediaUrl"] = mediaUrl;
+    map["mediaType"] = mediaType;
+    map["createdAt"] = createdAt;
+    map["updatedAt"] = updatedAt;
+    map["__v"] = v;
     return map;
+  }
+
+  Message.fromJson(dynamic json){
+    id = json["_id"];
+    senderId = json["senderId"];
+    receiverId = json["receiverId"];
+    message = json["message"];
+    mediaUrl = json["mediaUrl"];
+    mediaType = json["mediaType"];
+    createdAt = json["createdAt"];
+    updatedAt = json["updatedAt"];
+    v = json["__v"];
   }
 }
 
 class Messages {
-  List<Message>? messages;
+  List<Message>? messagesList;
+  num? currentPage;
+  num? totalPages;
 
-  Messages({this.messages});
+  Messages({this.messagesList, this.currentPage, this.totalPages});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    if (messages != null) {
-      map["messages"] = messages?.map((v) => v.toJson()).toList();
+    if (messagesList != null) {
+      map["messages"] = messagesList?.map((v) => v.toJson()).toList();
     }
+    map["currentPage"] = currentPage;
+    map["totalPages"] = totalPages;
     return map;
   }
 
-  Messages.fromJson(dynamic json) {
-    if (json != null) {
-      messages = [];
-      json.forEach((v) {
-        messages?.add(Message.fromJson(v));
+  Messages.fromJson(dynamic json){
+    if (json["messages"] != null) {
+      messagesList = [];
+      json["messages"].forEach((v) {
+        messagesList?.add(Message.fromJson(v));
       });
     }
+    currentPage = json["currentPage"];
+    totalPages = json["totalPages"];
   }
 }

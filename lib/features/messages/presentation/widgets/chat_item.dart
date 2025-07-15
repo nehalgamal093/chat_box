@@ -2,37 +2,38 @@ import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:chat_box/features/user_profile/presentation/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/di/di.dart';
+import '../../../../core/inherited_widgets/inherited_user.dart';
+import '../../../chat/presentation/bloc/socket_bloc.dart';
+import '../../data/models/chatted_users.dart';
 
 class ChatItem extends StatelessWidget {
-  final String userId;
-  final String image;
   final String lastMessage;
   final String time;
-  final String fullName;
-  final String gender;
-  const ChatItem({
-    super.key,
-    required this.userId,
-    required this.image,
-    required this.lastMessage,
-    required this.time,
-    required this.fullName,
-    required this.gender
-  });
-
+  const ChatItem({super.key, required this.lastMessage, required this.time});
   @override
   Widget build(BuildContext context) {
+    User user = MyInheritedWidget.of(context).user;
     return InkWell(
       onTap: () {
+        print("============== ${user.id}");
         Navigator.push(
           context,
           MaterialPageRoute(
             builder:
-                (context) => ChatScreen(
-                  userId: userId,
-                  fullName: fullName,
-                  image: image,
-                  gender: gender,
+                (context) => BlocProvider(
+                  create:
+                      (context) =>
+                          getIt<SocketBloc>()
+                            ..add(SocketConnect())
+                            ..add(
+                              LoadInitialMessage(
+                                user.id!,
+                              ),
+                            ),
+                  child: ChatScreen(user:user),
                 ),
           ),
         );
@@ -43,17 +44,27 @@ class ChatItem extends StatelessWidget {
           smallSize: 15,
           child: InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserProfileScreen(id: userId),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder:
+              //         (context) => UserProfileScreen(
+              //           id: MyInheritedWidget.of(context).user.id!,
+              //         ),
+              //   ),
+              // );
             },
-            child: Image.network(gender=="male"?StringsManager.male:StringsManager.female),
+            child: Image.network(
+              MyInheritedWidget.of(context).user.gender! == "male"
+                  ? StringsManager.male
+                  : StringsManager.female,
+            ),
           ),
         ),
-        title: Text(fullName, style: Theme.of(context).textTheme.bodyMedium),
+        title: Text(
+          MyInheritedWidget.of(context).user.fullName!,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
         subtitle: Text(
           lastMessage,
           style: Theme.of(context).textTheme.bodySmall,
@@ -64,7 +75,6 @@ class ChatItem extends StatelessWidget {
               time.substring(15, 19),
               style: Theme.of(context).textTheme.bodySmall,
             ),
-
           ],
         ),
       ),

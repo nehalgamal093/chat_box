@@ -8,6 +8,6 @@ import '../../../../core/network/AppFailures/app_failures.dart';
 class ChatUseCase {
   ChatRepo chatRepo;
   ChatUseCase(this.chatRepo);
-  Future<Either<AppFailures, Messages>> call(String id) =>
-      chatRepo.getMessages(id);
+  Future<Either<AppFailures, Messages>> call(String id,String page) =>
+      chatRepo.getMessages(id,page);
 }

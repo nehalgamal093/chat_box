@@ -4,7 +4,7 @@ class Endpoints{
   static  String register = dotenv.env['REGISTER_ENDPOINT']!;
   static  String login = dotenv.env['LOGIN_ENDPOINT']!;
   static  String friends = dotenv.env['FRIENDS_ENDPOINT']!;
-  static  String getMessages(String id) => '${dotenv.env['MESSAGES_ENDPOINT']!}/$id';
+  static  String getMessages(String id,String page) => '${dotenv.env['MESSAGES_ENDPOINT']!}/$id/$page';
   static  String sendMessage(String id) => '${dotenv.env['SEND_MESSAGE']!}/$id';
   static  String chattedUsers = dotenv.env['CHATTED_USERS']!;
   static  String userProfile(String id) => '${dotenv.env['USER_PROFILE']!}/$id';

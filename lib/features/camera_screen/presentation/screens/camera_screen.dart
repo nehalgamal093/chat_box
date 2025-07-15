@@ -4,22 +4,18 @@ import 'package:chat_box/features/camera_screen/presentation/screens/view_photo_
 import 'package:flutter/material.dart';
 import 'package:chat_box/features/chat/data/models/message.dart';
 
+import '../../../messages/data/models/chatted_users.dart';
+
 class CameraScreen extends StatefulWidget {
   const CameraScreen({
     super.key,
     required this.camera,
     required this.frontCamera,
-    required this.id,
-    required this.photo,
-    required this.fullName,
-    required this.gender,
+    required this.user,
   });
   final CameraDescription camera;
   final CameraDescription frontCamera;
-  final String id;
-  final String fullName;
-  final String photo;
-  final String gender;
+  final User user;
   @override
   State<CameraScreen> createState() => _CameraScreenState();
 }
@@ -97,10 +93,7 @@ class _CameraScreenState extends State<CameraScreen> {
                               builder:
                                   (context) => ViewPhotoScreen(
                                     path: image.path,
-                                    id: widget.id,
-                                    image: widget.photo,
-                                    fullName: widget.fullName,
-                                    gender: widget.gender,
+                                    user: widget.user,
                                   ),
                             ),
                           );

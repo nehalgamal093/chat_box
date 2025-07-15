@@ -11,21 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/inherited_widgets/inherited_user.dart';
+import '../../../messages/data/models/chatted_users.dart';
 import '../bloc/socket_bloc.dart';
+import '../screens/chat_screen.dart';
 
 class ChatInput extends StatefulWidget {
-  final String id;
-  final String fullName;
-  final String image;
-  final String gender;
+
   static const String routeName = StringsManager.chatScreenRoute;
-  const ChatInput({
-    super.key,
-    required this.id,
-    required this.fullName,
-    required this.image,
-    required this.gender
-  });
+  const ChatInput({super.key});
 
   @override
   State<ChatInput> createState() => _ChatInputState();
@@ -40,6 +34,7 @@ class _ChatInputState extends State<ChatInput> {
   Widget build(BuildContext context) {
     var provider = Provider.of<FilePickerProvider>(context);
     Size size = MediaQuery.of(context).size;
+    User user = MyInheritedWidget.of(context).user;
     return Column(
       children: [
         FileBox(),
@@ -99,12 +94,11 @@ class _ChatInputState extends State<ChatInput> {
               ),
             ),
             _textFieldFocusNode.hasFocus
-                ?
-            InkWell(
+                ? InkWell(
                   onTap: () {
                     if (messageEditingController.text.isNotEmpty) {
                       Message message = Message(
-                        receiverId: widget.id,
+                        receiverId: MyInheritedWidget.of(context).user.id!,
                         senderId: CacheHelper.getUserId(),
                         message: messageEditingController.text,
                         createdAt: DateTime.now().toString(),
@@ -146,9 +140,7 @@ class _ChatInputState extends State<ChatInput> {
                                 (context) => CameraScreen(
                                   camera: firstCamera,
                                   frontCamera: secondCamera,
-                                  id: widget.id,
-                                  fullName: widget.fullName,
-                                  photo: widget.image, gender: widget.gender,
+                                  user:user
                                 ),
                           ),
                         );

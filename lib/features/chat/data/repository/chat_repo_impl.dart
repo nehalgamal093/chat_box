@@ -17,8 +17,8 @@ class ChatRepoImpl extends ChatRepo {
   ChatRepoImpl(this.chatRemoteDs);
 
   @override
-  Future<Either<AppFailures, Messages>> getMessages(String id) async {
-    var result = await chatRemoteDs.getMessages(id);
+  Future<Either<AppFailures, Messages>> getMessages(String id,String page) async {
+    var result = await chatRemoteDs.getMessages(id, page);
     try {
       return Right(result);
     } on ServerException catch (e) {

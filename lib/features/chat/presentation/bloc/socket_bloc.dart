@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:chat_box/core/resources/socket/socket_service.dart';
 import 'package:chat_box/features/chat/domain/use_cases/chat_use_case.dart';
@@ -17,16 +16,21 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   ChatUseCase chatUseCase;
   SendMessageUseCase sendMessageUseCase;
   StreamSubscription? _messageSubscription;
+
   SocketBloc(this.socketService, this.chatUseCase, this.sendMessageUseCase)
     : super(SocketInitial()) {
     on<SocketConnect>(_onConnect);
     on<SocketDisconnect>(_onDisconnect);
     on<SendMessage>(_onSendMessage);
     on<SendMessageWithFile>(_onSendMessageWithFile);
-    on<LoadMessages>(_onLoadMessage);
+    on<LoadInitialMessage>(_loadInitialMessages);
+    on<LoadMoreMessages>(_onLoadMoreMessages);
     on<NewMessageReceived>(_onNewMessageReceived);
   }
 
+  int page = 0;
+  final int _limit = 15;
+  bool _hasReachedMax = false;
   void _onConnect(SocketConnect event, Emitter<SocketState> emit) async {
     try {
       await socketService.connect();
@@ -47,7 +51,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   void _onSendMessage(SendMessage event, Emitter<SocketState> emit) async {
     final currentMessages = (state as MessagesLoaded).messages;
     if (state is MessagesLoaded) {
-      emit(MessagesLoaded([...currentMessages, event.message]));
+      emit(MessagesLoaded([...currentMessages, event.message], false));
     }
     try {
       var result = await sendMessageUseCase.call(
@@ -56,8 +60,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       );
       result.fold(
         (error) {
-          print('SocketError $error');
-          // emit(SocketError('Failed to get messages: $error'));
+          emit(SocketError('Failed to get messages: $error'));
         },
         (model) {
           Message message = Message(
@@ -69,12 +72,11 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
           );
-          emit(MessagesLoaded([...currentMessages, message]));
+          emit(MessagesLoaded([...currentMessages, message], false));
         },
       );
     } catch (e) {
-      print('error send $e');
-      // emit(SocketError('Failed to send message: $e'));
+      emit(SocketError('Failed to send message: $e'));
     }
   }
 
@@ -84,7 +86,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   ) async {
     final currentMessages = (state as MessagesLoaded).messages;
     if (state is MessagesLoaded) {
-      emit(MessagesLoaded([...currentMessages, event.message]));
+      emit(MessagesLoaded([...currentMessages, event.message], false));
     }
     try {
       var result = await sendMessageUseCase.callWithFile(
@@ -94,8 +96,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       );
       result.fold(
         (error) {
-          print('SocketError $error');
-          // emit(SocketError('Failed to get messages: $error'));
+          emit(SocketError('Failed to get messages: $error'));
         },
         (model) {
           Message message = Message(
@@ -107,37 +108,74 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
           );
-          emit(MessagesLoaded([...currentMessages, message]));
+          emit(MessagesLoaded([...currentMessages, message], false));
         },
       );
     } catch (e) {
-      print('error send $e');
-      // emit(SocketError('Failed to send message: $e'));
+      emit(SocketError('Failed to send message: $e'));
     }
   }
 
-  void _onLoadMessage(LoadMessages event, Emitter<SocketState> emit) async {
+  void _loadInitialMessages(
+    LoadInitialMessage event,
+    Emitter<SocketState> emit,
+  ) async {
     emit(LoadingMessages());
-
-    var result = await chatUseCase.call(event.otherUserId);
+    _hasReachedMax = false;
+    var result = await chatUseCase.call(event.otherUserId, page.toString());
     result.fold(
       (error) {
         emit(SocketError('Failed to get messages: $error'));
       },
       (model) {
-        emit(MessagesLoaded(model.messages!));
+        emit(
+          MessagesLoaded(
+            model.messagesList!,
+            model.messagesList!.length < _limit,
+          ),
+        );
+        page++;
       },
     );
+  }
+
+  void _onLoadMoreMessages(
+    LoadMoreMessages event,
+    Emitter<SocketState> emit,
+  ) async {
+    if (state is MessagesLoaded) {
+      final currentState = state as MessagesLoaded;
+      if (currentState.hasReachedMax) return;
+      emit(MessagesLoaded(currentState.messages, true));
+      var result = await chatUseCase.call(event.otherUserId, page.toString());
+
+      result.fold(
+        (error) {
+          emit(SocketError('Failed to get messages: $error'));
+        },
+        (model) {
+          _hasReachedMax = model.messagesList!.length < _limit;
+          emit(
+            MessagesLoaded([
+              ...currentState.messages,
+              ...model.messagesList!,
+            ], model.messagesList!.length < _limit),
+          );
+          page++;
+        },
+      );
+    }
   }
 
   void _onNewMessageReceived(
     NewMessageReceived event,
     Emitter<SocketState> emit,
   ) async {
-    print(event.message.message);
     if (state is MessagesLoaded) {
       final currentMessages = (state as MessagesLoaded).messages;
-      emit(MessagesLoaded([...currentMessages, event.message]));
+      emit(MessagesLoaded([...currentMessages, event.message], false));
     }
   }
 }
+
+//185

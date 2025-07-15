@@ -1,31 +1,21 @@
-import 'package:chat_box/core/resources/strings/strings_manager.dart';
+import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_app_bar.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_input.dart';
+import 'package:chat_box/features/chat/presentation/widgets/loading_chat.dart';
 import 'package:chat_box/features/chat/presentation/widgets/message_image_bubble.dart';
+import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/di/di.dart';
+import '../../../../core/inherited_widgets/inherited_user.dart';
 import '../../data/models/message.dart';
 import '../bloc/socket_bloc.dart';
 
 class ChatScreen extends StatefulWidget {
-  static const String routeName = StringsManager.chatScreenRoute;
-  final String userId;
-  final String fullName;
-  final String image;
-  final String gender;
-   Message? msg;
+  Message? msg;
+  final User user;
   final String? path;
-   ChatScreen({
-    super.key,
-    required this.userId,
-    required this.fullName,
-    required this.image,
-    this.path,
-    required this.gender,
-    this.msg,
-  });
+  ChatScreen({super.key, this.path, this.msg, required this.user});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -34,95 +24,114 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
 
+  bool flag = true;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+    context.read<SocketBloc>().add(LoadInitialMessage(widget.user.id!));
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      context.read<SocketBloc>().add(LoadMoreMessages(widget.user.id!));
+    }
+  }
+
+  bool hasReachedMax = false;
+  List<Message> messages = [];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: chatAppBar(
-        context,
-        widget.fullName,
-        widget.image,
-        widget.userId,
-        widget.gender,
-      ),
-      body: BlocProvider(
-        create:
-            (context) =>
-                getIt<SocketBloc>()
-                  ..add(SocketConnect())
-                  ..add(LoadMessages(widget.userId)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-          child: Column(
-            children: [
-              BlocBuilder<SocketBloc, SocketState>(
-                builder: (context, state) {
-                  if (state is MessagesLoaded) {
-                    if (widget.msg != null) {
-                      context.read<SocketBloc>().add(
-                        SendMessageWithFile(widget.msg!, widget.path!),
-                      );
-                      widget.msg = null;
-                    }
-                    scrollToEnd();
-                    return Expanded(
-                      child: ListView.separated(
-                        controller: _scrollController,
-                        cacheExtent: 2000,
-                        separatorBuilder:
-                            (context, index) => SizedBox(height: 10),
-                        itemCount:
-                            state.messages.length <= 15
-                                ? state.messages.length
-                                : 15,
-                        itemBuilder: (context, index) {
-                          List<Message> messages = [];
-                          if (state.messages.length <= 15) {
-                            messages = state.messages;
-                          } else {
-                            int size = state.messages.length - 15;
-                            messages = state.messages.sublist(size);
-                          }
-                          return MessageImageBubble(
-                            isSender:
-                                messages[index].senderId! != widget.userId,
-                            message: messages[index].message!,
-                            image:
-                                messages[index].mediaUrl == null
-                                    ? ""
-                                    : messages[index].mediaUrl!,
-                            time: messages[index].createdAt!,
+    return MyInheritedWidget(
+      user: widget.user,
+      child: Builder(
+        builder: (inner) {
+          return Scaffold(
+            appBar: chatAppBar(context, widget.user),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              child: Column(
+                children: [
+                  BlocBuilder<SocketBloc, SocketState>(
+                    builder: (context, state) {
+                      if (state is LoadingMessages) {
+                        return Expanded(child: LoadingChat());
+                      }
+                      if (state is MessagesLoaded) {
+                        hasReachedMax = state.hasReachedMax;
+                        if (widget.msg != null) {
+                          context.read<SocketBloc>().add(
+                            SendMessageWithFile(widget.msg!, widget.path!),
                           );
-                        },
-                      ),
-                    );
-                  } else if (state is LoadingMessages) {
-                    return Expanded(
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  } else {
-                    return Text('Error');
-                  }
-                },
+                          widget.msg = null;
+                        }
+                        messages.clear();
+                        messages.addAll(state.messages);
+                      }
+                      return Expanded(
+                        child: ListView.separated(
+                          reverse: true,
+                          controller: _scrollController,
+                          cacheExtent: 2000,
+                          separatorBuilder:
+                              (context, index) => SizedBox(height: 10),
+                          itemCount:
+                              hasReachedMax
+                                  ? messages.length
+                                  : messages.length + 1,
+                          itemBuilder: (context, index) {
+                            if (flag) {
+                              scrollToEnd();
+                            }
+                            if (index >= messages.length && !hasReachedMax) {
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CircularProgressIndicator(
+                                    color: ColorsManager.cyan,
+                                  ),
+                                ),
+                              );
+                            }
+                            return MessageImageBubble(
+                              key: ValueKey(messages[index].id),
+                              isSender:
+                                  messages[index].senderId! != widget.user.id,
+                              message: messages[index].message!,
+                              image:
+                                  messages[index].mediaUrl == null
+                                      ? ""
+                                      : messages[index].mediaUrl!,
+                              time: messages[index].createdAt!,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  ChatInput(
+                    // user: widget.user,
+                  ),
+                ],
               ),
-              SizedBox(height: 10),
-              ChatInput(
-                id: widget.userId,
-                image: widget.image,
-                fullName: widget.fullName,
-                gender: widget.gender,
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
   void scrollToEnd() {
     Future.delayed(const Duration(milliseconds: 0), () {
-      if (_scrollController.hasClients) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      if (_scrollController.hasClients && flag) {
+        _scrollController.jumpTo(_scrollController.position.minScrollExtent);
+        flag = false;
       }
     });
   }
 }
+
+//152

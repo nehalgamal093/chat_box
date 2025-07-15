@@ -17,9 +17,9 @@ class ChatRemoteDsImpl extends ChatRemoteDs {
   ChatRemoteDsImpl(this.apiManager);
 
   @override
-  Future<Messages> getMessages(String id) async {
+  Future<Messages> getMessages(String id,String page) async {
     var response = await apiManager.getRequest(
-      Endpoints.getMessages(id),
+      Endpoints.getMessages(id,page),
       headers: {"token": CacheHelper.getToken()},
     );
     try {
