@@ -35,7 +35,7 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
           children: [
             SizedBox(width: 10),
             SizedBox(
-              width: size.width * .65,
+              width: size.width * .75,
               height: 50,
               child: TextField(
                 controller: messageEditingController,

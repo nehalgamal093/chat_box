@@ -1,4 +1,5 @@
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
+import 'package:chat_box/features/chat/presentation/provider/show_scroll_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ void main() async{
       providers: [
         ChangeNotifierProvider(create: (context) => BottomNavProvider()),
         ChangeNotifierProvider(create: (context) => FilePickerProvider()),
+        ChangeNotifierProvider(create: (context) => ShowScrollButton()),
       ],
       child: const MyApp(),
     ),

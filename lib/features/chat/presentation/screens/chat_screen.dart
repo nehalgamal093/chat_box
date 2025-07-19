@@ -1,4 +1,5 @@
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/features/chat/presentation/provider/show_scroll_button.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_app_bar.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_input.dart';
 import 'package:chat_box/features/chat/presentation/widgets/loading_chat.dart';
@@ -6,7 +7,7 @@ import 'package:chat_box/features/chat/presentation/widgets/message_image_bubble
 import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
 import '../../data/models/message.dart';
 import '../bloc/socket_bloc.dart';
@@ -23,8 +24,8 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
-
   bool flag = true;
+
   @override
   void initState() {
     super.initState();
@@ -32,11 +33,19 @@ class _ChatScreenState extends State<ChatScreen> {
     context.read<SocketBloc>().add(LoadInitialMessage(widget.user.id!));
   }
 
+  double lastOffset = 0;
   void _scrollListener() {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       context.read<SocketBloc>().add(LoadMoreMessages(widget.user.id!));
+    }
+    final provider = Provider.of<ShowScrollButton>(context, listen: false);
+    double currentOffset = _scrollController.offset;
+    if (currentOffset > lastOffset && currentOffset > 50 && !flag) {
+      provider.showScrollButton();
+    } else if (currentOffset < 50) {
+      provider.hideScrollButton();
     }
   }
 
@@ -113,10 +122,33 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   SizedBox(height: 10),
                   ChatInput(
-                    // user: widget.user,
+
                   ),
                 ],
               ),
+            ),
+            floatingActionButton: Consumer<ShowScrollButton>(
+              builder: (context, provider, child) {
+                return provider.isVisible
+                    ? Padding(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: FloatingActionButton(
+                        backgroundColor: ColorsManager.darkBlue,
+                        onPressed: () {
+                          if (_scrollController.hasClients) {
+                            _scrollController.jumpTo(
+                              _scrollController.position.minScrollExtent,
+                            );
+                          }
+                        },
+                        child: Icon(
+                          Icons.arrow_downward_sharp,
+                          color: ColorsManager.medGrey,
+                        ),
+                      ),
+                    )
+                    : SizedBox.shrink();
+              },
             ),
           );
         },
@@ -134,4 +166,4 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
-//152
+//152-137-170

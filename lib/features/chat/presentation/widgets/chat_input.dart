@@ -8,16 +8,12 @@ import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../core/inherited_widgets/inherited_user.dart';
 import '../../../messages/data/models/chatted_users.dart';
 import '../bloc/socket_bloc.dart';
-import '../screens/chat_screen.dart';
 
 class ChatInput extends StatefulWidget {
-
   static const String routeName = StringsManager.chatScreenRoute;
   const ChatInput({super.key});
 
@@ -29,7 +25,7 @@ class _ChatInputState extends State<ChatInput> {
   final FocusNode _textFieldFocusNode = FocusNode();
   final TextEditingController messageEditingController =
       TextEditingController();
-
+  bool isInputEmpty = true;
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<FilePickerProvider>(context);
@@ -39,6 +35,7 @@ class _ChatInputState extends State<ChatInput> {
       children: [
         FileBox(),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InkWell(
               onTap: () {
@@ -49,14 +46,22 @@ class _ChatInputState extends State<ChatInput> {
                 color: ColorsManager.whiteColor,
               ),
             ),
-            SizedBox(width: 10),
+
             SizedBox(
-              width:
-                  _textFieldFocusNode.hasFocus
-                      ? size.width * .7
-                      : size.width * .65,
+              width: !isInputEmpty ? size.width * .7 : size.width * .65,
               height: 50,
               child: TextField(
+                onChanged: (val) {
+                  if (messageEditingController.text.isNotEmpty) {
+                    setState(() {
+                      isInputEmpty = false;
+                    });
+                  } else {
+                    setState(() {
+                      isInputEmpty = true;
+                    });
+                  }
+                },
                 controller: messageEditingController,
                 focusNode: _textFieldFocusNode,
                 decoration: InputDecoration(
@@ -69,31 +74,13 @@ class _ChatInputState extends State<ChatInput> {
                   filled: true,
 
                   suffixIcon: Image.asset(ImagesManager.files, width: 20),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: ColorsManager.chatInputColor,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: ColorsManager.chatInputColor,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: ColorsManager.chatInputColor,
-                    ),
-                  ),
+                  border: border,
+                  enabledBorder: border,
+                  focusedBorder: border,
                 ),
               ),
             ),
-            _textFieldFocusNode.hasFocus
+            !isInputEmpty
                 ? InkWell(
                   onTap: () {
                     if (messageEditingController.text.isNotEmpty) {
@@ -126,7 +113,6 @@ class _ChatInputState extends State<ChatInput> {
                 )
                 : Row(
                   children: [
-                    SizedBox(width: 5),
                     InkWell(
                       onTap: () async {
                         final cameras = await availableCameras();
@@ -140,7 +126,7 @@ class _ChatInputState extends State<ChatInput> {
                                 (context) => CameraScreen(
                                   camera: firstCamera,
                                   frontCamera: secondCamera,
-                                  user:user
+                                  user: user,
                                 ),
                           ),
                         );
@@ -157,7 +143,12 @@ class _ChatInputState extends State<ChatInput> {
     );
   }
 
+  OutlineInputBorder border = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: BorderSide(width: 2.0, color: ColorsManager.chatInputColor),
+  );
   void clear() {
     messageEditingController.clear();
   }
 }
+//174-153

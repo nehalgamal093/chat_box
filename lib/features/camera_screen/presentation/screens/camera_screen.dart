@@ -2,8 +2,6 @@ import 'package:camera/camera.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/features/camera_screen/presentation/screens/view_photo_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_box/features/chat/data/models/message.dart';
-
 import '../../../messages/data/models/chatted_users.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -25,12 +23,12 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void>? _initializeControllerFuture;
   Future<void> _initializeCamera(CameraDescription camera) async {
     if (_controller != null) {
-      await _controller!.dispose(); // Dispose old controller
+      await _controller!.dispose();
     }
 
     _controller = CameraController(
       camera,
-      ResolutionPreset.medium, // Adjust resolution as needed
+      ResolutionPreset.medium,
     );
 
     try {
@@ -52,7 +50,7 @@ class _CameraScreenState extends State<CameraScreen> {
     _controller!.dispose();
     super.dispose();
   }
-
+bool isflash = false;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -69,15 +67,33 @@ class _CameraScreenState extends State<CameraScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
+                    isflash? GestureDetector(
                       onTap: () async {
-                        _controller?.setFlashMode(FlashMode.torch);
+                        _controller?.setFlashMode(FlashMode.off);
+                        setState(() {
+                          isflash = false;
+                        });
                       },
                       child: CircleAvatar(
                         backgroundColor: ColorsManager.whiteColor,
                         radius: 30,
                         child: Icon(
                           Icons.flash_off,
+                          color: ColorsManager.blackColor,
+                        ),
+                      ),
+                    ): GestureDetector(
+                      onTap: () async {
+                        _controller?.setFlashMode(FlashMode.torch);
+                        setState(() {
+                          isflash = true;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: ColorsManager.whiteColor,
+                        radius: 30,
+                        child: Icon(
+                          Icons.flash_on,
                           color: ColorsManager.blackColor,
                         ),
                       ),

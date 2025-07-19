@@ -18,7 +18,6 @@ class ChatItem extends StatelessWidget {
     User user = MyInheritedWidget.of(context).user;
     return InkWell(
       onTap: () {
-        print("============== ${user.id}");
         Navigator.push(
           context,
           MaterialPageRoute(
