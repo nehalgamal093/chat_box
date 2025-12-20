@@ -83,6 +83,7 @@ class _ChatInputState extends State<ChatInput> {
             !isInputEmpty
                 ? InkWell(
                   onTap: () {
+
                     if (messageEditingController.text.isNotEmpty) {
                       Message message = Message(
                         receiverId: MyInheritedWidget.of(context).user.id!,
@@ -94,6 +95,7 @@ class _ChatInputState extends State<ChatInput> {
                         context.read<SocketBloc>().add(
                           SendMessageWithFile(message, provider.file.path),
                         );
+
                       } else {
                         context.read<SocketBloc>().add(SendMessage(message));
                       }

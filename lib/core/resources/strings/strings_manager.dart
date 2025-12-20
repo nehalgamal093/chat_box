@@ -32,7 +32,7 @@ class StringsManager {
   static const String registerScreenRoute = "/register-screen";
   static const String chatScreenRoute = "/chat-screen";
 
-  static const String female = "https://images.icon-icons.com/3708/PNG/512/girl_female_woman_person_people_avatar_icon_230018.png";
-  static const String male = "https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png";
+  static const String female = "https://www.shutterstock.com/image-vector/black-woman-smiling-portrait-vector-600nw-2281497689.jpg";
+  static const String male = "https://img.freepik.com/premium-vector/man-with-shirt-that-says-he-is-man_1187092-26408.jpg?semt=ais_hybrid&w=740&q=80";
 
 }

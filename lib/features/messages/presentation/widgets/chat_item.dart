@@ -53,10 +53,11 @@ class ChatItem extends StatelessWidget {
               //   ),
               // );
             },
-            child: Image.network(
-              MyInheritedWidget.of(context).user.gender! == "male"
+            child: CircleAvatar(
+              backgroundImage: NetworkImage( MyInheritedWidget.of(context).user.gender! == "male"
                   ? StringsManager.male
-                  : StringsManager.female,
+                  : StringsManager.female,),
+
             ),
           ),
         ),

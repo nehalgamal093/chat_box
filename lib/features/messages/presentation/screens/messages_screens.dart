@@ -21,20 +21,16 @@ class MessagesScreens extends StatelessWidget {
         title: Text('Home', style: Theme.of(context).textTheme.bodyMedium),
         actions: [
           BlocProvider(
-            create:
-                (context) =>
-                    getIt<UserProfileBloc>()
-                      ..add(GetUserProfileEvent(CacheHelper.getUserId()!)),
+            create: (context) => getIt<UserProfileBloc>()
+              ..add(GetUserProfileEvent(CacheHelper.getUserId()!)),
             child: BlocBuilder<UserProfileBloc, UserProfileState>(
               builder: (context, state) {
                 if (state.profileStates == ProfileStates.success) {
-                  return SizedBox(
-                    width: 30,
-                    child: Image.network(
+                  return CircleAvatar(
+                    backgroundImage: NetworkImage(
                       state.userProfile!.gender == "male"
                           ? StringsManager.male
                           : StringsManager.female,
-                      width: 30,
                     ),
                   );
                 } else {
@@ -52,8 +48,8 @@ class MessagesScreens extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: BlocProvider(
-          create:
-              (context) => getIt<ChattedUsersBloc>()..add(LoadChattedUsers()),
+          create: (context) =>
+              getIt<ChattedUsersBloc>()..add(LoadChattedUsers()),
           child: BlocBuilder<ChattedUsersBloc, ChattedUsersState>(
             builder: (context, state) {
               if (state is ChattedUsersLoading) {
@@ -68,11 +64,9 @@ class MessagesScreens extends StatelessWidget {
                         builder: (innerContext) {
                           return ChatItem(
                             time: state.list[index].user!.updatedAt!,
-
-                            lastMessage:
-                                state.list[index].lastMessage == null
-                                    ? ""
-                                    : state.list[index].lastMessage!.message!,
+                            lastMessage: state.list[index].lastMessage == null
+                                ? ""
+                                : state.list[index].lastMessage!.message!,
                           );
                         },
                       ),

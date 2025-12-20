@@ -1,4 +1,5 @@
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends_requests/data/models/friend_requests.dart';
 import 'package:chat_box/features/friends_requests/presentation/bloc/friend_requests_bloc/friend_requests_bloc.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class FriendRequestItem extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Row(
         children: [
-          Image.network(dataList.profilePic!, width: 100),
+          Image.network(StringsManager.female, width: 100),
           SizedBox(width: 10),
           Column(
             children: [

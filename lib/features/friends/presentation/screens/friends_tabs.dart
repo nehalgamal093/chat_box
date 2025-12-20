@@ -1,4 +1,5 @@
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends/presentation/screens/friends_screen.dart';
 import 'package:chat_box/features/friends_requests/presentation/screens/friends_requests_screens.dart';
 import 'package:chat_box/features/search/presentation/screens/search_screen.dart';
@@ -33,7 +34,7 @@ class FriendsTabs extends StatelessWidget {
                     if(state.profileStates == ProfileStates.success){
                       return CircleAvatar(
                         radius: 15,
-                        child: Image.network(state.userProfile!.profilePic!),
+                        backgroundImage: NetworkImage(state.userProfile!.gender=='female'?StringsManager.female:StringsManager.male),
                       );
                     } else{
                       return CircleAvatar(backgroundColor: ColorsManager.chatColor,);
