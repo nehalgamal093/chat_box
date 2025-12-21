@@ -23,6 +23,7 @@ class FriendRequestItem extends StatelessWidget {
           Image.network(StringsManager.female, width: 100),
           SizedBox(width: 10),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(dataList.fullName!),
               SizedBox(height: 10),

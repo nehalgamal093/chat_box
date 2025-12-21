@@ -33,7 +33,7 @@ class FriendListItem extends StatelessWidget {
                 Text(dataList.fullName!),
                 SizedBox(height: 5),
                 Text(
-                  'Round and round ✍',
+                  dataList.bio!,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],

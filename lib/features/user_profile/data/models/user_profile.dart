@@ -31,12 +31,13 @@ class UserProfile {
   String? profilePic;
   List<Friends>? friendsList;
   String? createdAt;
+  String? bio;
   String? updatedAt;
   num? v;
   String? friendStatus;
 
   UserProfile(
-      {this.id, this.fullName, this.username, this.gender, this.profilePic, this.friendsList, this.createdAt, this.updatedAt, this.v, this.friendStatus});
+      {this.id, this.fullName, this.username, this.gender, this.profilePic, this.friendsList, this.createdAt, this.bio,this.updatedAt, this.v, this.friendStatus});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -44,6 +45,7 @@ class UserProfile {
     map["fullName"] = fullName;
     map["username"] = username;
     map["gender"] = gender;
+    map["bio"] = bio;
     map["profilePic"] = profilePic;
     if (friendsList != null) {
       map["friends"] = friendsList?.map((v) => v.toJson()).toList();
@@ -60,6 +62,7 @@ class UserProfile {
     fullName = json["fullName"];
     username = json["username"];
     gender = json["gender"];
+    bio = json["bio"];
     profilePic = json["profilePic"];
     if (json["friends"] != null) {
       friendsList = [];

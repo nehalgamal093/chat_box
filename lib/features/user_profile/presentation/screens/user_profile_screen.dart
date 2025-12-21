@@ -36,11 +36,17 @@ class UserProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.network(
-                          state.userProfile!.gender == "male"
-                              ? StringsManager.male
-                              : StringsManager.female,
-                          width: 80,
+                        Stack(
+                          alignment: Alignment.bottomLeft,
+                          children: [
+                            Image.network(
+                              state.userProfile!.gender == "male"
+                                  ? StringsManager.male
+                                  : StringsManager.female,
+                              width: 80,
+                            ),
+                            Icon(Icons.camera_alt)
+                          ],
                         ),
                         // Image.network(state.userProfile!.profilePic!, width: 80),
                         Text(state.userProfile!.fullName!),
@@ -103,6 +109,13 @@ class UserProfileScreen extends StatelessWidget {
                                 Text('Email'),
                                 Text(
                                   'nehal@email.com',
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .copyWith(fontSize: 14),
+                                ),
+                                SizedBox(height: 20),
+                                Text('bio'),
+                                Text(
+                                  state.userProfile!.bio!,
                                   style: Theme.of(context).textTheme.bodyMedium!
                                       .copyWith(fontSize: 14),
                                 ),
