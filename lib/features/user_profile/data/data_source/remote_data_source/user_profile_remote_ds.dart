@@ -6,5 +6,5 @@ abstract class UserProfileRemoteDs{
   Future<String> sendFriendRequest(String id);
   Future<String> cancelFriendRequest(String id);
   Future<ChangePhotoResponse> changeMyPhoto(String file);
-
+  Future<String> updateBio(String bio);
 }

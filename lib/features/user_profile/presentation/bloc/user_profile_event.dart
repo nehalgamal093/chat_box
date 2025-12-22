@@ -23,3 +23,9 @@ class ChangeMyPhotoEvent extends UserProfileEvent {
   final String id;
   ChangeMyPhotoEvent(this.file,this.id);
 }
+
+class ChangeMyBioEvent extends UserProfileEvent {
+  final String bio;
+  final String id;
+  ChangeMyBioEvent(this.bio,this.id);
+}

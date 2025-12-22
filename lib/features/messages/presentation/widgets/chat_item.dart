@@ -1,10 +1,7 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
-import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
-import 'package:chat_box/features/user_profile/presentation/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/di/di.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
 import '../../../chat/presentation/bloc/socket_bloc.dart';

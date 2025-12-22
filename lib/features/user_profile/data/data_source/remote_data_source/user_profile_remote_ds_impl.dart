@@ -115,4 +115,28 @@ class UserProfileRemoteDsImpl extends UserProfileRemoteDs {
       throw ServerException(e.message ?? "Network error");
     }
   }
+
+  @override
+  Future<String> updateBio(String bio) async{
+    var response = await apiManager.putRequest(
+      Endpoints.changeMyBio,
+      {
+        "bio":bio
+      },
+      headers: {"token": CacheHelper.getToken()},
+    );
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data['message'];
+      } else {
+        String errorMessage = "Cancel Request Failed";
+        if (response.data is Map<String, dynamic>) {
+          errorMessage = response.data['error'] ?? errorMessage;
+        }
+        throw ServerException(errorMessage);
+      }
+    } on DioException catch (e) {
+      throw ServerException(e.message ?? "Network error");
+    }
+  }
 }

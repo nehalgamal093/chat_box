@@ -1,6 +1,7 @@
 import 'package:chat_box/core/di/di.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/features/user_profile/presentation/bloc/user_profile_bloc.dart';
+import 'package:chat_box/features/user_profile/presentation/widgets/bio_section.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/friend_of_user_list.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/icons_row.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/profile_picture.dart';
@@ -111,14 +112,8 @@ class UserProfileScreen extends StatelessWidget {
                                       .copyWith(fontSize: 14),
                                 ),
                                 SizedBox(height: 20),
-                                Text('bio'),
-                                Text(
-                                  state.userProfile!.bio!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontSize: 14),
-                                ),
+
+                               BioSection(userProfile: state.userProfile!,),
                                 SizedBox(height: 20),
                                 Text('Friends'),
                                 SizedBox(height: 20),

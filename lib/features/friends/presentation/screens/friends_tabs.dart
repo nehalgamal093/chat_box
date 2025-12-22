@@ -17,63 +17,44 @@ class FriendsTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(length: 2, child: Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen(),),);
-                },
-                child: Image.asset(ImagesManager.search,width: 25,),),
-            Text('Home', style: Theme.of(context).textTheme.bodyMedium),
-            BlocProvider(
-              create:(context)=> getIt<UserProfileBloc>()..add(GetUserProfileEvent(CacheHelper.getUserId()!)),
-              child: BlocBuilder<UserProfileBloc,UserProfileState>(
-                  builder: (context,state) {
-                    if(state.profileStates == ProfileStates.success){
-                      return CirclePicture(imageUrl: state.userProfile!.profilePicture!, radius: 20);
-                    } else{
-                      return CircleAvatar(backgroundColor: ColorsManager.chatColor,);
-                    }
-                  }
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          body: Column(
+            children: [
+              SizedBox(height: 20,),
+              TabBar(
+                  indicatorColor: ColorsManager.whiteColor,
+                  unselectedLabelColor: ColorsManager.whiteColor,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  labelColor: ColorsManager.whiteColor,
+                  padding: const EdgeInsets.all(10),
+                  indicatorWeight: 2,
+                  indicator: BoxDecoration(
+                      color: ColorsManager.cyan,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  dividerHeight: 0,
+                  tabs: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Friends'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Friends Requests'),
+                    )
+                  ]),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TabBarView(children: [
+                    FriendsScreen(),
+                    FriendsRequestsScreens(),
+                  ]),
+                ),
               ),
-            ),
-          ],
-        ),
-
-        bottom: TabBar(
-            indicatorColor: ColorsManager.whiteColor,
-            unselectedLabelColor: ColorsManager.whiteColor,
-            indicatorSize: TabBarIndicatorSize.tab,
-            labelColor:ColorsManager.whiteColor,
-
-            padding: const EdgeInsets.all(10),
-            indicatorWeight: 2,
-            indicator: BoxDecoration(
-              color: ColorsManager.cyan,
-              borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
-            dividerHeight: 0,
-            tabs: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Friends'),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Friends Requests'),
-          )
-        ]),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TabBarView(children: [
-          FriendsScreen(),
-          FriendsRequestsScreens(),
-        ]),
-      ),
-    ));
+        ));
   }
 }

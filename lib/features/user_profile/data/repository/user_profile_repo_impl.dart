@@ -62,4 +62,16 @@ class UserProfileRepoImpl extends UserProfileRepo {
       return Left(RemoteFailures("An unexpected error occurred"));
     }
   }
+
+  @override
+  Future<Either<AppFailures, String>> updateBio(String bio) async{
+    var result = await userProfileRemoteDs.updateBio(bio);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(RemoteFailures(e.message));
+    } catch (e) {
+      return Left(RemoteFailures("An unexpected error occurred"));
+    }
+  }
 }

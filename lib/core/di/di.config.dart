@@ -90,6 +90,7 @@ import '../../features/user_profile/domain/use_cases/change_my_photo.dart'
     as _i1070;
 import '../../features/user_profile/domain/use_cases/send_friend_requset_usecase.dart'
     as _i9;
+import '../../features/user_profile/domain/use_cases/update_bio.dart' as _i1037;
 import '../../features/user_profile/domain/use_cases/user_profile_use_case.dart'
     as _i537;
 import '../../features/user_profile/presentation/bloc/user_profile_bloc.dart'
@@ -160,6 +161,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1070.ChangeMyPhoto(gh<_i307.UserProfileRepo>()));
     gh.factory<_i9.SendFriendRequestUseCase>(
         () => _i9.SendFriendRequestUseCase(gh<_i307.UserProfileRepo>()));
+    gh.factory<_i1037.UpdateBio>(
+        () => _i1037.UpdateBio(gh<_i307.UserProfileRepo>()));
     gh.factory<_i537.UserProfileUseCase>(
         () => _i537.UserProfileUseCase(gh<_i307.UserProfileRepo>()));
     gh.factory<_i601.SearchUseCase>(
@@ -179,6 +182,7 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i9.SendFriendRequestUseCase>(),
           gh<_i885.CancelFriendRequestUseCase>(),
           gh<_i1070.ChangeMyPhoto>(),
+          gh<_i1037.UpdateBio>(),
         ));
     gh.factory<_i16.SocketBloc>(() => _i16.SocketBloc(
           gh<_i439.SocketService>(),

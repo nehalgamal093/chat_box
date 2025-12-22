@@ -9,4 +9,5 @@ abstract class UserProfileRepo{
   Future<Either<AppFailures,String>> sendFriendRequest(String id);
   Future<Either<AppFailures,String>> cancelFriendRequest(String id);
   Future<Either<AppFailures,ChangePhotoResponse>> changePhoto(String file);
+  Future<Either<AppFailures,String>> updateBio(String bio);
 }

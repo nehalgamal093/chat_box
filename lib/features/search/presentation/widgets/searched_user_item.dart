@@ -1,8 +1,6 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/features/user_profile/presentation/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../../../chat/presentation/screens/chat_screen.dart';
 import '../../../search/data/models/search_result.dart';
 
 class SearchedUserItem extends StatelessWidget {
