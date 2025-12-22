@@ -12,7 +12,7 @@ class Endpoints{
   static  String acceptRequest(String id) => '${dotenv.env['ACCEPT_REQUEST']!}/$id';
   static  String declineRequest(String id) => '${dotenv.env['DECLINE_REQUEST']!}/$id';
   static  String search(String keyword) => '${dotenv.env['SEARCH_REQUEST']!}?term=$keyword';
-
+  static  String changeMyPhoto = dotenv.env['UPLOAD_MY_PHOTO_REQUEST']!;
   static  String sendFriendRequest(String id) => '${dotenv.env['SEND_FRIEND_REQUEST']!}/$id';
   static  String cancelFriendRequest(String id) => '${dotenv.env['CANCEL_FRIEND_REQUEST']!}/$id';
 }

@@ -10,9 +10,11 @@ class FriendsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
 
-      body: Padding(
+      body: Container(
+        width: size.width*.8,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: BlocProvider(
           create: (context) => getIt<FriendsBloc>()..add(LoadItems()),

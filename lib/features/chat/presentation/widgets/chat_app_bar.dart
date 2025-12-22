@@ -1,3 +1,4 @@
+import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/resources/images/images_manager.dart';
 import '../../../../core/resources/strings/strings_manager.dart';
@@ -20,12 +21,7 @@ PreferredSizeWidget chatAppBar(BuildContext context, User user) {
           Badge(
             backgroundColor: Colors.green,
             smallSize: 10,
-            child: Image.network(
-              user.gender == "male"
-                  ? StringsManager.male
-                  : StringsManager.female,
-              width: 40,
-            ),
+            child: CirclePicture(imageUrl: user.profilePicture!, radius: 20),
           ),
           SizedBox(width: 10),
           Column(

@@ -1,3 +1,4 @@
+import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/features/user_profile/presentation/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class SearchedUserItem extends StatelessWidget {
       },
       child: Row(
         children: [
-          CircleAvatar(child: Image.network(dataList.profilePic!)),
+          CirclePicture(imageUrl: dataList.profilePicture!, radius: 40),
           SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +30,7 @@ class SearchedUserItem extends StatelessWidget {
               Text(dataList.fullName!),
               SizedBox(height: 5),
               Text(
-                'Round and round ✍',
+                dataList.bio!,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],

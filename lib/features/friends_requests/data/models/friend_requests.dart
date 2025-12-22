@@ -2,17 +2,17 @@ class DataList {
   String? id;
   String? fullName;
   String? username;
-  String? profilePic;
+  String? profilePicture;
   String? status;
 
-  DataList({this.id, this.fullName, this.username, this.profilePic,this.status});
+  DataList({this.id, this.fullName, this.username, this.profilePicture,this.status});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map["_id"] = id;
     map["fullName"] = fullName;
     map["username"] = username;
-    map["profilePic"] = profilePic;
+    map["profilePicture"] = profilePicture;
     return map;
   }
 
@@ -20,7 +20,7 @@ class DataList {
     id = json["_id"];
     fullName = json["fullName"];
     username = json["username"];
-    profilePic = json["profilePic"];
+    profilePicture = json["profilePicture"];
   }
 }
 

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/caching/cache_helper.dart';
+import '../../../../core/common_widgets/circle_picture.dart';
 import '../../../../core/di/di.dart';
 import '../../../../core/resources/images/images_manager.dart';
 import '../../../user_profile/presentation/bloc/user_profile_bloc.dart';
@@ -32,10 +33,7 @@ class FriendsTabs extends StatelessWidget {
               child: BlocBuilder<UserProfileBloc,UserProfileState>(
                   builder: (context,state) {
                     if(state.profileStates == ProfileStates.success){
-                      return CircleAvatar(
-                        radius: 15,
-                        backgroundImage: NetworkImage(state.userProfile!.gender=='female'?StringsManager.female:StringsManager.male),
-                      );
+                      return CirclePicture(imageUrl: state.userProfile!.profilePicture!, radius: 20);
                     } else{
                       return CircleAvatar(backgroundColor: ColorsManager.chatColor,);
                     }

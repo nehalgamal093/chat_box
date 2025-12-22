@@ -18,4 +18,5 @@ class ImagesManager{
   static const String friendRequest = "assets/icons/friend_request.png";
   static const String friends = "assets/icons/friends.png";
   static const String friendsPending = "assets/icons/pending.png";
+  static const String avatar = "assets/images/avatar.jpg";
 }

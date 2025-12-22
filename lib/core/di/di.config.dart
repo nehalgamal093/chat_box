@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -86,6 +86,8 @@ import '../../features/user_profile/domain/repository/user_profile_repo.dart'
     as _i307;
 import '../../features/user_profile/domain/use_cases/cancel_friend_request_usecase.dart'
     as _i885;
+import '../../features/user_profile/domain/use_cases/change_my_photo.dart'
+    as _i1070;
 import '../../features/user_profile/domain/use_cases/send_friend_requset_usecase.dart'
     as _i9;
 import '../../features/user_profile/domain/use_cases/user_profile_use_case.dart'
@@ -96,121 +98,93 @@ import '../network/api_manager/api_manager.dart' as _i576;
 import '../resources/socket/socket_service.dart' as _i439;
 
 extension GetItInjectableX on _i174.GetIt {
-  // initializes the registration of main-scope dependencies inside of GetIt
+// initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final gh = _i526.GetItHelper(
+      this,
+      environment,
+      environmentFilter,
+    );
     gh.factory<_i439.SocketService>(() => _i439.SocketService());
     gh.lazySingleton<_i576.APIManager>(() => _i576.APIManager());
-    gh.factory<_i726.ChattedUsersRemoteDs>(
-      () => _i315.ChattedUsersRemoteDsImpl(gh<_i576.APIManager>()),
-    );
-    gh.factory<_i820.UserProfileRemoteDs>(
-      () => _i190.UserProfileRemoteDsImpl(gh<_i576.APIManager>()),
-    );
-    gh.factory<_i458.ChatRemoteDs>(
-      () => _i454.ChatRemoteDsImpl(gh<_i576.APIManager>()),
-    );
-    gh.factory<_i47.SearchRemoteDs>(
-      () => _i568.SearchRemoteDsImpl(gh<_i576.APIManager>()),
-    );
-    gh.factory<_i307.UserProfileRepo>(
-      () => _i940.UserProfileRepoImpl(gh<_i820.UserProfileRemoteDs>()),
-    );
-    gh.factory<_i843.AuthRemoteDs>(
-      () => _i541.AuthRemoteDsImpl(gh<_i576.APIManager>()),
-    );
     gh.factory<_i68.FriendsRemoteDs>(
-      () => _i740.FriendsRemoteDsImpl(gh<_i576.APIManager>()),
-    );
+        () => _i740.FriendsRemoteDsImpl(gh<_i576.APIManager>()));
+    gh.factory<_i843.AuthRemoteDs>(
+        () => _i541.AuthRemoteDsImpl(gh<_i576.APIManager>()));
     gh.factory<_i753.FriendRequestRemoteDs>(
-      () => _i1028.FriendRequestRemoteDsImpl(gh<_i576.APIManager>()),
-    );
-    gh.factory<_i537.UserProfileUseCase>(
-      () => _i537.UserProfileUseCase(gh<_i307.UserProfileRepo>()),
-    );
-    gh.factory<_i9.SendFriendRequestUseCase>(
-      () => _i9.SendFriendRequestUseCase(gh<_i307.UserProfileRepo>()),
-    );
-    gh.factory<_i885.CancelFriendRequestUseCase>(
-      () => _i885.CancelFriendRequestUseCase(gh<_i307.UserProfileRepo>()),
-    );
-    gh.factory<_i989.UserProfileBloc>(
-      () => _i989.UserProfileBloc(
-        gh<_i537.UserProfileUseCase>(),
-        gh<_i9.SendFriendRequestUseCase>(),
-        gh<_i885.CancelFriendRequestUseCase>(),
-      ),
-    );
+        () => _i1028.FriendRequestRemoteDsImpl(gh<_i576.APIManager>()));
+    gh.factory<_i726.ChattedUsersRemoteDs>(
+        () => _i315.ChattedUsersRemoteDsImpl(gh<_i576.APIManager>()));
     gh.factory<_i943.FriendRequestsRepo>(
-      () => _i472.FriendRequestsRepoImpl(gh<_i753.FriendRequestRemoteDs>()),
-    );
-    gh.factory<_i45.ChattedUsersRepo>(
-      () => _i358.ChattedUsersRepoImpl(gh<_i726.ChattedUsersRemoteDs>()),
-    );
-    gh.factory<_i359.ChatRepo>(
-      () => _i67.ChatRepoImpl(gh<_i458.ChatRemoteDs>()),
-    );
-    gh.factory<_i230.FriendRequestUseCase>(
-      () => _i230.FriendRequestUseCase(gh<_i943.FriendRequestsRepo>()),
-    );
+        () => _i472.FriendRequestsRepoImpl(gh<_i753.FriendRequestRemoteDs>()));
+    gh.factory<_i47.SearchRemoteDs>(
+        () => _i568.SearchRemoteDsImpl(gh<_i576.APIManager>()));
+    gh.factory<_i820.UserProfileRemoteDs>(
+        () => _i190.UserProfileRemoteDsImpl(gh<_i576.APIManager>()));
+    gh.factory<_i458.ChatRemoteDs>(
+        () => _i454.ChatRemoteDsImpl(gh<_i576.APIManager>()));
     gh.factory<_i976.AuthRepo>(
-      () => _i751.AuthRepoImpl(gh<_i843.AuthRemoteDs>()),
-    );
-    gh.factory<_i858.SearchRepo>(
-      () => _i175.SearchRepoImpl(gh<_i47.SearchRemoteDs>()),
-    );
+        () => _i751.AuthRepoImpl(gh<_i843.AuthRemoteDs>()));
+    gh.factory<_i359.ChatRepo>(
+        () => _i67.ChatRepoImpl(gh<_i458.ChatRemoteDs>()));
+    gh.factory<_i230.FriendRequestUseCase>(
+        () => _i230.FriendRequestUseCase(gh<_i943.FriendRequestsRepo>()));
     gh.factory<_i661.FriendsRepo>(
-      () => _i320.FriendsRepoImpl(gh<_i68.FriendsRemoteDs>()),
-    );
-    gh.factory<_i847.FriendRequestsBloc>(
-      () => _i847.FriendRequestsBloc(gh<_i230.FriendRequestUseCase>()),
-    );
-    gh.factory<_i1039.ChatUseCase>(
-      () => _i1039.ChatUseCase(gh<_i359.ChatRepo>()),
-    );
-    gh.factory<_i703.SendMessageUseCase>(
-      () => _i703.SendMessageUseCase(gh<_i359.ChatRepo>()),
-    );
-    gh.factory<_i1068.ChattedUsersUseCase>(
-      () => _i1068.ChattedUsersUseCase(gh<_i45.ChattedUsersRepo>()),
-    );
-    gh.factory<_i119.GetFriendsUseCase>(
-      () => _i119.GetFriendsUseCase(gh<_i661.FriendsRepo>()),
-    );
-    gh.factory<_i806.ChattedUsersBloc>(
-      () => _i806.ChattedUsersBloc(gh<_i1068.ChattedUsersUseCase>()),
-    );
-    gh.factory<_i1033.FriendsBloc>(
-      () => _i1033.FriendsBloc(gh<_i119.GetFriendsUseCase>()),
-    );
-    gh.factory<_i16.SocketBloc>(
-      () => _i16.SocketBloc(
-        gh<_i439.SocketService>(),
-        gh<_i1039.ChatUseCase>(),
-        gh<_i703.SendMessageUseCase>(),
-      ),
-    );
-    gh.factory<_i601.SearchUseCase>(
-      () => _i601.SearchUseCase(gh<_i858.SearchRepo>()),
-    );
+        () => _i320.FriendsRepoImpl(gh<_i68.FriendsRemoteDs>()));
     gh.factory<_i1012.LoginUseCase>(
-      () => _i1012.LoginUseCase(gh<_i976.AuthRepo>()),
-    );
+        () => _i1012.LoginUseCase(gh<_i976.AuthRepo>()));
     gh.factory<_i957.RegisterUseCase>(
-      () => _i957.RegisterUseCase(gh<_i976.AuthRepo>()),
-    );
-    gh.factory<_i211.SearchBloc>(
-      () => _i211.SearchBloc(gh<_i601.SearchUseCase>()),
-    );
+        () => _i957.RegisterUseCase(gh<_i976.AuthRepo>()));
+    gh.factory<_i858.SearchRepo>(
+        () => _i175.SearchRepoImpl(gh<_i47.SearchRemoteDs>()));
+    gh.factory<_i307.UserProfileRepo>(
+        () => _i940.UserProfileRepoImpl(gh<_i820.UserProfileRemoteDs>()));
+    gh.factory<_i119.GetFriendsUseCase>(
+        () => _i119.GetFriendsUseCase(gh<_i661.FriendsRepo>()));
+    gh.factory<_i45.ChattedUsersRepo>(
+        () => _i358.ChattedUsersRepoImpl(gh<_i726.ChattedUsersRemoteDs>()));
     gh.factory<_i763.RegisterBloc>(
-      () => _i763.RegisterBloc(gh<_i957.RegisterUseCase>()),
-    );
+        () => _i763.RegisterBloc(gh<_i957.RegisterUseCase>()));
+    gh.factory<_i1068.ChattedUsersUseCase>(
+        () => _i1068.ChattedUsersUseCase(gh<_i45.ChattedUsersRepo>()));
+    gh.factory<_i1033.FriendsBloc>(
+        () => _i1033.FriendsBloc(gh<_i119.GetFriendsUseCase>()));
+    gh.factory<_i847.FriendRequestsBloc>(
+        () => _i847.FriendRequestsBloc(gh<_i230.FriendRequestUseCase>()));
+    gh.factory<_i885.CancelFriendRequestUseCase>(
+        () => _i885.CancelFriendRequestUseCase(gh<_i307.UserProfileRepo>()));
+    gh.factory<_i1070.ChangeMyPhoto>(
+        () => _i1070.ChangeMyPhoto(gh<_i307.UserProfileRepo>()));
+    gh.factory<_i9.SendFriendRequestUseCase>(
+        () => _i9.SendFriendRequestUseCase(gh<_i307.UserProfileRepo>()));
+    gh.factory<_i537.UserProfileUseCase>(
+        () => _i537.UserProfileUseCase(gh<_i307.UserProfileRepo>()));
+    gh.factory<_i601.SearchUseCase>(
+        () => _i601.SearchUseCase(gh<_i858.SearchRepo>()));
+    gh.factory<_i1039.ChatUseCase>(
+        () => _i1039.ChatUseCase(gh<_i359.ChatRepo>()));
+    gh.factory<_i703.SendMessageUseCase>(
+        () => _i703.SendMessageUseCase(gh<_i359.ChatRepo>()));
+    gh.factory<_i211.SearchBloc>(
+        () => _i211.SearchBloc(gh<_i601.SearchUseCase>()));
     gh.factory<_i971.LoginBloc>(
-      () => _i971.LoginBloc(gh<_i1012.LoginUseCase>()),
-    );
+        () => _i971.LoginBloc(gh<_i1012.LoginUseCase>()));
+    gh.factory<_i806.ChattedUsersBloc>(
+        () => _i806.ChattedUsersBloc(gh<_i1068.ChattedUsersUseCase>()));
+    gh.factory<_i989.UserProfileBloc>(() => _i989.UserProfileBloc(
+          gh<_i537.UserProfileUseCase>(),
+          gh<_i9.SendFriendRequestUseCase>(),
+          gh<_i885.CancelFriendRequestUseCase>(),
+          gh<_i1070.ChangeMyPhoto>(),
+        ));
+    gh.factory<_i16.SocketBloc>(() => _i16.SocketBloc(
+          gh<_i439.SocketService>(),
+          gh<_i1039.ChatUseCase>(),
+          gh<_i703.SendMessageUseCase>(),
+        ));
     return this;
   }
 }

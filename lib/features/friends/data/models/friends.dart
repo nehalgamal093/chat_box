@@ -7,13 +7,13 @@ class DataList {
   String? username;
   String? gender;
   String? bio;
-  String? profilePic;
+  String? profilePicture;
   String? createdAt;
   String? updatedAt;
   num? v;
 
   DataList(
-      {this.friendsList, this.friendRequestsList, this.sentRequestsList, this.id, this.fullName, this.username, this.gender, this.bio,this.profilePic, this.createdAt, this.updatedAt, this.v});
+      {this.friendsList, this.friendRequestsList, this.sentRequestsList, this.id, this.fullName, this.username, this.gender, this.bio,this.profilePicture, this.createdAt, this.updatedAt, this.v});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -32,7 +32,7 @@ class DataList {
     map["username"] = username;
     map["bio"] = bio;
     map["gender"] = gender;
-    map["profilePic"] = profilePic;
+    map["profilePicture"] = profilePicture;
     map["createdAt"] = createdAt;
     map["updatedAt"] = updatedAt;
     map["__v"] = v;
@@ -54,7 +54,7 @@ class DataList {
     username = json["username"];
     gender = json["gender"];
     bio = json["bio"];
-    profilePic = json["profilePic"];
+    profilePicture = json["profilePicture"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
     v = json["__v"];

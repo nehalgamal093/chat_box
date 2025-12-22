@@ -3,13 +3,13 @@ class User {
   String? fullName;
   String? username;
   String? gender;
-  String? profilePic;
+  String? profilePicture;
   String? createdAt;
   String? updatedAt;
   num? v;
 
   User(
-      {this.id, this.fullName, this.username, this.gender, this.profilePic, this.createdAt, this.updatedAt, this.v});
+      {this.id, this.fullName, this.username, this.gender, this.profilePicture, this.createdAt, this.updatedAt, this.v});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -17,7 +17,7 @@ class User {
     map["fullName"] = fullName;
     map["username"] = username;
     map["gender"] = gender;
-    map["profilePic"] = profilePic;
+    map["profilePicture"] = profilePicture;
     map["createdAt"] = createdAt;
     map["updatedAt"] = updatedAt;
     map["__v"] = v;
@@ -29,7 +29,7 @@ class User {
     fullName = json["fullName"];
     username = json["username"];
     gender = json["gender"];
-    profilePic = json["profilePic"];
+    profilePicture = json["profilePicture"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
     v = json["__v"];

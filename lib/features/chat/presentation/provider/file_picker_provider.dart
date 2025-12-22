@@ -7,10 +7,14 @@ import 'package:flutter/material.dart';
 class FilePickerProvider extends ChangeNotifier{
   File file =File.fromUri(Uri());
 
-  void pickFile()async{
+  void pickFile({void Function()? onPicked})async{
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       file = File(result.files.single.path!);
+      print('🌐 $file');
+      onPicked?.call();
+    }else{
+      print('🌐 is null');
     }
     notifyListeners();
   }

@@ -2,16 +2,16 @@ class Friends {
   String? id;
   String? fullName;
   String? username;
-  String? profilePic;
+  String? profilePicture;
 
-  Friends({this.id, this.fullName, this.username, this.profilePic});
+  Friends({this.id, this.fullName, this.username, this.profilePicture});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map["_id"] = id;
     map["fullName"] = fullName;
     map["username"] = username;
-    map["profilePic"] = profilePic;
+    map["profilePicture"] = profilePicture;
     return map;
   }
 
@@ -19,7 +19,7 @@ class Friends {
     id = json["_id"];
     fullName = json["fullName"];
     username = json["username"];
-    profilePic = json["profilePic"];
+    profilePicture = json["profilePicture"];
   }
 }
 
@@ -28,7 +28,7 @@ class UserProfile {
   String? fullName;
   String? username;
   String? gender;
-  String? profilePic;
+  String? profilePicture;
   List<Friends>? friendsList;
   String? createdAt;
   String? bio;
@@ -37,7 +37,7 @@ class UserProfile {
   String? friendStatus;
 
   UserProfile(
-      {this.id, this.fullName, this.username, this.gender, this.profilePic, this.friendsList, this.createdAt, this.bio,this.updatedAt, this.v, this.friendStatus});
+      {this.id, this.fullName, this.username, this.gender, this.profilePicture, this.friendsList, this.createdAt, this.bio,this.updatedAt, this.v, this.friendStatus});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -46,7 +46,7 @@ class UserProfile {
     map["username"] = username;
     map["gender"] = gender;
     map["bio"] = bio;
-    map["profilePic"] = profilePic;
+    map["profilePicture"] = profilePicture;
     if (friendsList != null) {
       map["friends"] = friendsList?.map((v) => v.toJson()).toList();
     }
@@ -63,7 +63,7 @@ class UserProfile {
     username = json["username"];
     gender = json["gender"];
     bio = json["bio"];
-    profilePic = json["profilePic"];
+    profilePicture = json["profilePicture"];
     if (json["friends"] != null) {
       friendsList = [];
       json["friends"].forEach((v) {

@@ -3,7 +3,8 @@ class DataList {
   String? fullName;
   String? username;
   String? gender;
-  String? profilePic;
+  String? profilePicture;
+  String? bio;
   List<String>? friendsList;
   List<dynamic>? friendRequestsList;
   List<String>? sentRequestsList;
@@ -12,7 +13,7 @@ class DataList {
   num? v;
 
   DataList(
-      {this.id, this.fullName, this.username, this.gender, this.profilePic, this.friendsList, this.friendRequestsList, this.sentRequestsList, this.createdAt, this.updatedAt, this.v});
+      {this.id, this.fullName, this.username, this.gender, this.profilePicture,this.bio, this.friendsList, this.friendRequestsList, this.sentRequestsList, this.createdAt, this.updatedAt, this.v});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -20,7 +21,8 @@ class DataList {
     map["fullName"] = fullName;
     map["username"] = username;
     map["gender"] = gender;
-    map["profilePic"] = profilePic;
+    map["profilePicture"] = profilePicture;
+    map["bio"] = bio;
     map["friends"] = friendsList;
     if (friendRequestsList != null) {
       map["friendRequests"] =
@@ -38,7 +40,8 @@ class DataList {
     fullName = json["fullName"];
     username = json["username"];
     gender = json["gender"];
-    profilePic = json["profilePic"];
+    profilePicture = json["profilePicture"];
+    bio = json["bio"];
     friendsList = json["friends"] != null ? json["friends"].cast<String>() : [];
     if (json["friendRequests"] != null) {
       friendRequestsList = [];

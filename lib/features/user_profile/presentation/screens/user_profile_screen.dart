@@ -3,6 +3,7 @@ import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/features/user_profile/presentation/bloc/user_profile_bloc.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/friend_of_user_list.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/icons_row.dart';
+import 'package:chat_box/features/user_profile/presentation/widgets/profile_picture.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/qr_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +21,8 @@ class UserProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(backgroundColor: ColorsManager.cyan),
       body: BlocProvider(
-        create:
-            (context) => getIt<UserProfileBloc>()..add(GetUserProfileEvent(id)),
+        create: (context) =>
+            getIt<UserProfileBloc>()..add(GetUserProfileEvent(id)),
         child: BlocBuilder<UserProfileBloc, UserProfileState>(
           builder: (context, state) {
             if (state.profileStates == ProfileStates.loading) {
@@ -36,23 +37,16 @@ class UserProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Stack(
-                          alignment: Alignment.bottomLeft,
-                          children: [
-                            Image.network(
-                              state.userProfile!.gender == "male"
-                                  ? StringsManager.male
-                                  : StringsManager.female,
-                              width: 80,
-                            ),
-                            Icon(Icons.camera_alt)
-                          ],
+                        ProfilePicture(
+                          userProfile: state.userProfile!,
+                          id: state.userProfile!.id!,
                         ),
-                        // Image.network(state.userProfile!.profilePic!, width: 80),
                         Text(state.userProfile!.fullName!),
                         Text(
                           '@${state.userProfile!.username}',
-                          style: Theme.of(context).textTheme.bodySmall!
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
                               .copyWith(color: ColorsManager.whiteColor),
                         ),
                         SizedBox(height: 20),
@@ -102,21 +96,27 @@ class UserProfileScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   state.userProfile!.gender!,
-                                  style: Theme.of(context).textTheme.bodyMedium!
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
                                       .copyWith(fontSize: 14),
                                 ),
                                 SizedBox(height: 20),
                                 Text('Email'),
                                 Text(
                                   'nehal@email.com',
-                                  style: Theme.of(context).textTheme.bodyMedium!
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
                                       .copyWith(fontSize: 14),
                                 ),
                                 SizedBox(height: 20),
                                 Text('bio'),
                                 Text(
                                   state.userProfile!.bio!,
-                                  style: Theme.of(context).textTheme.bodyMedium!
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
                                       .copyWith(fontSize: 14),
                                 ),
                                 SizedBox(height: 20),

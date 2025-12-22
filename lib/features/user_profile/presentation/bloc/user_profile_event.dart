@@ -17,3 +17,9 @@ class CancelFriendRequestEvent extends UserProfileEvent {
   final String id;
   CancelFriendRequestEvent(this.id);
 }
+
+class ChangeMyPhotoEvent extends UserProfileEvent {
+  final String file;
+  final String id;
+  ChangeMyPhotoEvent(this.file,this.id);
+}

@@ -1,4 +1,4 @@
-import 'package:chat_box/core/resources/strings/strings_manager.dart';
+import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:flutter/material.dart';
 import '../../../user_profile/presentation/screens/user_profile_screen.dart';
 import '../../data/models/friends.dart';
@@ -22,10 +22,7 @@ class FriendListItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
-            CircleAvatar(
-                backgroundImage: NetworkImage(dataList.gender == 'female'
-                    ? StringsManager.female
-                    : StringsManager.male)),
+            CirclePicture(imageUrl: dataList.profilePicture!,radius: 40,),
             SizedBox(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

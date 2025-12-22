@@ -1,4 +1,5 @@
 import 'package:chat_box/core/caching/cache_helper.dart';
+import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/core/di/di.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
@@ -37,13 +38,7 @@ class MessagesScreens extends StatelessWidget {
                         ),
                       );
                     },
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        state.userProfile!.gender == "male"
-                            ? StringsManager.male
-                            : StringsManager.female,
-                      ),
-                    ),
+                    child: CirclePicture(imageUrl: state.userProfile!.profilePicture!,radius: 20,),
                   );
                 } else {
                   return CircleAvatar(
