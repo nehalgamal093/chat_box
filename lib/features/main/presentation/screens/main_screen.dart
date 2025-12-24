@@ -59,13 +59,14 @@ class _MainScreenState extends State<MainScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              UserProfileScreen(id: state.userProfile!.id!),
+                              UserProfileScreen(id: state.userProfile!.id!,isMyProfile: true,),
                         ),
                       );
                     },
                     child: CirclePicture(
                       imageUrl: state.userProfile!.profilePicture!,
                       radius: 20,
+                      isMyPicture: true,
                     ),
                   );
                 } else {

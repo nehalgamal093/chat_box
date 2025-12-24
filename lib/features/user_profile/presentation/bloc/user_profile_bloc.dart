@@ -90,7 +90,6 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           ),
         );
       }, (model) {
-        add(GetUserProfileEvent(event.id));
       });
     });
     on<CancelFriendRequestEvent>((event, emit) async {
@@ -108,10 +107,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     });
 
     on<ChangeMyBioEvent>((event, emit) async {
-      var result = await updateBio.call(event.bio);
-      result.fold((error) {}, (model) {
-        add(GetUserProfileEvent(event.id));
-      });
+     await updateBio.call(event.bio);
+
     });
   }
 }

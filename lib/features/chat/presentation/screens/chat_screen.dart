@@ -3,7 +3,7 @@ import 'package:chat_box/features/chat/presentation/provider/show_scroll_button.
 import 'package:chat_box/features/chat/presentation/widgets/chat_app_bar.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_input.dart';
 import 'package:chat_box/features/chat/presentation/widgets/loading_chat.dart';
-import 'package:chat_box/features/chat/presentation/widgets/message_image_bubble.dart';
+import 'package:chat_box/features/chat/presentation/widgets/message_bubble.dart';
 import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,16 +104,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                 ),
                               );
                             }
-                            return MessageImageBubble(
+                            return MessageBubble(
                               key: ValueKey(messages[index].id),
-                              isSender:
-                                  messages[index].senderId! != widget.user.id,
-                              message: messages[index].message!,
-                              image:
-                                  messages[index].mediaUrl == null
-                                      ? ""
-                                      : messages[index].mediaUrl!,
-                              time: messages[index].createdAt!,
+                              message:messages[index],
+                              id:widget.user.id!
                             );
                           },
                         ),
@@ -165,5 +159,13 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 }
+//169
 
-//152-137-170
+// isSender:
+//                                   messages[index].senderId! != widget.user.id,
+//                               message: messages[index].message!,
+//                               image:
+//                                   messages[index].mediaUrl == null
+//                                       ? ""
+//                                       : messages[index].mediaUrl!,
+//                               time: messages[index].createdAt!,

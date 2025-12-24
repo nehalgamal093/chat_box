@@ -1,7 +1,6 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/resources/images/images_manager.dart';
-import '../../../../core/resources/strings/strings_manager.dart';
 import '../../../messages/data/models/chatted_users.dart';
 import '../../../user_profile/presentation/screens/user_profile_screen.dart';
 

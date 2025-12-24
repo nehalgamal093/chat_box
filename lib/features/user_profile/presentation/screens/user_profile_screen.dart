@@ -14,7 +14,8 @@ import '../widgets/loading_profile.dart';
 
 class UserProfileScreen extends StatelessWidget {
   final String id;
-  const UserProfileScreen({super.key, required this.id});
+  final bool isMyProfile;
+  const UserProfileScreen({super.key, required this.id, this.isMyProfile = false});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class UserProfileScreen extends StatelessWidget {
                         ProfilePicture(
                           userProfile: state.userProfile!,
                           id: state.userProfile!.id!,
+                          isMyProfile: isMyProfile,
                         ),
                         Text(state.userProfile!.fullName!),
                         Text(
@@ -112,8 +114,10 @@ class UserProfileScreen extends StatelessWidget {
                                       .copyWith(fontSize: 14),
                                 ),
                                 SizedBox(height: 20),
-
-                               BioSection(userProfile: state.userProfile!,),
+                                BioSection(
+                                  userProfile: state.userProfile!,
+                                  isMyProfile: isMyProfile,
+                                ),
                                 SizedBox(height: 20),
                                 Text('Friends'),
                                 SizedBox(height: 20),

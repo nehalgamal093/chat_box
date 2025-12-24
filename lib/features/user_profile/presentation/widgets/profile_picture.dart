@@ -6,13 +6,15 @@ import 'package:chat_box/features/user_profile/presentation/bloc/user_profile_bl
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/resources/strings/strings_manager.dart';
-
 class ProfilePicture extends StatelessWidget {
   final UserProfile userProfile;
   final String id;
+  final bool isMyProfile;
   const ProfilePicture(
-      {super.key, required this.userProfile, required this.id});
+      {super.key,
+      required this.userProfile,
+      required this.id,
+      this.isMyProfile = false});
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +22,24 @@ class ProfilePicture extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomLeft,
       children: [
-        CirclePicture(imageUrl: userProfile.profilePicture!,radius: 50,),
-        InkWell(
-            onTap: () {
-              pickFileProvider.pickFile(onPicked: () {
-                updateProfile(context, pickFileProvider.file.path, id);
-              });
-            },
-            child: Icon(
-              Icons.camera_alt,
-              color: ColorsManager.darkBlue,
-            ))
+        CirclePicture(
+          imageUrl: userProfile.profilePicture!,
+          radius: 50,
+          isMyPicture: true,
+        ),
+        isMyProfile
+            ? InkWell(
+                onTap: () {
+                  pickFileProvider.pickFile(onPicked: () {
+                    updateProfile(context, pickFileProvider.file.path, id);
+                  });
+                },
+                child: Icon(
+                  Icons.camera_alt,
+                  color: ColorsManager.darkBlue,
+                ),
+              )
+            : SizedBox()
       ],
     );
   }
