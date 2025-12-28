@@ -18,7 +18,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   StreamSubscription? _messageSubscription;
 
   SocketBloc(this.socketService, this.chatUseCase, this.sendMessageUseCase)
-    : super(SocketInitial()) {
+      : super(SocketInitial()) {
     on<SocketConnect>(_onConnect);
     on<SocketDisconnect>(_onDisconnect);
     on<SendMessage>(_onSendMessage);
@@ -51,7 +51,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   void _onSendMessage(SendMessage event, Emitter<SocketState> emit) async {
     final currentMessages = (state as MessagesLoaded).messages;
     if (state is MessagesLoaded) {
-      emit(MessagesLoaded([event.message,...currentMessages], false));
+      emit(MessagesLoaded([event.message, ...currentMessages], false));
     }
     try {
       var result = await sendMessageUseCase.call(
@@ -72,7 +72,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
           );
-          emit(MessagesLoaded([ message,...currentMessages], false));
+          emit(MessagesLoaded([message, ...currentMessages], false));
         },
       );
     } catch (e) {
@@ -86,7 +86,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   ) async {
     final currentMessages = (state as MessagesLoaded).messages;
     if (state is MessagesLoaded) {
-      emit(MessagesLoaded([event.message,...currentMessages], false));
+      emit(MessagesLoaded([event.message, ...currentMessages], false));
     }
     try {
       var result = await sendMessageUseCase.callWithFile(
@@ -108,7 +108,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
           );
-          emit(MessagesLoaded([message,...currentMessages], false));
+          emit(MessagesLoaded([message, ...currentMessages], false));
         },
       );
     } catch (e) {
@@ -173,7 +173,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   ) async {
     if (state is MessagesLoaded) {
       final currentMessages = (state as MessagesLoaded).messages;
-      emit(MessagesLoaded([ event.message,...currentMessages], false));
+      emit(MessagesLoaded([event.message, ...currentMessages], false));
     }
   }
 }

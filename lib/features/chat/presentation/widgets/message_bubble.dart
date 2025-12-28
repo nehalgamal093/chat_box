@@ -59,7 +59,7 @@ class _MessageBubbleState extends State<MessageBubble>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              chatMediaBubble(widget.message.mediaType!, widget.message),
+              chatMediaBubble(widget.message.mediaType??"", widget.message),
               SizedBox(height: 5),
               Row(
                 mainAxisSize: MainAxisSize.min,

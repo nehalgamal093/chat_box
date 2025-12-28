@@ -6,14 +6,14 @@ import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../chat/presentation/bloc/socket_bloc.dart';
 import '../../messages/data/models/chatted_users.dart';
 
 class ViewPhotoInput extends StatefulWidget {
   final User user;
   final String path;
-
-  static const String routeName = StringsManager.chatScreenRoute;
   const ViewPhotoInput({super.key, required this.path, required this.user});
 
   @override
@@ -81,19 +81,21 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
                   message: messageEditingController.text,
                   createdAt: DateTime.now().toString(),
                 );
+
                 Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder:
-                        (context) => ChatScreen(
-                          user: widget.user,
-                          path: widget.path,
-                          msg: message,
-                        ),
-                  ),
-                );
+                context.read<SocketBloc>().add(
+                    SendMessageWithFile(message, widget.path));
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder:
+                //         (context) => ChatScreen(
+                //           user: widget.user,
+                //           path: widget.path,
+                //           msg: message,
+                //         ),
+                //   ),
+                // );
                 clear();
               },
               child: Row(

@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:chat_box/core/caching/cache_helper.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/images/images_manager.dart';
@@ -8,10 +7,12 @@ import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
 import '../../../messages/data/models/chatted_users.dart';
 import '../bloc/socket_bloc.dart';
+import '../provider/chat_shell_provider.dart';
 
 class ChatInput extends StatefulWidget {
   static const String routeName = StringsManager.chatScreenRoute;
@@ -28,6 +29,7 @@ class _ChatInputState extends State<ChatInput> {
   bool isInputEmpty = true;
   @override
   Widget build(BuildContext context) {
+    var chatShellProvider = Provider.of<ChatShellProvider>(context);
     var provider = Provider.of<FilePickerProvider>(context);
     Size size = MediaQuery.of(context).size;
     User user = MyInheritedWidget.of(context).user;
@@ -46,7 +48,6 @@ class _ChatInputState extends State<ChatInput> {
                 color: ColorsManager.whiteColor,
               ),
             ),
-
             SizedBox(
               width: !isInputEmpty ? size.width * .7 : size.width * .65,
               height: 50,
@@ -72,7 +73,6 @@ class _ChatInputState extends State<ChatInput> {
                   fillColor: ColorsManager.chatInputColor,
                   contentPadding: EdgeInsets.only(bottom: 10, left: 10),
                   filled: true,
-
                   suffixIcon: Image.asset(ImagesManager.files, width: 20),
                   border: border,
                   enabledBorder: border,
@@ -82,9 +82,7 @@ class _ChatInputState extends State<ChatInput> {
             ),
             !isInputEmpty
                 ? InkWell(
-                  onTap: () {
-
-                    if (messageEditingController.text.isNotEmpty) {
+                    onTap: () {
                       Message message = Message(
                         receiverId: MyInheritedWidget.of(context).user.id!,
                         senderId: CacheHelper.getUserId(),
@@ -93,52 +91,45 @@ class _ChatInputState extends State<ChatInput> {
                       );
                       if (provider.file.path.isNotEmpty) {
                         context.read<SocketBloc>().add(
-                          SendMessageWithFile(message, provider.file.path),
-                        );
-
+                              SendMessageWithFile(message, provider.file.path),
+                            );
                       } else {
                         context.read<SocketBloc>().add(SendMessage(message));
                       }
-                    }
-                    clear();
-                    provider.clear();
-                  },
-                  child: Row(
+
+                      clear();
+                      provider.clear();
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: 10),
+                        CircleAvatar(
+                          backgroundColor: ColorsManager.cyan,
+                          child: Image.asset(ImagesManager.send),
+                        ),
+                      ],
+                    ),
+                  )
+                : Row(
                     children: [
-                      SizedBox(width: 10),
-                      CircleAvatar(
-                        backgroundColor: ColorsManager.cyan,
-                        child: Image.asset(ImagesManager.send),
+                      InkWell(
+                        onTap: () async {
+                          // chatShellProvider.changeIndex(1);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CameraScreen(
+                                user: user,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Image.asset(ImagesManager.camera),
                       ),
+                      SizedBox(width: 10),
+                      Image.asset(ImagesManager.mic),
                     ],
                   ),
-                )
-                : Row(
-                  children: [
-                    InkWell(
-                      onTap: () async {
-                        final cameras = await availableCameras();
-
-                        final firstCamera = cameras.first;
-                        final secondCamera = cameras[1];
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) => CameraScreen(
-                                  camera: firstCamera,
-                                  frontCamera: secondCamera,
-                                  user: user,
-                                ),
-                          ),
-                        );
-                      },
-                      child: Image.asset(ImagesManager.camera),
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(ImagesManager.mic),
-                  ],
-                ),
           ],
         ),
       ],
@@ -153,4 +144,4 @@ class _ChatInputState extends State<ChatInput> {
     messageEditingController.clear();
   }
 }
-//174-153
+//162

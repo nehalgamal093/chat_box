@@ -1,5 +1,6 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
+import 'package:chat_box/features/chat/presentation/screens/chat_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/di.dart';
@@ -16,24 +17,29 @@ class ChatItem extends StatelessWidget {
     User user = MyInheritedWidget.of(context).user;
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
+        Navigator.of(context).push(
           MaterialPageRoute(
-            builder:
-                (context) => BlocProvider(
-                  create:
-                      (context) =>
-                          getIt<SocketBloc>()
-                            ..add(SocketConnect())
-                            ..add(
-                              LoadInitialMessage(
-                                user.id!,
-                              ),
-                            ),
-                  child: ChatScreen(user:user),
-                ),
+            builder: (_) => ChatShell(user: user),
           ),
         );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder:
+        //         (context) => BlocProvider(
+        //           create:
+        //               (context) =>
+        //                   getIt<SocketBloc>()
+        //                     ..add(SocketConnect())
+        //                     ..add(
+        //                       LoadInitialMessage(
+        //                         user.id!,
+        //                       ),
+        //                     ),
+        //           child: ChatScreen(user:user),
+        //         ),
+        //   ),
+        // );
       },
       child: ListTile(
         leading: Badge(
@@ -51,7 +57,9 @@ class ChatItem extends StatelessWidget {
               //   ),
               // );
             },
-            child: CirclePicture(imageUrl:  MyInheritedWidget.of(context).user.profilePicture!, radius: 40),
+            child: CirclePicture(
+                imageUrl: MyInheritedWidget.of(context).user.profilePicture!,
+                radius: 40),
           ),
         ),
         title: Text(
