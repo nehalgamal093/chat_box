@@ -45,7 +45,7 @@ class DarkTheme extends BaseTheme {
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: ColorsManager.darkBlack,
+      backgroundColor: ColorsManager.secondaryClr,
       unselectedItemColor: ColorsManager.medGrey,
       selectedItemColor: ColorsManager.whiteColor,
       elevation: 0,

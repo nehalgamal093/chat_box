@@ -15,7 +15,7 @@ class UserProfileRepoImpl extends UserProfileRepo {
   UserProfileRepoImpl(this.userProfileRemoteDs);
 
   @override
-  Future<Either<AppFailures, UserProfile>> getFriends(String id) async {
+  Future<Either<AppFailures, User>> getFriends(String id) async {
     var result = await userProfileRemoteDs.getUserProfile(id);
     try {
       return Right(result);

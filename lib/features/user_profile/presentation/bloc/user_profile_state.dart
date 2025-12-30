@@ -4,7 +4,7 @@ enum ProfileStates { initial, loading, success, failed }
 
 class UserProfileState {
   ProfileStates? profileStates;
-  UserProfile? userProfile;
+  User? userProfile;
   String? status;
   AppFailures? failures;
 
@@ -16,7 +16,7 @@ class UserProfileState {
   });
   UserProfileState copyWith({
     ProfileStates? profileStates,
-    UserProfile? userProfile,
+    User? userProfile,
     AppFailures? failures,
     String? status,
   }) {

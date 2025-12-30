@@ -71,8 +71,8 @@ class _MainScreenState extends State<MainScreen> {
                   );
                 } else {
                   return CircleAvatar(
-                    backgroundColor: ColorsManager.chatColor,
-                    radius: 30,
+                    backgroundColor: ColorsManager.secondaryClr,
+                    radius: 20,
                   );
                 }
               },

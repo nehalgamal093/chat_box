@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePicture extends StatelessWidget {
-  final UserProfile userProfile;
+  final User userProfile;
   final String id;
   final bool isMyProfile;
   const ProfilePicture(

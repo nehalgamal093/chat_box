@@ -15,7 +15,7 @@ class UserProfileRemoteDsImpl extends UserProfileRemoteDs {
   UserProfileRemoteDsImpl(this.apiManager);
 
   @override
-  Future<UserProfile> getUserProfile(String id) async {
+  Future<User> getUserProfile(String id) async {
     var response = await apiManager.getRequest(
       Endpoints.userProfile(id),
       headers: {
@@ -24,7 +24,7 @@ class UserProfileRemoteDsImpl extends UserProfileRemoteDs {
     );
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return UserProfile.fromJson(response.data);
+        return User.fromJson(response.data);
       } else {
         String errorMessage = "User profile Failed";
         if (response.data is Map<String, dynamic>) {

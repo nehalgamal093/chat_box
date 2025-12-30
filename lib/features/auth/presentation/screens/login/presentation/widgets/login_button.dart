@@ -20,7 +20,7 @@ class LoginButton extends StatelessWidget {
             color: ColorsManager.cyan,
             onPressed: onPressed,
             textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: ColorsManager.blackColor,
+              color: ColorsManager.secondaryClr,
               fontWeight: FontWeight.w500,
             ),
           ),

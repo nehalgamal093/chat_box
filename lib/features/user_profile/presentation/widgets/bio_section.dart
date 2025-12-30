@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'edit_bio_dialog.dart';
 
 class BioSection extends StatefulWidget {
-  final UserProfile userProfile;
+  final User userProfile;
   final bool isMyProfile;
   const BioSection({super.key, required this.userProfile,this.isMyProfile = false});
 

@@ -23,7 +23,7 @@ class Friends {
   }
 }
 
-class UserProfile {
+class User{
   String? id;
   String? fullName;
   String? username;
@@ -36,7 +36,7 @@ class UserProfile {
   num? v;
   String? friendStatus;
 
-  UserProfile(
+  User(
       {this.id, this.fullName, this.username, this.gender, this.profilePicture, this.friendsList, this.createdAt, this.bio,this.updatedAt, this.v, this.friendStatus});
 
   Map<String, dynamic> toJson() {
@@ -57,7 +57,7 @@ class UserProfile {
     return map;
   }
 
-  UserProfile.fromJson(dynamic json){
+  User.fromJson(dynamic json){
     id = json["_id"];
     fullName = json["fullName"];
     username = json["username"];

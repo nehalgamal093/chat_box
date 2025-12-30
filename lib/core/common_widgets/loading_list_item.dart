@@ -8,14 +8,11 @@ class LoadingListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            color: ColorsManager.chatColor,
-            borderRadius: BorderRadius.all(Radius.circular(2))
-          ),
+        CircleAvatar(
+          radius: 40,
+          backgroundColor: ColorsManager.secondaryClr,
         ),
+
         SizedBox(width: 10,),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -24,7 +21,7 @@ class LoadingListItem extends StatelessWidget {
               width: 100,
               height: 20,
               decoration: BoxDecoration(
-                  color: ColorsManager.chatColor,
+                  color: ColorsManager.secondaryClr,
                   borderRadius: BorderRadius.all(Radius.circular(2))
               ),
             ),
@@ -33,7 +30,7 @@ class LoadingListItem extends StatelessWidget {
               width: 100,
               height: 20,
               decoration: BoxDecoration(
-                  color: ColorsManager.chatColor,
+                  color: ColorsManager.secondaryClr,
                   borderRadius: BorderRadius.all(Radius.circular(2))
               ),
             ),

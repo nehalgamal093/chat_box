@@ -9,6 +9,6 @@ import '../../../../core/network/AppFailures/app_failures.dart';
 class UserProfileUseCase {
   UserProfileRepo userProfileRepo;
   UserProfileUseCase(this.userProfileRepo);
-  Future<Either<AppFailures, UserProfile>> call(String id) =>
+  Future<Either<AppFailures, User>> call(String id) =>
       userProfileRepo.getFriends(id);
 }

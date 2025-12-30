@@ -33,7 +33,7 @@ class ProfileLoading extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: ColorsManager.blackColor,
+                    color: ColorsManager.secondaryClr,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(14),
                       topRight: Radius.circular(14),

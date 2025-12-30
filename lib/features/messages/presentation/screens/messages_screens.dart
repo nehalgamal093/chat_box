@@ -15,7 +15,7 @@ class MessagesScreens extends StatelessWidget {
     return Scaffold(
 
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 8),
+        padding: const EdgeInsets.only(top: 30,right: 6,left: 6),
         child: BlocProvider(
           create: (context) =>
               getIt<ChattedUsersBloc>()..add(LoadChattedUsers()),

@@ -1,7 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:chat_box/core/camera_handler/camera_handler.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
-import 'package:chat_box/features/camera_screen/presentation/screens/view_photo_screen.dart';
+import 'package:chat_box/features/chat/presentation/widgets/capture_image_button.dart';
+import 'package:chat_box/features/chat/presentation/widgets/flash_camera_btn.dart';
+import 'package:chat_box/features/chat/presentation/widgets/flip_camera_button.dart';
 import 'package:flutter/material.dart';
 import '../../../messages/data/models/chatted_users.dart';
 
@@ -18,12 +20,13 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen> {
   late CameraController controller;
 
-  Future<void> init() async{
-    controller =  await CameraHandler.initializeCamera();
+  Future<void> init() async {
+    controller = await CameraHandler.initializeCamera();
     if (mounted) {
-      setState(() {
-      });}
+      setState(() {});
+    }
   }
+
   @override
   void initState() {
     super.initState();
@@ -35,7 +38,7 @@ class _CameraScreenState extends State<CameraScreen> {
     controller.dispose();
     super.dispose();
   }
-  bool isflash = false;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -52,77 +55,16 @@ class _CameraScreenState extends State<CameraScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    isflash
-                        ? GestureDetector(
-                            onTap: () async {
-                              controller.setFlashMode(FlashMode.off);
-                              setState(() {
-                                isflash = false;
-                              });
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: ColorsManager.whiteColor,
-                              radius: 30,
-                              child: Icon(
-                                Icons.flash_off,
-                                color: ColorsManager.blackColor,
-                              ),
-                            ),
-                          )
-                        : GestureDetector(
-                            onTap: () async {
-                              controller.setFlashMode(FlashMode.off);
-                              setState(() {
-                                isflash = true;
-                              });
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: ColorsManager.whiteColor,
-                              radius: 30,
-                              child: Icon(
-                                Icons.flash_on,
-                                color: ColorsManager.blackColor,
-                              ),
-                            ),
-                          ),
-                    GestureDetector(
-                      onTap: () async {
-                        try {
-                          await controller.initialize();
-                          final image = await controller!.takePicture();
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ViewPhotoScreen(
-                                path: image.path,
-                                user: widget.user,
-                              ),
-                            ),
-                          );
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: ColorsManager.cyan,
-                        radius: 40,
-                      ),
+                    FlashCameraBtn(
+                      controller: controller,
                     ),
-                    GestureDetector(
-                      onTap: () async {
-
-                       await _flipCamera();
-
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: ColorsManager.whiteColor,
-                        radius: 30,
-                        child: Icon(
-                          Icons.flip_camera_android_outlined,
-                          color: ColorsManager.blackColor,
-                        ),
-                      ),
+                    CaptureImageButton(
+                      controller: controller,
+                      user: widget.user,
                     ),
+                    FlipCameraButton(onTap: () async {
+                      await _flipCamera();
+                    })
                   ],
                 ),
               ),
@@ -136,10 +78,10 @@ class _CameraScreenState extends State<CameraScreen> {
       },
     );
   }
+
   Future<void> _flipCamera() async {
     controller = await CameraHandler.flipCamera(controller);
-    if (mounted) setState(() {}); // rebuild UI with new controller
+    if (mounted) setState(() {});
   }
- }
-
+}
 //179

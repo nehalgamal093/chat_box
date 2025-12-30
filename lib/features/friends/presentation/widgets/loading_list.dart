@@ -6,11 +6,14 @@ class LoadingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context,index)=>SizedBox(height: 10,),
-        itemCount: 3,
-        itemBuilder: (context,index){
-      return LoadingListItem();
-    });
+    return Padding(
+      padding: const EdgeInsets.only(top: 30,right: 6,left: 6),
+      child: ListView.separated(
+        separatorBuilder: (context,index)=>SizedBox(height: 10,),
+          itemCount: 3,
+          itemBuilder: (context,index){
+        return LoadingListItem();
+      }),
+    );
   }
 }
