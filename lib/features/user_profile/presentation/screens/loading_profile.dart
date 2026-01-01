@@ -1,4 +1,5 @@
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/features/user_profile/presentation/widgets/loading_text.dart';
 import 'package:flutter/material.dart';
 
 class ProfileLoading extends StatelessWidget {
@@ -12,14 +13,17 @@ class ProfileLoading extends StatelessWidget {
       children: [
         Container(
           width: size.width,
-          decoration: BoxDecoration(color: ColorsManager.cyan),
+          decoration: BoxDecoration(color: ColorsManager.primaryColor),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(backgroundColor: ColorsManager.medGrey,radius: 70,),
-
-
-              SizedBox(height: 20,),
+              CircleAvatar(
+                backgroundColor: ColorsManager.secondaryClr,
+                radius: 70,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               loadingRows(),
             ],
           ),
@@ -42,26 +46,19 @@ class ProfileLoading extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 50,),
-                      Container(
+                      SizedBox(
                         height: 50,
-                        width: size.width*.8,
-                        decoration: BoxDecoration(
-                            color: ColorsManager.chatColor,
-                            borderRadius: BorderRadius.all(Radius.circular(10),)
-                        ),
                       ),
-                      SizedBox(height: 20,),
-                      Container(
-                        height: 50,
-                        width: size.width*.8,
-                        decoration: BoxDecoration(
-                            color: ColorsManager.chatColor,
-                            borderRadius: BorderRadius.all(Radius.circular(10),)
-                        ),
-                      )
+                      LoadingText(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                     LoadingText(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      LoadingText()
                     ],
-
                   ),
                 ),
               ),
@@ -70,19 +67,34 @@ class ProfileLoading extends StatelessWidget {
         ),
       ],
     );
-
   }
 }
-Widget loadingRows(){
+
+Widget loadingRows() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      CircleAvatar(backgroundColor: ColorsManager.medGrey,radius: 20,),
-      SizedBox(width: 10,),
-      CircleAvatar(backgroundColor: ColorsManager.medGrey,radius: 20,),
-      SizedBox(width: 10,),
-      CircleAvatar(backgroundColor: ColorsManager.medGrey,radius: 20,),
-      SizedBox(width: 10,),
+      CircleAvatar(
+        backgroundColor: ColorsManager.secondaryClr,
+        radius: 20,
+      ),
+      SizedBox(
+        width: 10,
+      ),
+      CircleAvatar(
+        backgroundColor: ColorsManager.secondaryClr,
+        radius: 20,
+      ),
+      SizedBox(
+        width: 10,
+      ),
+      CircleAvatar(
+        backgroundColor: ColorsManager.secondaryClr,
+        radius: 20,
+      ),
+      SizedBox(
+        width: 10,
+      ),
     ],
   );
 }

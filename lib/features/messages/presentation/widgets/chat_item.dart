@@ -22,24 +22,7 @@ class ChatItem extends StatelessWidget {
             builder: (_) => ChatShell(user: user),
           ),
         );
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder:
-        //         (context) => BlocProvider(
-        //           create:
-        //               (context) =>
-        //                   getIt<SocketBloc>()
-        //                     ..add(SocketConnect())
-        //                     ..add(
-        //                       LoadInitialMessage(
-        //                         user.id!,
-        //                       ),
-        //                     ),
-        //           child: ChatScreen(user:user),
-        //         ),
-        //   ),
-        // );
+
       },
       child: ListTile(
         leading: Badge(
@@ -74,7 +57,7 @@ class ChatItem extends StatelessWidget {
           children: [
             Text(
               time.substring(15, 19),
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ],
         ),

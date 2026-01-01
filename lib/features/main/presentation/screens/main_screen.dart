@@ -46,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
               width: 25,
             ),
           ),
-          Text('Home', style: Theme.of(context).textTheme.bodyMedium),
+          Text('Home', style: Theme.of(context).textTheme.bodyLarge),
           BlocProvider(
             create: (context) => getIt<UserProfileBloc>()
               ..add(GetUserProfileEvent(CacheHelper.getUserId()!)),

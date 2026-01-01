@@ -1,3 +1,4 @@
+import 'package:chat_box/core/common_widgets/animations/staggered_animation.dart';
 import 'package:chat_box/core/di/di.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/features/user_profile/presentation/bloc/user_profile_bloc.dart';
@@ -8,20 +9,20 @@ import 'package:chat_box/features/user_profile/presentation/widgets/profile_pict
 import 'package:chat_box/features/user_profile/presentation/widgets/qr_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/resources/strings/strings_manager.dart';
-import '../widgets/loading_profile.dart';
+import '../../../../core/extensions/capitalize.dart';
+import 'loading_profile.dart';
 
 class UserProfileScreen extends StatelessWidget {
   final String id;
   final bool isMyProfile;
-  const UserProfileScreen({super.key, required this.id, this.isMyProfile = false});
+  const UserProfileScreen(
+      {super.key, required this.id, this.isMyProfile = false});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(backgroundColor: ColorsManager.cyan),
+      appBar: AppBar(backgroundColor: ColorsManager.primaryColor),
       body: BlocProvider(
         create: (context) =>
             getIt<UserProfileBloc>()..add(GetUserProfileEvent(id)),
@@ -35,7 +36,8 @@ class UserProfileScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: size.width,
-                    decoration: BoxDecoration(color: ColorsManager.cyan),
+                    decoration:
+                        BoxDecoration(color: ColorsManager.primaryColor),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -44,13 +46,18 @@ class UserProfileScreen extends StatelessWidget {
                           id: state.userProfile!.id!,
                           isMyProfile: isMyProfile,
                         ),
-                        Text(state.userProfile!.fullName!),
-                        Text(
-                          '@${state.userProfile!.username}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: ColorsManager.whiteColor),
+                        StaggeredAnimation(
+                            isTitle: true,
+                            child: Text(
+                              state.userProfile!.fullName!,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            )),
+                        StaggeredAnimation(
+                          isTitle: false,
+                          child: Text(
+                            '@${state.userProfile!.username}',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ),
                         SizedBox(height: 20),
                         IconsRow(
@@ -84,7 +91,28 @@ class UserProfileScreen extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('Gender'),
+                                    Column(
+                                      children: [
+                                        StaggeredAnimation(
+                                            isTitle: true,
+                                            child: Text(
+                                              'Gender',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),),
+                                        StaggeredAnimation(
+                                          isTitle: false,
+                                          child: Text(
+                                            state.userProfile!.gender!
+                                                .capitalize(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     IconButton(
                                       onPressed: () {
                                         qrView(context, id);
@@ -97,21 +125,22 @@ class UserProfileScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Text(
-                                  state.userProfile!.gender!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontSize: 14),
-                                ),
                                 SizedBox(height: 20),
-                                Text('Email'),
-                                Text(
-                                  'nehal@email.com',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontSize: 14),
+                                StaggeredAnimation(
+                                    isTitle: true,
+                                    child: Text(
+                                      'Email',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    )),
+                                StaggeredAnimation(
+                                  isTitle: false,
+                                  child: Text(
+                                    'nehal@email.com',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
                                 ),
                                 SizedBox(height: 20),
                                 BioSection(
@@ -119,11 +148,21 @@ class UserProfileScreen extends StatelessWidget {
                                   isMyProfile: isMyProfile,
                                 ),
                                 SizedBox(height: 20),
-                                Text('Friends'),
+                                StaggeredAnimation(
+                                    isTitle: true,
+                                    child: Text(
+                                      'Friends',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    )),
                                 SizedBox(height: 20),
                                 Expanded(
-                                  child: FriendsOfUserList(
-                                    friends: state.userProfile!.friendsList!,
+                                  child: StaggeredAnimation(
+                                    isTitle: false,
+                                    child: FriendsOfUserList(
+                                      friends: state.userProfile!.friendsList!,
+                                    ),
                                   ),
                                 ),
                               ],

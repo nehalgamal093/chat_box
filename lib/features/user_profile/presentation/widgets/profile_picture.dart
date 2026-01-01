@@ -36,7 +36,7 @@ class ProfilePicture extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.camera_alt,
-                  color: ColorsManager.darkBlue,
+                  color: ColorsManager.grey,
                 ),
               )
             : SizedBox()

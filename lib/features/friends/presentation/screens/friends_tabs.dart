@@ -22,7 +22,7 @@ class FriendsTabs extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
-              SizedBox(height: 20,),
+              SizedBox(height: 10,),
               TabBar(
                   indicatorColor: ColorsManager.whiteColor,
                   unselectedLabelColor: ColorsManager.whiteColor,
@@ -32,18 +32,19 @@ class FriendsTabs extends StatelessWidget {
                   indicatorWeight: 2,
                   indicator: BoxDecoration(
                       color: ColorsManager.cyan,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                      borderRadius: BorderRadius.all(Radius.circular(10),),),
                   dividerHeight: 0,
                   tabs: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('Friends'),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text('Friends',style: Theme.of(context).textTheme.titleLarge,),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('Friends Requests'),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text('Friends Requests',style: Theme.of(context).textTheme.titleLarge,),
                     )
                   ]),
+              SizedBox(height: 10,),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -55,6 +56,6 @@ class FriendsTabs extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        ),);
   }
 }

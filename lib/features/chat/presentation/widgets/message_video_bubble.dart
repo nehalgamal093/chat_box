@@ -17,7 +17,6 @@ class _MessageVideoBubbleState extends State<MessageVideoBubble> {
   @override
   void initState() {
     super.initState();
-    print('🚸 ${widget.message.mediaUrl}');
     videoController = VideoPlayerController.networkUrl(
       Uri.parse(
         widget.message.mediaUrl!,

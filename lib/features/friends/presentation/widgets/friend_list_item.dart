@@ -27,7 +27,7 @@ class FriendListItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(dataList.fullName!),
+                Text(dataList.fullName!,style: Theme.of(context).textTheme.bodyLarge,),
                 SizedBox(height: 5),
                 Text(
                   dataList.bio!,

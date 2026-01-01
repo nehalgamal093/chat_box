@@ -3,11 +3,8 @@ import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/chat/data/models/message.dart';
-import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
-import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../chat/presentation/bloc/socket_bloc.dart';
 import '../../messages/data/models/chatted_users.dart';
 
@@ -23,13 +20,19 @@ class ViewPhotoInput extends StatefulWidget {
 class _ViewPhotoInputState extends State<ViewPhotoInput> {
   final TextEditingController messageEditingController =
       TextEditingController();
-
+  InputBorder border = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: BorderSide(
+      width: 2.0,
+      color: ColorsManager.chatInputColor,
+    ),
+  );
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        FileBox(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -47,29 +50,9 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
                   fillColor: ColorsManager.chatInputColor,
                   contentPadding: EdgeInsets.only(bottom: 10, left: 10),
                   filled: true,
-
-                  suffixIcon: Image.asset(ImagesManager.files, width: 20),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: ColorsManager.chatInputColor,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: ColorsManager.chatInputColor,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: ColorsManager.chatInputColor,
-                    ),
-                  ),
+                  border: border,
+                  enabledBorder: border,
+                  focusedBorder:border,
                 ),
               ),
             ),
@@ -85,24 +68,13 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
                 Navigator.pop(context);
                 context.read<SocketBloc>().add(
                     SendMessageWithFile(message, widget.path));
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder:
-                //         (context) => ChatScreen(
-                //           user: widget.user,
-                //           path: widget.path,
-                //           msg: message,
-                //         ),
-                //   ),
-                // );
                 clear();
               },
               child: Row(
                 children: [
                   SizedBox(width: 10),
                   CircleAvatar(
-                    backgroundColor: ColorsManager.cyan,
+                    backgroundColor: ColorsManager.senderColor,
                     child: Image.asset(ImagesManager.send),
                   ),
                 ],
@@ -110,6 +82,7 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
             ),
           ],
         ),
+        SizedBox(height: 10,)
       ],
     );
   }

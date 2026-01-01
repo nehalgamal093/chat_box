@@ -26,8 +26,8 @@ class FriendRequestItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(dataList.fullName!),
-              SizedBox(height: 10),
+              Text(dataList.fullName!,style: Theme.of(context).textTheme.bodyLarge,),
+              SizedBox(height: 5),
               Row(
                 children: [
                   ElevatedButton(
@@ -37,6 +37,9 @@ class FriendRequestItem extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                      ),
                       backgroundColor:
                           status == "accepted"
                               ? ColorsManager.greenColor
@@ -44,7 +47,7 @@ class FriendRequestItem extends StatelessWidget {
                     ),
                     child: Text(
                       'Accept',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                   SizedBox(width: 5),
@@ -55,11 +58,14 @@ class FriendRequestItem extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
                       backgroundColor: ColorsManager.redColor,
                     ),
                     child: Text(
                       'Decline',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                 ],

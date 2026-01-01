@@ -48,7 +48,7 @@ class _MessageBubbleState extends State<MessageBubble>
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: isSender ? ColorsManager.cyan : ColorsManager.chatColor,
+            color: isSender ? ColorsManager.senderColor : ColorsManager.receiverColor,
             borderRadius: BorderRadius.only(
               topRight: isSender ? Radius.circular(0) : Radius.circular(15),
               topLeft: isSender ? Radius.circular(15) : Radius.circular(0),

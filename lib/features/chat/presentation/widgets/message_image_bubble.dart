@@ -12,7 +12,7 @@ class MessageImageBubble extends StatelessWidget {
       children: [
         Text(
           message.message!,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         SizedBox(height: 10),
         SizedBox(

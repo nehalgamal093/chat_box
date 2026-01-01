@@ -4,6 +4,9 @@ class ColorsManager {
   static const Color primaryColor = Color(0xFF1b202d);
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color secondaryClr = Color(0xFF292f3f);
+  static const Color loadingColor = Color(0xff454a59);
+  static const Color senderColor = Color(0xFF373e4e);
+  static const Color receiverColor = Color(0xFF7a8194);
   static const Color darkBlack = Color(0xFF121414);
   static const Color gradient1 = Color(0xFF43116A);
   static const Color darkBlue = Color(0xFF0A1832);
@@ -16,5 +19,4 @@ class ColorsManager {
   static const Color circleColor = Color(0x70000E08);
   static const Color redColor = Color(0x70FF0425);
   static const Color greenColor = Color(0x700C6E04);
-  static const Color lightGreen = Color(0xFF1AFF09);
 }

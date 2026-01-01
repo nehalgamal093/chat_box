@@ -10,7 +10,7 @@ class MessageTextBubble extends StatelessWidget {
       message,
       style: Theme.of(
         context,
-      ).textTheme.bodyMedium!.copyWith(fontSize: 16),
+      ).textTheme.bodyMedium,
     );
   }
 }
