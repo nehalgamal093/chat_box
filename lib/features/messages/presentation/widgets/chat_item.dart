@@ -1,6 +1,7 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_shell.dart';
+import 'package:chat_box/features/chat/presentation/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/di.dart';
@@ -49,10 +50,7 @@ class ChatItem extends StatelessWidget {
           MyInheritedWidget.of(context).user.fullName!,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        subtitle: Text(
-          lastMessage,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
+        subtitle: TextMessage(message: lastMessage),
         trailing: Column(
           children: [
             Text(

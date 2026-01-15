@@ -1,4 +1,5 @@
 import 'package:chat_box/features/chat/data/models/message.dart';
+import 'package:chat_box/features/chat/presentation/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 
 class MessageImageBubble extends StatelessWidget {
@@ -10,10 +11,7 @@ class MessageImageBubble extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          message.message!,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+        TextMessage(message: message.message??""),
         SizedBox(height: 10),
         SizedBox(
           width: MediaQuery.of(context).size.width * .5,
