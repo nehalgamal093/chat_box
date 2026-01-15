@@ -53,7 +53,7 @@ class _RegularTitleState extends State<RegularTitle>
         opacity: _opacityAnimation,
         child: Text(
           StringsManager.connectFriends,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
     );

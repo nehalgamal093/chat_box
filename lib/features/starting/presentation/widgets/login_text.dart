@@ -16,14 +16,8 @@ class LoginText extends StatelessWidget {
         child: CustomTextSpan(
           mainText: StringsManager.existingAccount,
           secondaryText: StringsManager.login,
-          mainStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-          ),
-          secondaryStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+          mainStyle: Theme.of(context).textTheme.bodySmall!,
+          secondaryStyle: Theme.of(context).textTheme.titleLarge!,
         ),
       ),
     );

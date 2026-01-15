@@ -3,6 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 class CustomFonts {
+  static TextStyle large10({Color fontColor = ColorsManager.whiteColor}) {
+    return GoogleFonts.cabin(
+        fontSize: 80, fontWeight: FontWeight.w700, color: fontColor);
+  }
+  static TextStyle large9({Color fontColor = ColorsManager.whiteColor}) {
+    return GoogleFonts.cabin(
+        fontSize: 80, fontWeight: FontWeight.w400, color: fontColor);
+  }
   static TextStyle medium10({Color fontColor = ColorsManager.whiteColor}) {
     return GoogleFonts.cabin(
         fontSize: 20, fontWeight: FontWeight.w700, color: fontColor);

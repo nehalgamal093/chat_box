@@ -9,7 +9,7 @@ class StartingDescription extends StatelessWidget {
     return Text(
       StringsManager.startingPageDescription,
       maxLines: 2,
-      style: Theme.of(context).textTheme.titleSmall,
+      style: Theme.of(context).textTheme.bodySmall,
     );
   }
 }

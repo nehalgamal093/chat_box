@@ -15,10 +15,7 @@ class RegisterBtn extends StatelessWidget {
         Expanded(
           child: CustomButton(
             text: StringsManager.signUpEmail,
-            textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: ColorsManager.secondaryClr,
-              fontWeight: FontWeight.w500,
-            ),
+            textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(color: ColorsManager.darkBlack),
             color: ColorsManager.whiteColor,
             onPressed: () {
               Navigator.pushNamed(context, RegisterScreen.routeName);

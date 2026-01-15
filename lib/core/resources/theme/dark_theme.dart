@@ -19,7 +19,8 @@ class DarkTheme extends BaseTheme {
       iconTheme: IconThemeData(color: textColor),
     ),
     textTheme: TextTheme(
-
+      headlineLarge: CustomFonts.large10(),
+      headlineMedium: CustomFonts.large9(),
       bodyLarge:CustomFonts.medium10(),
       bodyMedium:CustomFonts.medium7(),
       bodySmall: CustomFonts.small10(),
