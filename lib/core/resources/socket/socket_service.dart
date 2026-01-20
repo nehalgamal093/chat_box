@@ -7,50 +7,84 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 import '../../../features/chat/data/models/message.dart';
 
-@injectable
+@singleton
 class SocketService {
   io.Socket? socket;
+  static final SocketService _instance = SocketService._internal();
+
+  factory SocketService() => _instance;
+
+  SocketService._internal();
   var logger = Logger();
   final _incomingMessagesController = StreamController<Message>.broadcast();
   Stream<Message> get incomingMessages => _incomingMessagesController.stream;
+  final _onlineUsersController = StreamController<List<dynamic>>.broadcast();
+  Stream<List<dynamic>> get onlineList => _onlineUsersController.stream;
   Future<void> connect() async {
-    try{
-      socket =  io.io(
-        dotenv.env['SOCKET_URL'],
-        io.OptionBuilder()
-            .setTransports(['websocket'])
-            .setQuery({'userId': CacheHelper.getUserId()})
-            .enableForceNewConnection()
-            .build(),
-      );
+    socket = io.io(
+      dotenv.env['SOCKET_URL'],
+      io.OptionBuilder()
+          .setTransports(['websocket'])
+          .setQuery({'userId': CacheHelper.getUserId()})
+          .enableForceNewConnection()
+          .build(),
+    );
+    setupSocketListeners();
+    socket?.connect();
+  }
+
+  Future<void> setupSocketListeners() async {
+    if (socket == null) {
+      await connect();
+      print("😡😡 Socket is null");
+    }
 
       socket!.on('newMessage', (data) {
-        logger.d(data);
         try {
           final message = Message.fromJson(data as Map<String, dynamic>);
           _incomingMessagesController.add(message);
         } catch (e) {
-          print('Error parsing incoming message: $e');
+          print('❌ Error parsing incoming message: $e');
         }
+
       });
-      // socket!.connect();
-      socket!.onConnect((data)=>logger.i('Connected'));
-      socket!.onDisconnect((data)=>print('diss $data'));
-      socket!.onError((error)=>print('error $error'));
+    socket!.on('user-online-chat', (data) {
+      logger.d("📡 Socket received raw data: ${data}");
+      try {
+        print("📨 Is user online: ${data}");
+      } catch (e) {
+        print('❌ Error parsing incoming message: $e');
+      }
 
+    });
+    socket?.on('getOnlineUsers',(data){
+      _onlineUsersController.add(data);
+    });
+      socket!.onConnect((data) => logger.i('Connected $data' ));
+      socket!.onDisconnect((data) =>logger.i('Disconnected $data'));
+      socket!.onError((error) => print('error $error'));
 
-    } catch(e){
-      logger.e('error',error:e);
-    }
   }
-  Future<void> disconnect() async{
+  Future<void> sendMessage(Message message) async {
+    socket?.emit('newMessage', message.toJson());
+  }
+  Future<void> chatOpened() async {
+    socket?.emit('user-online-chat');
+  }
+  Future<void> notifyChatClosed() async {
+
+    socket?.emit('chat-disconnected');
+  }
+  // Future<void> getOnlineUser() async {
+  //
+  //
+  // }
+  Future<void> disconnect() async {
     socket?.disconnect();
     socket?.dispose();
-    socket = null;
   }
 
   // Future<void> sendMessage(Message message) async {
   //   socket?.emit('newMessage', message.toJson());
   // }
-
 }

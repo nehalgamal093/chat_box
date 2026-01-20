@@ -12,4 +12,5 @@ abstract class AuthRepo {
     String email,
     String password,
   );
+  Future<Either<AppFailures, String>> logout();
 }

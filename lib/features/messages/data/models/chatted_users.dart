@@ -6,10 +6,11 @@ class User {
   String? profilePicture;
   String? createdAt;
   String? updatedAt;
+  bool? isOnline;
   num? v;
 
   User(
-      {this.id, this.fullName, this.username, this.gender, this.profilePicture, this.createdAt, this.updatedAt, this.v});
+      {this.id, this.fullName, this.username, this.gender, this.profilePicture, this.createdAt, this.updatedAt, this.isOnline,this.v});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -20,6 +21,7 @@ class User {
     map["profilePicture"] = profilePicture;
     map["createdAt"] = createdAt;
     map["updatedAt"] = updatedAt;
+    map["isOnline"] = isOnline;
     map["__v"] = v;
     return map;
   }
@@ -32,7 +34,31 @@ class User {
     profilePicture = json["profilePicture"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
+    isOnline = json["isOnline"];
     v = json["__v"];
+  }
+  User copyWith({
+    String? id,
+    String? fullName,
+    String? username,
+    String? gender,
+    String? profilePicture,
+    String? createdAt,
+    String? updatedAt,
+    bool? isOnline,
+    num? v,
+  }) {
+    return User(
+      id: id ?? this.id,
+      fullName: fullName ?? this.fullName,
+      username: username ?? this.username,
+      gender: gender ?? this.gender,
+      profilePicture: profilePicture ?? this.profilePicture,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      isOnline: isOnline ?? this.isOnline,
+      v: v ?? this.v,
+    );
   }
 }
 
@@ -103,6 +129,7 @@ class DataList {
         : null;
     conversationId = json["conversationId"];
   }
+
 }
 
 class ChattedUsers {

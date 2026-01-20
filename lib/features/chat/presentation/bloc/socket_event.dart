@@ -59,3 +59,6 @@ class NewMessageReceived extends SocketEvent {
   @override
   List<Object> get props => [message];
 }
+
+class ChatClosedEvent extends SocketEvent {
+}

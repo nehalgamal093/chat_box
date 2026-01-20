@@ -6,4 +6,5 @@ import '../../models/login_response.dart';
 abstract class AuthRemoteDs{
   Future<RegisterResponse> register({RegisterRequest? request});
   Future<LoginResponse> login(String email,String password);
+  Future<String> logout();
 }

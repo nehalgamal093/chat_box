@@ -28,6 +28,3 @@ class SocketError extends SocketState {
   final String error;
   const SocketError(this.error);
 }
-
-
-

@@ -1,12 +1,8 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
-import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_shell.dart';
 import 'package:chat_box/features/chat/presentation/widgets/text_message.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/di/di.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
-import '../../../chat/presentation/bloc/socket_bloc.dart';
 import '../../data/models/chatted_users.dart';
 
 class ChatItem extends StatelessWidget {
@@ -28,7 +24,7 @@ class ChatItem extends StatelessWidget {
       child: ListTile(
         leading: Badge(
           backgroundColor: Colors.green,
-          smallSize: 15,
+          smallSize:MyInheritedWidget.of(context).user.isOnline!? 15:0,
           child: InkWell(
             onTap: () {
               // Navigator.push(

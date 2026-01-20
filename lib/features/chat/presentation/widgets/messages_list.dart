@@ -21,6 +21,7 @@ class MessagesList extends StatefulWidget {
 
 class _MessagesListState extends State<MessagesList> {
 
+
   bool flag = true;
 
   @override
@@ -58,6 +59,7 @@ class _MessagesListState extends State<MessagesList> {
 
   @override
   Widget build(BuildContext context) {
+    print("🥽🥽🥽🥽🥽");
     return BlocBuilder<SocketBloc, SocketState>(
       builder: (context, state) {
         if (state is LoadingMessages) {

@@ -42,4 +42,16 @@ class AuthRepoImpl extends AuthRepo {
       return Left(RemoteFailures("An unexpected error occurred"));
     }
   }
+
+  @override
+  Future<Either<AppFailures, String>> logout() async{
+    var result = await authRemoteDs.logout();
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(RemoteFailures(e.message));
+    } catch (e) {
+      return Left(RemoteFailures("An unexpected error occurred"));
+    }
+  }
 }

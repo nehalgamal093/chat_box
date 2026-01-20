@@ -1,5 +1,6 @@
 import 'package:chat_box/core/common_widgets/loading_dialog.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
+import 'package:chat_box/core/services/notification_service/notification_service.dart';
 import 'package:chat_box/features/auth/data/models/register_request.dart';
 import 'package:chat_box/features/auth/presentation/screens/login/presentation/screens/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -141,7 +142,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             SizedBox(height: 50),
                             RegisterButton(
-                              onPressed: () {
+                              onPressed: ()async {
+
                                 RegisterRequest request = RegisterRequest(
                                   email: emailController.text,
                                   password: passwordController.text,
@@ -149,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   username: usernameController.text,
                                   fullName: fullNameController.text,
                                   gender: genderController.text,
-                                  fcmToken: "333",
+
                                 );
                                 BlocProvider.of<RegisterBloc>(
                                   context,

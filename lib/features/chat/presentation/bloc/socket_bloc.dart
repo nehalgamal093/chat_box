@@ -5,6 +5,7 @@ import 'package:chat_box/features/chat/domain/use_cases/chat_use_case.dart';
 import 'package:chat_box/features/chat/domain/use_cases/send_message_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../core/di/di.dart';
 import '../../data/models/message.dart';
 
 part 'socket_event.dart';
@@ -12,12 +13,11 @@ part 'socket_state.dart';
 
 @injectable
 class SocketBloc extends Bloc<SocketEvent, SocketState> {
-  final SocketService socketService;
   ChatUseCase chatUseCase;
   SendMessageUseCase sendMessageUseCase;
   StreamSubscription? _messageSubscription;
 
-  SocketBloc(this.socketService, this.chatUseCase, this.sendMessageUseCase)
+  SocketBloc(this.chatUseCase, this.sendMessageUseCase)
       : super(SocketInitial()) {
     on<SocketConnect>(_onConnect);
     on<SocketDisconnect>(_onDisconnect);
@@ -26,21 +26,20 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     on<LoadInitialMessage>(_loadInitialMessages);
     on<LoadMoreMessages>(_onLoadMoreMessages);
     on<NewMessageReceived>(_onNewMessageReceived);
+    on<ChatClosedEvent>(_onChatClosed);
   }
-
+  final socketService = getIt<SocketService>();
   int page = 0;
   final int _limit = 15;
   bool _hasReachedMax = false;
   void _onConnect(SocketConnect event, Emitter<SocketState> emit) async {
-    try {
-      await socketService.connect();
-      emit(SocketConnected());
-      _messageSubscription = socketService.incomingMessages.listen(
-        (message) => add(NewMessageReceived(message)),
-      );
-    } catch (e) {
-      emit(SocketError('Connection failed: $e'));
-    }
+    _messageSubscription = socketService.incomingMessages.listen(
+      (message) {
+        add(NewMessageReceived(message));
+      },
+    );
+    await socketService.chatOpened();
+
   }
 
   void _onDisconnect(SocketDisconnect event, Emitter<SocketState> emit) async {
@@ -172,8 +171,15 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     Emitter<SocketState> emit,
   ) async {
     if (state is MessagesLoaded) {
+      print("🎆🎆🎆Message loaded!!");
       final currentMessages = (state as MessagesLoaded).messages;
       emit(MessagesLoaded([event.message, ...currentMessages], false));
+    } else {
+      print("🎆🎆🎆Not loaded!!");
     }
+  }
+  void _onChatClosed(ChatClosedEvent event, Emitter<SocketState> emit) async {
+
+    await socketService.notifyChatClosed();
   }
 }

@@ -1,9 +1,12 @@
+import 'package:chat_box/features/chat/presentation/bloc/socket_bloc.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_app_bar.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_input.dart';
 import 'package:chat_box/features/chat/presentation/widgets/load_more_button.dart';
 import 'package:chat_box/features/chat/presentation/widgets/messages_list.dart';
 import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/di/di.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -41,5 +44,11 @@ class _ChatScreenState extends State<ChatScreen> {
             LoadMoreButton(scrollController: _scrollController),
       ),
     );
+  }
+  @override
+  void dispose() {
+     SocketBloc socket = getIt<SocketBloc>();
+  socket.add(ChatClosedEvent());
+    super.dispose();
   }
 }
