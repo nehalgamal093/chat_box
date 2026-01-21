@@ -1,7 +1,7 @@
 import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
-import 'package:chat_box/features/friends/presentation/screens/friends_screen.dart';
 import 'package:chat_box/features/friends/presentation/screens/friends_tabs.dart';
+import 'package:chat_box/features/settings/presentation/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +11,7 @@ import '../../../../core/di/di.dart';
 import '../../../../core/resources/colors/colors_manager.dart';
 import '../../../messages/presentation/screens/messages_screens.dart';
 import '../../../search/presentation/screens/search_screen.dart';
+import '../../../settings/bloc/logout_bloc/logout_bloc.dart';
 import '../../../user_profile/presentation/bloc/user_profile_bloc.dart';
 import '../../../user_profile/presentation/screens/user_profile_screen.dart';
 import '../provider/bottom_nav_provider.dart';
@@ -47,9 +48,14 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           Text('Home', style: Theme.of(context).textTheme.bodyLarge),
-          BlocProvider(
-            create: (context) => getIt<UserProfileBloc>()
-              ..add(GetUserProfileEvent(CacheHelper.getUserId()!)),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<UserProfileBloc>()
+                  ..add(GetUserProfileEvent(CacheHelper.getUserId()!)),
+              ),
+
+            ],
             child: BlocBuilder<UserProfileBloc, UserProfileState>(
               builder: (context, state) {
                 if (state.profileStates == ProfileStates.success) {
@@ -58,8 +64,10 @@ class _MainScreenState extends State<MainScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              UserProfileScreen(id: state.userProfile!.id!,isMyProfile: true,),
+                          builder: (context) => UserProfileScreen(
+                            id: state.userProfile!.id!,
+                            isMyProfile: true,
+                          ),
                         ),
                       );
                     },
@@ -81,7 +89,13 @@ class _MainScreenState extends State<MainScreen> {
         ],
       )),
       extendBody: true,
-      body: screens[provider.index],
+      body: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<LogoutBloc>(),
+            )
+          ],
+          child: screens[provider.index]),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
         child: BottomNavigationBar(
@@ -108,9 +122,5 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  final List<Widget> screens = [
-    MessagesScreens(),
-    FriendsTabs(),
-    Center(child: Text('Settings', style: TextStyle(color: Colors.white))),
-  ];
+  final List<Widget> screens = [MessagesScreens(), FriendsTabs(), Settings()];
 }

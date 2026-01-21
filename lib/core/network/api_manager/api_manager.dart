@@ -15,27 +15,27 @@ class APIManager {
         validateStatus: (status) => true,
       ),
     );
-    _dio.interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        responseBody: true,
-        requestBody: true,
-        request: true,
-      ),
-    );
-    _dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) {
-          handler.next(options);
-        },
-        onResponse: (response, handler) {
-          handler.next(response);
-        },
-        onError: (error, handler) {
-          handler.next(error);
-        },
-      ),
-    );
+    // _dio.interceptors.add(
+    //   PrettyDioLogger(
+    //     requestHeader: true,
+    //     responseBody: true,
+    //     requestBody: true,
+    //     request: true,
+    //   ),
+    // );
+    // _dio.interceptors.add(
+    //   InterceptorsWrapper(
+    //     onRequest: (options, handler) {
+    //       handler.next(options);
+    //     },
+    //     onResponse: (response, handler) {
+    //       handler.next(response);
+    //     },
+    //     onError: (error, handler) {
+    //       handler.next(error);
+    //     },
+    //   ),
+    // );
   }
 
   Future<Response> postRequest(

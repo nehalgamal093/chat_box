@@ -15,36 +15,14 @@ class MessageBubble extends StatefulWidget {
 }
 
 class _MessageBubbleState extends State<MessageBubble>
-    with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _animationController.forward(); // Start the animation
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+   {
 
   @override
   Widget build(BuildContext context) {
     bool isSender = widget.id != widget.message.senderId;
     return Align(
       alignment: isSender ? Alignment.topRight : Alignment.topLeft,
-      child: SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(1, 0),
-          end: Offset.zero,
-        ).animate(
-          CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
-        ),
+
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -79,7 +57,7 @@ class _MessageBubbleState extends State<MessageBubble>
             ],
           ),
         ),
-      ),
+
     );
   }
 }

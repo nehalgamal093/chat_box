@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "620208401268",
+    "project_id": "chat-pro-91296",
+    "storage_bucket": "chat-pro-91296.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620208401268:android:8a3476f21886ed12cf9a21",
+        "android_client_info": {
+          "package_name": "com.example.chat_box"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGfbEwwTxmUEHP9_ix49-6ADLtgIMaZNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

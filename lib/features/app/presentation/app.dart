@@ -2,15 +2,24 @@ import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/core/resources/theme/base_theme.dart';
 import 'package:chat_box/core/resources/theme/dark_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/caching/cache_helper.dart';
+import '../../../core/di/di.dart';
+import '../../../core/resources/socket/socket_service.dart';
 import '../../auth/presentation/screens/login/presentation/screens/login_screen.dart';
 import '../../auth/presentation/screens/register/presentation/screens/register_screen.dart';
-import '../../chat/presentation/screens/chat_screen.dart';
+import '../../chat/presentation/bloc/socket_bloc.dart';
 import '../../main/presentation/screens/main_screen.dart';
 import '../../starting/presentation/screens/starting_screen.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {

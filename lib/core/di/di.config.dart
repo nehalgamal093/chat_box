@@ -19,6 +19,7 @@ import '../../features/auth/data/data_source/remote_ds/auth_remote_ds_impl.dart'
 import '../../features/auth/data/repository/auth_repo_impl.dart' as _i751;
 import '../../features/auth/domain/repository/auth_repo.dart' as _i976;
 import '../../features/auth/domain/use_cases/login_usecase.dart' as _i1012;
+import '../../features/auth/domain/use_cases/logout_use_case.dart' as _i698;
 import '../../features/auth/domain/use_cases/register_usecase.dart' as _i957;
 import '../../features/auth/presentation/screens/login/bloc/login_bloc.dart'
     as _i971;
@@ -76,6 +77,7 @@ import '../../features/search/domain/repository/search_repo.dart' as _i858;
 import '../../features/search/domain/use_cases/search_use_case.dart' as _i601;
 import '../../features/search/presentation/bloc/search_bloc/search_bloc.dart'
     as _i211;
+import '../../features/settings/bloc/logout_bloc/logout_bloc.dart' as _i236;
 import '../../features/user_profile/data/data_source/remote_data_source/user_profile_remote_ds.dart'
     as _i820;
 import '../../features/user_profile/data/data_source/remote_data_source/user_profile_remote_ds_impl.dart'
@@ -109,7 +111,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i439.SocketService>(() => _i439.SocketService());
+    gh.singleton<_i439.SocketService>(() => _i439.SocketService());
     gh.lazySingleton<_i576.APIManager>(() => _i576.APIManager());
     gh.factory<_i68.FriendsRemoteDs>(
         () => _i740.FriendsRemoteDsImpl(gh<_i576.APIManager>()));
@@ -137,6 +139,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i320.FriendsRepoImpl(gh<_i68.FriendsRemoteDs>()));
     gh.factory<_i1012.LoginUseCase>(
         () => _i1012.LoginUseCase(gh<_i976.AuthRepo>()));
+    gh.factory<_i698.LogoutUseCase>(
+        () => _i698.LogoutUseCase(gh<_i976.AuthRepo>()));
     gh.factory<_i957.RegisterUseCase>(
         () => _i957.RegisterUseCase(gh<_i976.AuthRepo>()));
     gh.factory<_i858.SearchRepo>(
@@ -167,6 +171,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i537.UserProfileUseCase(gh<_i307.UserProfileRepo>()));
     gh.factory<_i601.SearchUseCase>(
         () => _i601.SearchUseCase(gh<_i858.SearchRepo>()));
+    gh.factory<_i236.LogoutBloc>(
+        () => _i236.LogoutBloc(gh<_i698.LogoutUseCase>()));
     gh.factory<_i1039.ChatUseCase>(
         () => _i1039.ChatUseCase(gh<_i359.ChatRepo>()));
     gh.factory<_i703.SendMessageUseCase>(
@@ -185,7 +191,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i1037.UpdateBio>(),
         ));
     gh.factory<_i16.SocketBloc>(() => _i16.SocketBloc(
-          gh<_i439.SocketService>(),
           gh<_i1039.ChatUseCase>(),
           gh<_i703.SendMessageUseCase>(),
         ));

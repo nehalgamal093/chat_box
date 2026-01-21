@@ -7,3 +7,10 @@ abstract class ChattedUsersEvent extends Equatable {
 }
 
 class LoadChattedUsers extends ChattedUsersEvent {}
+class UpdateOnlineUsers extends ChattedUsersEvent{
+  final List<dynamic> onlineUsers;
+
+  const UpdateOnlineUsers(this.onlineUsers);
+  @override
+  List<Object> get props => [onlineUsers];
+}

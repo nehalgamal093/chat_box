@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(height: 50),
                             LoginButton(
                               onPressed: () {
+
                                 BlocProvider.of<LoginBloc>(context).add(
                                   OnLoginEvent(
                                     emailController.text,
