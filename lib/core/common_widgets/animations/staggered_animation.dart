@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
 
 class StaggeredAnimation extends StatefulWidget {
   final bool isTitle;
