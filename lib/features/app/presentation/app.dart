@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/caching/cache_helper.dart';
 import '../../../core/di/di.dart';
 import '../../../core/resources/socket/socket_service.dart';
+import '../../../core/services/navigation_service/navigation_service.dart';
 import '../../auth/presentation/screens/login/presentation/screens/login_screen.dart';
 import '../../auth/presentation/screens/register/presentation/screens/register_screen.dart';
 import '../../chat/presentation/bloc/socket_bloc.dart';
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     BaseTheme darkTheme = DarkTheme();
     return MaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: StringsManager.appName,
       theme: darkTheme.myThemeData,

@@ -1,6 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../navigation_service/navigation_service.dart';
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await NotificationService.instance.setupFlutterNotifications();
@@ -16,7 +18,6 @@ class NotificationService {
   bool _isFlutterLocalNotificationsInitialized = false;
   Future<String?> getToken() async {
     final token = await _messaging.getToken();
-    print('FCM Token: $token');
     return token;
   }
 
@@ -31,7 +32,6 @@ class NotificationService {
   Future<void> _requestPermission() async {
     final settings = await _messaging.requestPermission(
         alert: true, badge: true, sound: true, provisional: false);
-    print('Permission status:${settings.authorizationStatus}');
   }
 
   Future<void> setupFlutterNotifications() async {
@@ -88,9 +88,10 @@ class NotificationService {
     }
   }
 
-  void _handleBackgroundMessage(RemoteMessage message) {
+  void _handleBackgroundMessage(RemoteMessage message) async{
     if (message.data!=null) {
-      print("message 🎯🎯🎯🎯🎯 ${message.data['senderId']}");
+      await NavigationService.openChatFromNotification(message.data['senderId']);
+
     }
   }
 }
