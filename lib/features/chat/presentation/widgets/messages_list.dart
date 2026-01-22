@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../core/resources/colors/colors_manager.dart';
-import '../../../messages/data/models/chatted_users.dart';
 import '../../data/models/message.dart';
 import '../bloc/socket_bloc.dart';
 import '../provider/show_scroll_button.dart';
@@ -11,9 +9,9 @@ import 'loading_chat.dart';
 import 'message_bubble.dart';
 
 class MessagesList extends StatefulWidget {
-  final User user;
+  final String userId;
   final ScrollController scrollController;
-  const MessagesList({super.key,required this.user,required this.scrollController});
+  const MessagesList({super.key,required this.userId,required this.scrollController});
 
   @override
   State<MessagesList> createState() => _MessagesListState();
@@ -28,7 +26,7 @@ class _MessagesListState extends State<MessagesList> {
   void initState() {
     super.initState();
     widget.scrollController.addListener(_scrollListener);
-    context.read<SocketBloc>().add(LoadInitialMessage(widget.user.id!));
+    context.read<SocketBloc>().add(LoadInitialMessage(widget.userId));
   }
 
   double lastOffset = 0;
@@ -41,7 +39,7 @@ class _MessagesListState extends State<MessagesList> {
     if (widget.scrollController.offset >=
         widget.scrollController.position.maxScrollExtent &&
         !widget.scrollController.position.outOfRange) {
-      context.read<SocketBloc>().add(LoadMoreMessages(widget.user.id!));
+      context.read<SocketBloc>().add(LoadMoreMessages(widget.userId));
     }
   }
 
@@ -96,7 +94,7 @@ class _MessagesListState extends State<MessagesList> {
               return MessageBubble(
                   key: ValueKey(messages[index].id),
                   message: messages[index],
-                  id: widget.user.id!);
+                  id: widget.userId);
             },
           ),
         );

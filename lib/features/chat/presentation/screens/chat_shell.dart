@@ -6,8 +6,8 @@ import '../../../../core/di/di.dart';
 import '../bloc/socket_bloc.dart';
 
 class ChatShell extends StatelessWidget {
-  final User user;
-  const ChatShell({super.key, required this.user});
+  final String userId;
+  const ChatShell({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,13 @@ class ChatShell extends StatelessWidget {
           ..add(SocketConnect())
           ..add(
             LoadInitialMessage(
-              user.id!,
+              userId,
             ),
           ),
         child: Navigator(
           onGenerateRoute: (settings) {
             return MaterialPageRoute(
-              builder: (_) => ChatScreen(user: user),
+              builder: (_) => ChatScreen(userId: userId),
             );
           },
         ),

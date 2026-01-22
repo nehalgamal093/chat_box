@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../features/messages/data/models/chatted_users.dart';
 
 class MyInheritedWidget extends InheritedWidget {
-  const MyInheritedWidget({super.key, required this.child, required this.user})
+  const MyInheritedWidget({super.key, required this.child, required this.userId})
     : super(child: child);
   final Widget child;
-  final User user;
+  final String userId;
 
   static MyInheritedWidget of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<MyInheritedWidget>()!;

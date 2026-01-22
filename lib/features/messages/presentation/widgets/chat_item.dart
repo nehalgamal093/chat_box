@@ -2,21 +2,20 @@ import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_shell.dart';
 import 'package:chat_box/features/chat/presentation/widgets/text_message.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/inherited_widgets/inherited_user.dart';
 import '../../data/models/chatted_users.dart';
 
 class ChatItem extends StatelessWidget {
   final String lastMessage;
   final String time;
-  const ChatItem({super.key, required this.lastMessage, required this.time});
+  final User user;
+  const ChatItem({super.key, required this.lastMessage, required this.time,required this.user});
   @override
   Widget build(BuildContext context) {
-    User user = MyInheritedWidget.of(context).user;
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => ChatShell(user: user),
+            builder: (_) => ChatShell(userId: user.id!),
           ),
         );
 
@@ -24,7 +23,7 @@ class ChatItem extends StatelessWidget {
       child: ListTile(
         leading: Badge(
           backgroundColor: Colors.green,
-          smallSize:MyInheritedWidget.of(context).user.isOnline!? 15:0,
+          // smallSize:MyInheritedWidget.of(context).user.isOnline!? 15:0,
           child: InkWell(
             onTap: () {
               // Navigator.push(
@@ -38,12 +37,12 @@ class ChatItem extends StatelessWidget {
               // );
             },
             child: CirclePicture(
-                imageUrl: MyInheritedWidget.of(context).user.profilePicture!,
+                imageUrl:user.profilePicture!,
                 radius: 40),
           ),
         ),
         title: Text(
-          MyInheritedWidget.of(context).user.fullName!,
+         user.fullName!,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         subtitle: TextMessage(message: lastMessage),

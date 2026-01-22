@@ -32,7 +32,7 @@ class _ChatInputState extends State<ChatInput> {
     var chatShellProvider = Provider.of<ChatShellProvider>(context);
     var provider = Provider.of<FilePickerProvider>(context);
     Size size = MediaQuery.of(context).size;
-    User user = MyInheritedWidget.of(context).user;
+    String userId = MyInheritedWidget.of(context).userId;
     return Column(
       children: [
         FileBox(),
@@ -84,7 +84,7 @@ class _ChatInputState extends State<ChatInput> {
                 ? InkWell(
                     onTap: () {
                       Message message = Message(
-                        receiverId: MyInheritedWidget.of(context).user.id!,
+                        receiverId: MyInheritedWidget.of(context).userId,
                         senderId: CacheHelper.getUserId(),
                         message: messageEditingController.text,
                         createdAt: DateTime.now().toString(),
@@ -119,7 +119,7 @@ class _ChatInputState extends State<ChatInput> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => CameraScreen(
-                                user: user,
+                                userId: userId,
                               ),
                             ),
                           );

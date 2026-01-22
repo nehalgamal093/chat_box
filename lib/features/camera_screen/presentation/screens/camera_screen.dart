@@ -5,14 +5,13 @@ import 'package:chat_box/features/chat/presentation/widgets/capture_image_button
 import 'package:chat_box/features/chat/presentation/widgets/flash_camera_btn.dart';
 import 'package:chat_box/features/chat/presentation/widgets/flip_camera_button.dart';
 import 'package:flutter/material.dart';
-import '../../../messages/data/models/chatted_users.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({
     super.key,
-    required this.user,
+    required this.userId,
   });
-  final User user;
+  final String userId;
   @override
   State<CameraScreen> createState() => _CameraScreenState();
 }
@@ -60,7 +59,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     ),
                     CaptureImageButton(
                       controller: controller,
-                      user: widget.user,
+                      userId:widget.userId,
                     ),
                     FlipCameraButton(onTap: () async {
                       await _flipCamera();

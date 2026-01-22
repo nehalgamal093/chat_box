@@ -6,12 +6,11 @@ import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../chat/presentation/bloc/socket_bloc.dart';
-import '../../messages/data/models/chatted_users.dart';
 
 class ViewPhotoInput extends StatefulWidget {
-  final User user;
+  final String userId;
   final String path;
-  const ViewPhotoInput({super.key, required this.path, required this.user});
+  const ViewPhotoInput({super.key, required this.path, required this.userId});
 
   @override
   State<ViewPhotoInput> createState() => _ViewPhotoInputState();
@@ -59,7 +58,7 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
             InkWell(
               onTap: () {
                 Message message = Message(
-                  receiverId: widget.user.id,
+                  receiverId: widget.userId,
                   senderId: CacheHelper.getUserId(),
                   message: messageEditingController.text,
                   createdAt: DateTime.now().toString(),
