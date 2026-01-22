@@ -36,7 +36,6 @@ class SocketService {
   Future<void> setupSocketListeners() async {
     if (socket == null) {
       await connect();
-      print("😡😡 Socket is null");
     }
 
       socket!.on('newMessage', (data) {
@@ -44,7 +43,6 @@ class SocketService {
           final message = Message.fromJson(data as Map<String, dynamic>);
           _incomingMessagesController.add(message);
         } catch (e) {
-          print('❌ Error parsing incoming message: $e');
         }
 
       });

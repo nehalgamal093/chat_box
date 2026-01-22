@@ -1,6 +1,5 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
-import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends_requests/data/models/friend_requests.dart';
 import 'package:chat_box/features/friends_requests/presentation/bloc/friend_requests_bloc/friend_requests_bloc.dart';
 import 'package:flutter/material.dart';

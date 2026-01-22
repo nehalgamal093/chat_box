@@ -1,6 +1,5 @@
 import 'package:chat_box/features/chat/presentation/screens/chat_screen.dart';
 import 'package:chat_box/features/main/presentation/screens/main_screen.dart';
-import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/di.dart';

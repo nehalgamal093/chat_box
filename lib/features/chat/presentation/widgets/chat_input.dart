@@ -7,10 +7,8 @@ import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
-import '../../../messages/data/models/chatted_users.dart';
 import '../bloc/socket_bloc.dart';
 import '../provider/chat_shell_provider.dart';
 

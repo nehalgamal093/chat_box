@@ -28,19 +28,16 @@ class IconsRow extends StatelessWidget {
   }
 
   Widget getFriendStatus(String status,BuildContext context) {
-    print('status----> $status');
     switch (status) {
       case 'friends':
         return InkWell(
           onTap: () {
-            print("-----------> friends");
           },
           child: CircleIcon(icon:Image.asset( ImagesManager.friends,color: ColorsManager.whiteColor,width: 25,)),
         );
       case 'sent':
         return InkWell(
           onTap: () {
-            print("-----------> sent");
             context.read<UserProfileBloc>().add(CancelFriendRequestEvent(id));
 
           },
@@ -49,7 +46,6 @@ class IconsRow extends StatelessWidget {
       default:
         return InkWell(
           onTap: () {
-            print("-----------> cancel");
             context.read<UserProfileBloc>().add(SendFriendRequestEvent(id));
           },
           child: CircleIcon(icon:Image.asset( ImagesManager.friendRequest,color: ColorsManager.whiteColor,width: 25,)),

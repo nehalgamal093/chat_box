@@ -66,7 +66,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             message: model.newMessage?.message,
             mediaType: model.newMessage?.mediaType ?? "none",
             receiverId: model.newMessage?.receiverId,
-            mediaUrl: model.newMessage?.mediaUrl ?? null,
+            mediaUrl: model.newMessage?.mediaUrl ,
             senderId: model.newMessage?.senderId,
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
@@ -102,7 +102,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             message: model.newMessage?.message,
             mediaType: model.newMessage?.mediaType ?? "none",
             receiverId: model.newMessage?.receiverId,
-            mediaUrl: model.newMessage?.mediaUrl ?? null,
+            mediaUrl: model.newMessage?.mediaUrl ,
             senderId: model.newMessage?.senderId,
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
@@ -171,11 +171,11 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     Emitter<SocketState> emit,
   ) async {
     if (state is MessagesLoaded) {
-      print("🎆🎆🎆Message loaded!!");
+
       final currentMessages = (state as MessagesLoaded).messages;
       emit(MessagesLoaded([event.message, ...currentMessages], false));
     } else {
-      print("🎆🎆🎆Not loaded!!");
+
     }
   }
   void _onChatClosed(ChatClosedEvent event, Emitter<SocketState> emit) async {

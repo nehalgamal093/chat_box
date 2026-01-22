@@ -1,6 +1,4 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/camera_handler/camera_handler.dart';
 import '../../../../core/resources/colors/colors_manager.dart';
 
 class FlipCameraButton extends StatelessWidget {

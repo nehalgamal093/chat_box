@@ -34,7 +34,6 @@ class ChattedUsersBloc extends Bloc<ChattedUsersEvent, ChattedUsersState> {
             emit(ChattedUsersError(failures: error));
           },
               (model) {
-            print("Yes");
             emit(ChattedUsersLoaded(model.dataListList!));
           },
         );
@@ -49,7 +48,6 @@ class ChattedUsersBloc extends Bloc<ChattedUsersEvent, ChattedUsersState> {
       final current = state as ChattedUsersLoaded;
       final updatedList = current.list.map((item) {
         if (item.user != null) {
-          // Create new DataList with updated user
           return item.user?.copyWith(
               isOnline: onlineIds.contains(item.user!.id));
         }

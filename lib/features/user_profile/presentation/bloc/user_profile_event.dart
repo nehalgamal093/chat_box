@@ -1,7 +1,7 @@
 part of 'user_profile_bloc.dart';
 
-@immutable
-sealed class UserProfileEvent {}
+
+abstract class UserProfileEvent {}
 
 class GetUserProfileEvent extends UserProfileEvent {
   final String id;

@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pop(context);
                           Navigator.pushNamed(context, MainScreen.routeName);
                         } else if (state.loginStates == LoginStates.failed) {
-                          print(state.failures?.message);
+
                         } else {}
                       },
                     ),

@@ -11,10 +11,8 @@ class FilePickerProvider extends ChangeNotifier{
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       file = File(result.files.single.path!);
-      print('🌐 $file');
+
       onPicked?.call();
-    }else{
-      print('🌐 is null');
     }
     notifyListeners();
   }

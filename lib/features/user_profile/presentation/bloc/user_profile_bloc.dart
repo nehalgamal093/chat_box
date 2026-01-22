@@ -6,8 +6,6 @@ import 'package:chat_box/features/user_profile/domain/use_cases/send_friend_requ
 import 'package:chat_box/features/user_profile/domain/use_cases/update_bio.dart';
 import 'package:chat_box/features/user_profile/domain/use_cases/user_profile_use_case.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
-
 import '../../../../core/network/AppFailures/app_failures.dart';
 
 part 'user_profile_event.dart';

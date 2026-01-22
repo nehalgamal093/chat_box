@@ -28,7 +28,6 @@ class AuthRemoteDsImpl extends AuthRemoteDs {
         if (response.data is Map<String, dynamic>) {
           errorMessage = response.data['error'] ?? errorMessage;
         }
-        print("🎃 ${errorMessage} or  ${response.data}");
         throw ServerException(errorMessage);
       }
     } on DioException catch (e) {
@@ -55,7 +54,6 @@ class AuthRemoteDsImpl extends AuthRemoteDs {
         if (response.data is Map<String, dynamic>) {
           errorMessage = response.data['error'] ?? errorMessage;
         }
-        print('🚕 ${errorMessage}');
         throw ServerException(errorMessage);
       }
     } on DioException catch (e) {

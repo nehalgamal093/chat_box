@@ -1,6 +1,5 @@
 import 'package:chat_box/core/common_widgets/loading_dialog.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
-import 'package:chat_box/core/services/notification_service/notification_service.dart';
 import 'package:chat_box/features/auth/data/models/register_request.dart';
 import 'package:chat_box/features/auth/presentation/screens/login/presentation/screens/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -169,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Navigator.pop(context);
                           Navigator.pushNamed(context, LoginScreen.routeName);
                         } else if (state.registerStates == RegisterStates.failed) {
-                          print(state.failures?.message);
+
                         } else {}
                       },
                     ),

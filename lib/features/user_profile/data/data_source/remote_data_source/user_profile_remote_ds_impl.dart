@@ -105,7 +105,6 @@ class UserProfileRemoteDsImpl extends UserProfileRemoteDs {
       } else {
         String errorMessage = "Uploading photo Failed";
         if (response.data is Map<String, dynamic>) {
-          print('💲${response.data}');
           errorMessage = response.data['error'] ?? errorMessage;
         }
 

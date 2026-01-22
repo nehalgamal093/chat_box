@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 qrView(BuildContext context, String id) {
-  print(">>>>> $id");
   showDialog(
     context: context,
     builder: (context) {

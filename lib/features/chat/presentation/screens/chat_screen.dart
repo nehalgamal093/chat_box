@@ -1,5 +1,4 @@
 import 'package:chat_box/features/chat/presentation/bloc/socket_bloc.dart';
-import 'package:chat_box/features/chat/presentation/widgets/chat_app_bar.dart';
 import 'package:chat_box/features/chat/presentation/widgets/chat_input.dart';
 import 'package:chat_box/features/chat/presentation/widgets/load_more_button.dart';
 import 'package:chat_box/features/chat/presentation/widgets/messages_list.dart';

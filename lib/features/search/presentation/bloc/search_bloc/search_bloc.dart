@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:chat_box/features/search/data/models/search_result.dart';
 import 'package:chat_box/features/search/domain/use_cases/search_use_case.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
-
 import '../../../../../core/logic/debounce.dart';
 import '../../../../../core/network/AppFailures/app_failures.dart';
 
