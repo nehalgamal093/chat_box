@@ -1,5 +1,5 @@
 import 'package:chat_box/features/user_profile/data/models/user_profile.dart';
-import 'package:chat_box/features/user_profile/presentation/widgets/friend_item.dart';
+import 'package:chat_box/features/user_profile/presentation/widgets/friend_widget.dart';
 import 'package:flutter/material.dart';
 
 class FriendsOfUserList extends StatelessWidget {
@@ -8,14 +8,14 @@ class FriendsOfUserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return  friends.isEmpty?SizedBox():GridView.builder(
       itemCount: friends.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         childAspectRatio: 5/3
       ),
       itemBuilder: (context, index) {
-        return FriendItem(friend: friends[index],);
+        return FriendWidget(friend: friends[index]);
       },
     );
   }

@@ -45,7 +45,7 @@ class _BioSectionState extends State<BioSection> {
                     ),
                     Text(
                       myDataProvider.bio.isEmpty
-                          ? widget.userProfile.bio!.capitalize()
+                          ?isBioEmpty(widget.userProfile.bio!)
                           : myDataProvider.bio.capitalize(),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
@@ -71,5 +71,12 @@ class _BioSectionState extends State<BioSection> {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
     );
+  }
+  String isBioEmpty(String bio){
+    if(bio.isEmpty||bio==null){
+      return "";
+    }
+
+    return bio.capitalize();
   }
 }
