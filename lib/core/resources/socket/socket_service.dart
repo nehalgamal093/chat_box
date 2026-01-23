@@ -39,6 +39,7 @@ class SocketService {
     }
 
       socket!.on('newMessage', (data) {
+        print('🎀 on new message');
         try {
           final message = Message.fromJson(data as Map<String, dynamic>);
           _incomingMessagesController.add(message);
@@ -73,16 +74,10 @@ class SocketService {
 
     socket?.emit('chat-disconnected');
   }
-  // Future<void> getOnlineUser() async {
-  //
-  //
-  // }
+
   Future<void> disconnect() async {
     socket?.disconnect();
     socket?.dispose();
   }
 
-  // Future<void> sendMessage(Message message) async {
-  //   socket?.emit('newMessage', message.toJson());
-  // }
 }

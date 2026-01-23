@@ -50,32 +50,8 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   void _onSendMessage(SendMessage event, Emitter<SocketState> emit) async {
     final currentMessages = (state as MessagesLoaded).messages;
     if (state is MessagesLoaded) {
-      emit(MessagesLoaded([event.message, ...currentMessages], false));
-    }
-    try {
-      var result = await sendMessageUseCase.call(
-        event.message.message!,
-        event.message.receiverId!,
-      );
-      result.fold(
-        (error) {
-          emit(SocketError('Failed to get messages: $error'));
-        },
-        (model) {
-          Message message = Message(
-            message: model.newMessage?.message,
-            mediaType: model.newMessage?.mediaType ?? "none",
-            receiverId: model.newMessage?.receiverId,
-            mediaUrl: model.newMessage?.mediaUrl ,
-            senderId: model.newMessage?.senderId,
-            createdAt: model.newMessage?.createdAt,
-            updatedAt: model.newMessage?.updatedAt,
-          );
-          emit(MessagesLoaded([message, ...currentMessages], false));
-        },
-      );
-    } catch (e) {
-      emit(SocketError('Failed to send message: $e'));
+      socketService.sendMessage(event.message);
+    emit(MessagesLoaded([event.message, ...currentMessages], false));
     }
   }
 
