@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:chat_box/features/user_profile/data/models/user_profile.dart';
-
 import '../../../../core/resources/images/images_manager.dart';
 
 class FriendWidget extends StatelessWidget {
@@ -9,14 +8,14 @@ class FriendWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('🎈🎈🎈🎈 ${friend.profilePicture}');
     return Column(
       children: [
-        Container(
-          child:
-              friend.profilePicture != null || friend.profilePicture!.isNotEmpty
-                  ? Image.network(friend.profilePicture!)
-                  : Image.asset(ImagesManager.avatar),
+        SizedBox(
+          width: 50,
+          height: 50,
+          child: friend.profilePicture == null || friend.profilePicture!.isEmpty
+              ? Image.asset(ImagesManager.avatar)
+              : Image.network(friend.profilePicture!),
         ),
         SizedBox(height: 10),
         Text(

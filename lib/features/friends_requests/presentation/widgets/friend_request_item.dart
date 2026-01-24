@@ -1,5 +1,6 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends_requests/data/models/friend_requests.dart';
 import 'package:chat_box/features/friends_requests/presentation/bloc/friend_requests_bloc/friend_requests_bloc.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +41,12 @@ class FriendRequestItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(0),
                       ),
                       backgroundColor:
-                          status == "accepted"
+                          status == StringsManager.accepted
                               ? ColorsManager.greenColor
                               : ColorsManager.darkBlue,
                     ),
                     child: Text(
-                      'Accept',
+                      StringsManager.accept,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
@@ -63,7 +64,7 @@ class FriendRequestItem extends StatelessWidget {
                       backgroundColor: ColorsManager.redColor,
                     ),
                     child: Text(
-                      'Decline',
+                      StringsManager.decline,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),

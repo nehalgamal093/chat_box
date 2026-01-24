@@ -25,6 +25,21 @@ class StringsManager {
   static const String search = "Search here...";
   static const String writeMessage ="Write your message";
   static const String gender ="Gender";
+
+  static const String viewImage ="View Image";
+  static const String activeNow ="Active now";
+  static const String image ="image";
+  static const String video ="video";
+  static const String friendsRequests ="Friends Requests";
+  static const String accept ="Accept";
+  static const String accepted ="accepted";
+  static const String decline ="Decline";
+  static const String error ="Error";
+  static const String photo ="Photo";
+  static const String logout ="Logout";
+  static const String editMyBio ="Edit my bio";
+
+
   //routes Names
   static const String mainScreenRoute = "/";
   static const String startingScreenRoute = "/starting-screen";

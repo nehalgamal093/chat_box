@@ -1,5 +1,7 @@
 import 'package:chat_box/core/caching/cache_helper.dart';
 import 'package:chat_box/core/di/di.dart';
+import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/settings/bloc/logout_bloc/logout_bloc.dart';
 import 'package:chat_box/features/starting/presentation/screens/starting_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,22 +15,29 @@ class Settings extends StatelessWidget {
     return BlocListener<LogoutBloc,LogoutState>(
       listener: (context,state) {
          if(state is LogoutSuccess){
-           print('🚪🚪🚪🚪 Logged out');
            CacheHelper.clearToken();
            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>StartingScreen()));
-         } else{
-           print("🏮🏮🏮🏮 somethign went wrong");
+         } else if(state is LogoutLoading){
+           showLoading(context);
          }
       },
-      child: Center(
-        child: InkWell(
+      child: ListView(
+        children: [
+          ListTile(
+            trailing: Icon(Icons.logout,color: ColorsManager.grey,),
+            title: Text(StringsManager.logout,style: TextStyle(color: ColorsManager.grey),),
             onTap: (){
-              context.read<LogoutBloc>().add(LoggingOutEvent());
-
+             context.read<LogoutBloc>().add(LoggingOutEvent());
             },
-            child: Text('Logout')
-        ),
+          )
+
+        ],
       ),
     );
   }
+}
+Future<void> showLoading(BuildContext context){
+ return showDialog(context: context, builder: (context){
+   return Center(child: CircularProgressIndicator(color: ColorsManager.cyan,));
+ });
 }

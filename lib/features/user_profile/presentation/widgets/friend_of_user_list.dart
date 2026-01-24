@@ -1,3 +1,4 @@
+import 'package:chat_box/features/friends/presentation/widgets/friend_list_item.dart';
 import 'package:chat_box/features/user_profile/data/models/user_profile.dart';
 import 'package:chat_box/features/user_profile/presentation/widgets/friend_widget.dart';
 import 'package:flutter/material.dart';

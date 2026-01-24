@@ -1,4 +1,5 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/resources/images/images_manager.dart';
 import '../../../messages/data/models/chatted_users.dart';
@@ -32,7 +33,7 @@ PreferredSizeWidget chatAppBar(BuildContext context, User user) {
                   context,
                 ).textTheme.bodyMedium!.copyWith(fontSize: 16),
               ),
-              Text('Active now', style: Theme.of(context).textTheme.bodySmall),
+              Text(StringsManager.activeNow, style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ],

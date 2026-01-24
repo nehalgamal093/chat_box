@@ -1,4 +1,5 @@
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:flutter/material.dart';
 
 showEditDialog(TextEditingController controller,BuildContext context,void Function()? editBio) {
@@ -14,7 +15,7 @@ showEditDialog(TextEditingController controller,BuildContext context,void Functi
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           title: Text(
-            'Edit my bio',
+            StringsManager.editMyBio,
             style: TextStyle(color: Colors.white),
           ),
           content: SizedBox(

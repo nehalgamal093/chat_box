@@ -1,4 +1,5 @@
 import 'package:chat_box/core/di/di.dart';
+import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends/presentation/widgets/loading_list.dart';
 import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:chat_box/features/messages/presentation/bloc/chatted_users_bloc.dart';
@@ -35,7 +36,7 @@ class MessagesScreens extends StatelessWidget {
                   },
                 );
               } else {
-                return Text('Error');
+                return Text(StringsManager.error);
               }
             },
           ),
@@ -50,7 +51,7 @@ class MessagesScreens extends StatelessWidget {
     } else {
       if (lastMessage.message =="") {
         if (lastMessage.mediaUrl!="") {
-          return "Photo";
+          return StringsManager.photo;
         } else {
           return "";
         }

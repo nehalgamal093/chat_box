@@ -3,6 +3,7 @@ import 'package:chat_box/features/chat/presentation/widgets/message_image_bubble
 import 'package:chat_box/features/chat/presentation/widgets/message_text_bubble.dart';
 import 'package:chat_box/features/chat/presentation/widgets/message_video_bubble.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/resources/strings/strings_manager.dart';
 import '../../data/models/message.dart';
 
 class MessageBubble extends StatefulWidget {
@@ -64,14 +65,14 @@ class _MessageBubbleState extends State<MessageBubble>
 
 Widget chatMediaBubble(String mediaType, Message message) {
   switch (mediaType) {
-    case "image":
+    case StringsManager.image:
       return MessageImageBubble(message: message);
 
-    case "video":
+    case StringsManager.video:
       return MessageVideoBubble(message: message,);
 
     default:
       return MessageTextBubble(message: message.message!);
   }
 }
-//123
+
