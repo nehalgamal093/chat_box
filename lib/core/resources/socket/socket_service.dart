@@ -20,6 +20,7 @@ class SocketService {
   Stream<Message> get incomingMessages => _incomingMessagesController.stream;
   final _onlineUsersController = StreamController<List<dynamic>>.broadcast();
   Stream<List<dynamic>> get onlineList => _onlineUsersController.stream;
+  bool _hasEmittedChatOpened = false;
   Future<void> connect() async {
     socket = io.io(
       dotenv.env['SOCKET_URL'],
@@ -38,15 +39,13 @@ class SocketService {
       await connect();
     }
 
-      socket!.on('newMessage', (data) {
-        print('🎀 on new message');
-        try {
-          final message = Message.fromJson(data as Map<String, dynamic>);
-          _incomingMessagesController.add(message);
-        } catch (e) {
-        }
-
-      });
+    socket!.on('newMessage', (data) {
+      print('🎀 on new message');
+      try {
+        final message = Message.fromJson(data as Map<String, dynamic>);
+        _incomingMessagesController.add(message);
+      } catch (e) {}
+    });
     socket!.on('user-online-chat', (data) {
       logger.d("📡 Socket received raw data: ${data}");
       try {
@@ -54,30 +53,35 @@ class SocketService {
       } catch (e) {
         print('❌ Error parsing incoming message: $e');
       }
-
     });
-    socket?.on('getOnlineUsers',(data){
+    socket?.on('getOnlineUsers', (data) {
       _onlineUsersController.add(data);
     });
-      socket!.onConnect((data) => logger.i('Connected $data' ));
-      socket!.onDisconnect((data) =>logger.i('Disconnected $data'));
-      socket!.onError((error) => print('error $error'));
-
+    socket!.onConnect((data) => logger.i('Connected $data'));
+    socket!.onDisconnect((data) => logger.i('Disconnected $data'));
+    socket!.onError((error) => print('error $error'));
   }
+
   Future<void> sendMessage(Message message) async {
     socket?.emit('newMessage', message.toJson());
   }
-  Future<void> chatOpened() async {
-    socket?.emit('user-online-chat');
-  }
-  Future<void> notifyChatClosed() async {
 
-    socket?.emit('chat-disconnected');
+  Future<void> chatOpened() async {
+    if (!_hasEmittedChatOpened) {
+      socket?.emit('user-online-chat');
+      _hasEmittedChatOpened = true;
+    }
+  }
+
+  Future<void> notifyChatClosed() async {
+    if (_hasEmittedChatOpened) {
+      _hasEmittedChatOpened= false;
+      socket?.emit('chat-disconnected');
+    }
   }
 
   Future<void> disconnect() async {
     socket?.disconnect();
     socket?.dispose();
   }
-
 }

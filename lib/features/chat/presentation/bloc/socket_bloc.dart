@@ -157,5 +157,6 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   void _onChatClosed(ChatClosedEvent event, Emitter<SocketState> emit) async {
 
     await socketService.notifyChatClosed();
+    await socketService.disconnect();
   }
 }

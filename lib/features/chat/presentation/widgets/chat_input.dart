@@ -2,13 +2,13 @@ import 'package:chat_box/core/caching/cache_helper.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
-import 'package:chat_box/features/camera_screen/presentation/screens/camera_screen.dart';
 import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
+import '../../../camera_screen/presentation/screens/camera_screen.dart';
 import '../bloc/socket_bloc.dart';
 import '../provider/chat_shell_provider.dart';
 
@@ -21,7 +21,6 @@ class ChatInput extends StatefulWidget {
 }
 
 class _ChatInputState extends State<ChatInput> {
-  final FocusNode _textFieldFocusNode = FocusNode();
   final TextEditingController messageEditingController =
       TextEditingController();
   bool isInputEmpty = true;
@@ -62,7 +61,6 @@ class _ChatInputState extends State<ChatInput> {
                   }
                 },
                 controller: messageEditingController,
-                focusNode: _textFieldFocusNode,
                 decoration: InputDecoration(
                   hintText: StringsManager.writeMessage,
                   hintStyle: Theme.of(
@@ -71,45 +69,12 @@ class _ChatInputState extends State<ChatInput> {
                   fillColor: ColorsManager.chatInputColor,
                   contentPadding: EdgeInsets.only(bottom: 10, left: 10),
                   filled: true,
-                  suffixIcon: Image.asset(ImagesManager.files, width: 20),
-                  border: border,
-                  enabledBorder: border,
-                  focusedBorder: border,
-                ),
-              ),
-            ),
-            !isInputEmpty
-                ? InkWell(
-                    onTap: () {
-                      Message message = Message(
-                        receiverId: MyInheritedWidget.of(context).userId,
-                        senderId: CacheHelper.getUserId(),
-                        message: messageEditingController.text,
-                        createdAt: DateTime.now().toString(),
-                      );
-                      if (provider.file.path.isNotEmpty) {
-                        context.read<SocketBloc>().add(
-                              SendMessageWithFile(message, provider.file.path),
-                            );
-                      } else {
-                        context.read<SocketBloc>().add(SendMessage(message));
-                      }
-
-                      clear();
-                      provider.clear();
-                    },
-                    child: Row(
-                      children: [
-                        SizedBox(width: 10),
-                        CircleAvatar(
-                          backgroundColor: ColorsManager.cyan,
-                          child: Image.asset(ImagesManager.send),
-                        ),
-                      ],
-                    ),
-                  )
-                : Row(
-                    children: [
+                  suffixIcon: InkWell(
+                      onTap: (){
+                        showModalBottomSheet(context: context, builder: (context){
+                          return Container(
+                            child: Row(
+                              children: [
                       InkWell(
                         onTap: () async {
                           // chatShellProvider.changeIndex(1);
@@ -126,8 +91,51 @@ class _ChatInputState extends State<ChatInput> {
                       ),
                       SizedBox(width: 10),
                       Image.asset(ImagesManager.mic),
-                    ],
+
+                              ],
+                            ),
+                          );
+                        });
+                      },
+
+                      child: Image.asset(ImagesManager.files, width: 20)),
+                  border: border,
+                  enabledBorder: border,
+                  focusedBorder: border,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Message message = Message(
+                  receiverId: MyInheritedWidget.of(context).userId,
+                  senderId: CacheHelper.getUserId(),
+                  message: messageEditingController.text,
+                  createdAt: DateTime.now().toString(),
+                );
+                if (provider.file.path.isNotEmpty) {
+                  context.read<SocketBloc>().add(
+                        SendMessageWithFile(message, provider.file.path),
+                      );
+                } else {
+                  if (messageEditingController.text.isNotEmpty) {
+                    context.read<SocketBloc>().add(SendMessage(message));
+                  }
+                }
+
+                clear();
+                provider.clear();
+              },
+              child: Row(
+                children: [
+                  SizedBox(width: 10),
+                  CircleAvatar(
+                    backgroundColor: ColorsManager.cyan,
+                    child: Image.asset(ImagesManager.send),
                   ),
+                ],
+              ),
+            )
           ],
         ),
       ],
@@ -142,4 +150,8 @@ class _ChatInputState extends State<ChatInput> {
     messageEditingController.clear();
   }
 }
-//162
+
+// Row(
+//                     children: [
+
+//                   ),
