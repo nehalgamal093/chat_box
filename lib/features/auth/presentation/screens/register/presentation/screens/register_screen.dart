@@ -30,155 +30,178 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController fcmTokenController = TextEditingController();
+  final FocusNode focusNodeFullName = FocusNode();
+  final FocusNode focusNodeUserName = FocusNode();
+  final FocusNode focusNodeEmail = FocusNode();
+  final FocusNode focusNodePassword = FocusNode();
+  final FocusNode focusNodeConfirmPassword = FocusNode();
+  final FocusNode focusNodeGender = FocusNode();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
-      create: (context)=>PasswordVisibilityProvider(),
+      create: (context) => PasswordVisibilityProvider(),
       child: Consumer<PasswordVisibilityProvider>(
-        builder: (BuildContext context, value, Widget? child) {
-          return Scaffold(
-            appBar: AppBar(),
-            body: SingleChildScrollView(
-              child: SizedBox(
-                height: size.height,
-                child: BlocProvider(
-                  create: (context) => getIt<RegisterBloc>(),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: BlocConsumer<RegisterBloc, RegisterState>(
-                      builder: (context, state) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(height: 50),
-                            Text(
-                              StringsManager.signUpEmail,
+          builder: (BuildContext context, value, Widget? child) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: size.height,
+              child: BlocProvider(
+                create: (context) => getIt<RegisterBloc>(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: BlocConsumer<RegisterBloc, RegisterState>(
+                    builder: (context, state) {
+                      return ListView(
+                        children: [
+                          SizedBox(height: 50),
+                          Text(
+                            StringsManager.signUpEmail,
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          SizedBox(height: 20),
+                          SizedBox(
+                            width: size.width * .9,
+                            child: Text(
+                              StringsManager.getChattingWithFriends,
+                              maxLines: 2,
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            SizedBox(height: 20),
-                            SizedBox(
-                              width: size.width * .9,
-                              child: Text(
-                                StringsManager.getChattingWithFriends,
-                                maxLines: 2,
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.titleSmall!.copyWith(fontSize: 14),
-                              ),
+                          ),
+                          SizedBox(height: 20),
+                          AuthTextField(
+                            focusNode: focusNodeFullName,
+                            nextFocus: focusNodeUserName,
+                            suffixIcon: Icon(Icons.person,
+                                color: ColorsManager.whiteColor),
+                            isPassword: false,
+                            controller: fullNameController,
+                            label: StringsManager.fullName,
+                          ),
+                          AuthTextField(
+                            focusNode: focusNodeUserName,
+                            nextFocus: focusNodeEmail,
+                            suffixIcon: Icon(
+                              Icons.account_circle_outlined,
+                              color: ColorsManager.whiteColor,
                             ),
-                            AuthTextField(
-                              suffixIcon: Icon(Icons.person),
-                              isPassword:false,
-                              controller: fullNameController,
-                              label: StringsManager.fullName,
-                            ),
-                            AuthTextField(
-                              suffixIcon: Icon(Icons.account_circle_outlined),
-                              isPassword:false,
-                              controller: usernameController,
-                              label: StringsManager.username,
-                            ),
-                            SizedBox(height: 20),
-                            AuthTextField(
-                              suffixIcon: Icon(Icons.email_outlined),
-                              isPassword:false,
-                              controller: emailController,
-                              label: StringsManager.yourEmail,
-                            ),
-                            SizedBox(height: 20),
-                            AuthTextField(
-                              suffixIcon: value.visible?InkWell(
-                                onTap: (){
-                                  value.changeVisibility();
-                                },
-                                child: Icon(
-                                  Icons.visibility_outlined,
-                                  color: ColorsManager.whiteColor,
-                                ),
-                              ):InkWell(
-                                onTap: (){
-                                  value.changeVisibility();
-                                },
-                                child: Icon(
-                                  Icons.visibility_off_outlined,
-                                  color: ColorsManager.whiteColor,
-                                ),
-                              ),
-                              isPassword: !value.visible,
-                              controller: passwordController,
-                              label: StringsManager.password,
-                            ),
-                            SizedBox(height: 20),
-                            AuthTextField(
-                              suffixIcon: value.visible?InkWell(
-                                onTap: (){
-                                  value.changeVisibility();
-                                },
-                                child: Icon(
-                                  Icons.visibility_outlined,
-                                  color: ColorsManager.whiteColor,
-                                ),
-                              ):InkWell(
-                                onTap: (){
-                                  value.changeVisibility();
-                                },
-                                child: Icon(
-                                  Icons.visibility_off_outlined,
-                                  color: ColorsManager.whiteColor,
-                                ),
-                              ),
-                              isPassword: !value.visible,
-                              controller: confirmPasswordController,
-                              label: StringsManager.confirmPassword,
-                            ),
-                            SizedBox(height: 20),
-                            AuthTextField(
-                              suffixIcon: Icon(Icons.person),
-                              isPassword:false,
-                              controller: genderController,
-                              label: StringsManager.gender,
-                            ),
-                            SizedBox(height: 50),
-                            RegisterButton(
-                              onPressed: ()async {
+                            isPassword: false,
+                            controller: usernameController,
+                            label: StringsManager.username,
+                          ),
+                          SizedBox(height: 20),
+                          AuthTextField(
+                            focusNode: focusNodeEmail,
+                            nextFocus: focusNodePassword,
+                            suffixIcon: Icon(Icons.email_outlined,
+                                color: ColorsManager.whiteColor),
+                            isPassword: false,
+                            controller: emailController,
+                            label: StringsManager.yourEmail,
+                          ),
+                          SizedBox(height: 20),
+                          AuthTextField(
+                            focusNode: focusNodePassword,
+                            nextFocus: focusNodeConfirmPassword,
+                            suffixIcon: value.visible
+                                ? InkWell(
+                                    onTap: () {
+                                      value.changeVisibility();
+                                    },
+                                    child: Icon(
+                                      Icons.visibility_outlined,
+                                      color: ColorsManager.whiteColor,
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      value.changeVisibility();
+                                    },
+                                    child: Icon(
+                                      Icons.visibility_off_outlined,
+                                      color: ColorsManager.whiteColor,
+                                    ),
+                                  ),
+                            isPassword: !value.visible,
+                            controller: passwordController,
+                            label: StringsManager.password,
+                          ),
+                          SizedBox(height: 20),
+                          AuthTextField(
+                            focusNode: focusNodeConfirmPassword,
+                            nextFocus: focusNodeGender,
+                            suffixIcon: value.visible
+                                ? InkWell(
+                                    onTap: () {
+                                      value.changeVisibility();
+                                    },
+                                    child: Icon(
+                                      Icons.visibility_outlined,
+                                      color: ColorsManager.whiteColor,
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      value.changeVisibility();
+                                    },
+                                    child: Icon(
+                                      Icons.visibility_off_outlined,
+                                      color: ColorsManager.whiteColor,
+                                    ),
+                                  ),
+                            isPassword: !value.visible,
+                            controller: confirmPasswordController,
+                            label: StringsManager.confirmPassword,
+                          ),
+                          SizedBox(height: 20),
+                          AuthTextField(
+                            focusNode: focusNodeGender,
+                            nextFocus: focusNodeGender,
+                            suffixIcon: Icon(Icons.person,color: ColorsManager.whiteColor,),
+                            isPassword: false,
+                            controller: genderController,
+                            label: StringsManager.gender,
+                          ),
 
-                                RegisterRequest request = RegisterRequest(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  confirmPassword: confirmPasswordController.text,
-                                  username: usernameController.text,
-                                  fullName: fullNameController.text,
-                                  gender: genderController.text,
-
-                                );
-                                BlocProvider.of<RegisterBloc>(
-                                  context,
-                                ).add(OnRegisterEvent(request));
-                              },
-                            ),
-                            SizedBox(height: 20),
-                          ],
-                        );
-                      },
-                      listener: (BuildContext context, RegisterState state) {
-                        if (state.registerStates == RegisterStates.loading) {
-                          loadingDialog(context);
-                        } else if (state.registerStates == RegisterStates.success) {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, LoginScreen.routeName);
-                        } else if (state.registerStates == RegisterStates.failed) {
-
-                        } else {}
-                      },
-                    ),
+                          RegisterButton(
+                            onPressed: () async {
+                              RegisterRequest request = RegisterRequest(
+                                email: emailController.text,
+                                password: passwordController.text,
+                                confirmPassword: confirmPasswordController.text,
+                                username: usernameController.text,
+                                fullName: fullNameController.text,
+                                gender: genderController.text,
+                              );
+                              BlocProvider.of<RegisterBloc>(
+                                context,
+                              ).add(OnRegisterEvent(request));
+                            },
+                          ),
+                          SizedBox(height: 50),
+                        ],
+                      );
+                    },
+                    listener: (BuildContext context, RegisterState state) {
+                      if (state.registerStates == RegisterStates.loading) {
+                        loadingDialog(context);
+                      } else if (state.registerStates ==
+                          RegisterStates.success) {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, LoginScreen.routeName);
+                      } else if (state.registerStates ==
+                          RegisterStates.failed) {
+                      } else {}
+                    },
                   ),
                 ),
               ),
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
     );
   }
 }

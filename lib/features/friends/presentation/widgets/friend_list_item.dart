@@ -22,7 +22,7 @@ class FriendListItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
-            CirclePicture(imageUrl: dataList.profilePicture!,radius: 40,),
+            CirclePicture(imageUrl: dataList.profilePicture!,radius: 40,userId: dataList.id!,),
             SizedBox(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

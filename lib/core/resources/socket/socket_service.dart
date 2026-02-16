@@ -59,7 +59,7 @@ class SocketService {
     });
     socket!.onConnect((data) => logger.i('Connected $data'));
     socket!.onDisconnect((data) => logger.i('Disconnected $data'));
-    socket!.onError((error) => print('error $error'));
+     socket!.onError((error) => print('error $error'));
   }
 
   Future<void> sendMessage(Message message) async {

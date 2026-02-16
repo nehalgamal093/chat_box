@@ -19,4 +19,9 @@ class ImagesManager{
   static const String friends = "assets/icons/friends.png";
   static const String friendsPending = "assets/icons/pending.png";
   static const String avatar = "assets/images/avatar.jpg";
+
+  static const String audio = "assets/icons/audio.png";
+  static const String contact = "assets/icons/contact.png";
+  static const String location = "assets/icons/location.png";
+  static const String wallet = "assets/icons/wallet.png";
 }

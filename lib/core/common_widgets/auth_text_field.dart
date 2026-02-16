@@ -6,13 +6,16 @@ class AuthTextField extends StatelessWidget {
   final String label;
   final bool isPassword;
   final Widget suffixIcon;
-  const AuthTextField({
-    super.key,
-    required this.controller,
-    required this.label,
-    required this.isPassword,
-    required this.suffixIcon
-  });
+  final FocusNode focusNode;
+  final FocusNode nextFocus;
+  const AuthTextField(
+      {super.key,
+      required this.controller,
+      required this.label,
+      required this.isPassword,
+      required this.suffixIcon,
+      required this.focusNode,
+      required this.nextFocus});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +25,21 @@ class AuthTextField extends StatelessWidget {
         Text(
           label,
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
-            fontSize: 14,
-            color: ColorsManager.cyan,
-            fontWeight: FontWeight.w700,
-          ),
+                fontSize: 14,
+                color: ColorsManager.cyan,
+                fontWeight: FontWeight.w700,
+              ),
         ),
         SizedBox(height: 10),
         TextField(
+          focusNode: focusNode,
+          textInputAction: TextInputAction.next,
           obscureText: isPassword,
           controller: controller,
+          cursorColor: ColorsManager.whiteColor,
+          onSubmitted: (_) {
+            FocusScope.of(context).requestFocus(nextFocus);
+          },
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
             border: UnderlineInputBorder(
@@ -44,6 +53,7 @@ class AuthTextField extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 20),
       ],
     );
   }

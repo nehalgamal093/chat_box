@@ -5,12 +5,11 @@ import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
 import 'package:chat_box/features/chat/presentation/widgets/file_box.dart';
+import 'package:chat_box/features/chat/presentation/widgets/tools_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/inherited_widgets/inherited_user.dart';
-import '../../../camera_screen/presentation/screens/camera_screen.dart';
 import '../bloc/socket_bloc.dart';
-import '../provider/chat_shell_provider.dart';
 
 class ChatInput extends StatefulWidget {
   static const String routeName = StringsManager.chatScreenRoute;
@@ -23,10 +22,10 @@ class ChatInput extends StatefulWidget {
 class _ChatInputState extends State<ChatInput> {
   final TextEditingController messageEditingController =
       TextEditingController();
+  final FocusNode focusNode = FocusNode();
   bool isInputEmpty = true;
   @override
   Widget build(BuildContext context) {
-    var chatShellProvider = Provider.of<ChatShellProvider>(context);
     var provider = Provider.of<FilePickerProvider>(context);
     Size size = MediaQuery.of(context).size;
     String userId = MyInheritedWidget.of(context).userId;
@@ -36,19 +35,12 @@ class _ChatInputState extends State<ChatInput> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
-              onTap: () {
-                provider.pickFile();
-              },
-              child: ImageIcon(
-                AssetImage(ImagesManager.clip),
-                color: ColorsManager.whiteColor,
-              ),
-            ),
             SizedBox(
-              width: !isInputEmpty ? size.width * .7 : size.width * .65,
+              width: size.width * .80,
               height: 50,
               child: TextField(
+                textInputAction: TextInputAction.next,
+                focusNode: focusNode,
                 onChanged: (val) {
                   if (messageEditingController.text.isNotEmpty) {
                     setState(() {
@@ -60,44 +52,20 @@ class _ChatInputState extends State<ChatInput> {
                     });
                   }
                 },
+                cursorColor: ColorsManager.whiteColor,
                 controller: messageEditingController,
                 decoration: InputDecoration(
                   hintText: StringsManager.writeMessage,
                   hintStyle: Theme.of(
                     context,
                   ).textTheme.bodySmall!.copyWith(color: ColorsManager.medGrey),
-                  fillColor: ColorsManager.chatInputColor,
+                  fillColor: ColorsManager.darkBlue,
                   contentPadding: EdgeInsets.only(bottom: 10, left: 10),
                   filled: true,
                   suffixIcon: InkWell(
-                      onTap: (){
-                        showModalBottomSheet(context: context, builder: (context){
-                          return Container(
-                            child: Row(
-                              children: [
-                      InkWell(
-                        onTap: () async {
-                          // chatShellProvider.changeIndex(1);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CameraScreen(
-                                userId: userId,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Image.asset(ImagesManager.camera),
-                      ),
-                      SizedBox(width: 10),
-                      Image.asset(ImagesManager.mic),
-
-                              ],
-                            ),
-                          );
-                        });
+                      onTap: () {
+                        toolsBottomNav(context, userId, provider);
                       },
-
                       child: Image.asset(ImagesManager.files, width: 20)),
                   border: border,
                   enabledBorder: border,
@@ -150,8 +118,3 @@ class _ChatInputState extends State<ChatInput> {
     messageEditingController.clear();
   }
 }
-
-// Row(
-//                     children: [
-
-//                   ),

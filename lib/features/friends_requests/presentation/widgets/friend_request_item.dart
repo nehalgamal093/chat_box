@@ -21,7 +21,7 @@ class FriendRequestItem extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Row(
         children: [
-          CirclePicture(imageUrl: dataList.profilePicture!,radius: 40,),
+          CirclePicture(imageUrl: dataList.profilePicture!,radius: 40,userId: dataList.id!,),
           SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

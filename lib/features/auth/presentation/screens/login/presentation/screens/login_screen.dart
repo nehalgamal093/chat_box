@@ -26,6 +26,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final FocusNode focusNodeEmail = FocusNode();
+  final FocusNode focusNodePassword = FocusNode();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,6 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(height: 20),
 
                             AuthTextField(
+                              focusNode: focusNodeEmail,
+                              nextFocus: focusNodePassword,
                               suffixIcon: Icon(
                                 Icons.person,
                                 color: ColorsManager.whiteColor,
@@ -71,6 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 20),
                             AuthTextField(
+
+                              focusNode: focusNodePassword,
+                              nextFocus: focusNodePassword,
                               suffixIcon: value.visible?InkWell(
                                 onTap: (){
                                   value.changeVisibility();

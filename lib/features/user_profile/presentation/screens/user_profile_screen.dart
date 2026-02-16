@@ -143,10 +143,10 @@ class UserProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 20),
-                                BioSection(
-                                  userProfile: state.userProfile!,
-                                  isMyProfile: isMyProfile,
-                                ),
+                                // BioSection(
+                                //   userProfile: state.userProfile!,
+                                //   isMyProfile: isMyProfile,
+                                // ),
                                 SizedBox(height: 20),
                                 StaggeredAnimation(
                                     isTitle: true,

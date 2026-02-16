@@ -10,7 +10,7 @@ class FriendItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-      CirclePicture(imageUrl: friend.profilePicture!, radius: 20),
+      CirclePicture(imageUrl: friend.profilePicture!, radius: 20,userId: friend.id!,),
         SizedBox(height: 10),
         Text(
           friend.fullName!,

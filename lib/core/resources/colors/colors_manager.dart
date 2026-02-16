@@ -19,4 +19,5 @@ class ColorsManager {
   static const Color circleColor = Color(0x70000E08);
   static const Color redColor = Color(0x70FF0425);
   static const Color greenColor = Color(0x700C6E04);
+  static const Color transparentBlack = Color(0x840B0B0B);
 }

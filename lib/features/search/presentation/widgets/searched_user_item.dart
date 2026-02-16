@@ -20,7 +20,7 @@ class SearchedUserItem extends StatelessWidget {
       },
       child: Row(
         children: [
-          CirclePicture(imageUrl: dataList.profilePicture!, radius: 40),
+          CirclePicture(imageUrl: dataList.profilePicture!, radius: 40,userId: dataList.id!,),
           SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

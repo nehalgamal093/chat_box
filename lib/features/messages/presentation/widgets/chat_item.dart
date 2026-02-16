@@ -23,7 +23,7 @@ class ChatItem extends StatelessWidget {
       child: ListTile(
         leading: Badge(
           backgroundColor: Colors.green,
-          // smallSize:MyInheritedWidget.of(context).user.isOnline!? 15:0,
+          smallSize:user.isOnline ==true? 15:0,
           child: InkWell(
             onTap: () {
               // Navigator.push(
@@ -38,7 +38,7 @@ class ChatItem extends StatelessWidget {
             },
             child: CirclePicture(
                 imageUrl:user.profilePicture!,
-                radius: 40),
+                radius: 40,userId: user.id!,),
           ),
         ),
         title: Text(

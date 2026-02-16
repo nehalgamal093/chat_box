@@ -11,6 +11,10 @@ class CustomFonts {
     return GoogleFonts.cabin(
         fontSize: 80, fontWeight: FontWeight.w400, color: fontColor);
   }
+  static TextStyle large8({Color fontColor = ColorsManager.whiteColor}) {
+    return GoogleFonts.cabin(
+        fontSize: 40, fontWeight: FontWeight.w700, color: fontColor);
+  }
   static TextStyle medium10({Color fontColor = ColorsManager.whiteColor}) {
     return GoogleFonts.cabin(
         fontSize: 20, fontWeight: FontWeight.w700, color: fontColor);

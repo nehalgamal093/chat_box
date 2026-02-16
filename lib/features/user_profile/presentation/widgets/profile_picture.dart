@@ -26,6 +26,7 @@ class ProfilePicture extends StatelessWidget {
           imageUrl: userProfile.profilePicture!,
           radius: 50,
           isMyPicture: true,
+          userId: id,
         ),
         isMyProfile
             ? InkWell(

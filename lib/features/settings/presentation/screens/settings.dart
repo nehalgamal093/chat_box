@@ -12,32 +12,48 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LogoutBloc,LogoutState>(
-      listener: (context,state) {
-         if(state is LogoutSuccess){
-           CacheHelper.clearToken();
-           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>StartingScreen()));
-         } else if(state is LogoutLoading){
-           showLoading(context);
-         }
+    return BlocListener<LogoutBloc, LogoutState>(
+      listener: (context, state) {
+        if (state is LogoutSuccess) {
+          CacheHelper.clearToken();
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => StartingScreen(),
+              ),
+              (route) => false);
+        } else if (state is LogoutLoading) {
+          showLoading(context);
+        }
       },
       child: ListView(
         children: [
           ListTile(
-            trailing: Icon(Icons.logout,color: ColorsManager.grey,),
-            title: Text(StringsManager.logout,style: TextStyle(color: ColorsManager.grey),),
-            onTap: (){
-             context.read<LogoutBloc>().add(LoggingOutEvent());
+            trailing: Icon(
+              Icons.logout,
+              color: ColorsManager.grey,
+            ),
+            title: Text(
+              StringsManager.logout,
+              style: TextStyle(color: ColorsManager.grey),
+            ),
+            onTap: () {
+              context.read<LogoutBloc>().add(LoggingOutEvent());
             },
           )
-
         ],
       ),
     );
   }
 }
-Future<void> showLoading(BuildContext context){
- return showDialog(context: context, builder: (context){
-   return Center(child: CircularProgressIndicator(color: ColorsManager.cyan,));
- });
+
+Future<void> showLoading(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+            child: CircularProgressIndicator(
+          color: ColorsManager.cyan,
+        ));
+      });
 }

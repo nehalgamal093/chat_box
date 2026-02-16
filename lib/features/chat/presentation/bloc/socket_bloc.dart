@@ -35,10 +35,11 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   void _onConnect(SocketConnect event, Emitter<SocketState> emit) async {
     _messageSubscription = socketService.incomingMessages.listen(
       (message) {
+        print("🎄🎄🎄New message Received ${message}");
         add(NewMessageReceived(message));
       },
     );
-    await socketService.chatOpened();
+     await socketService.chatOpened();
 
   }
 
@@ -63,15 +64,16 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     if (state is MessagesLoaded) {
       emit(MessagesLoaded([event.message, ...currentMessages], false));
     }
-    try {
+
       var result = await sendMessageUseCase.callWithFile(
-        event.message.message!,
+        event.message.message??"",
         event.message.receiverId!,
         event.file,
       );
+
       result.fold(
         (error) {
-          emit(SocketError('Failed to get messages: $error'));
+          emit(SocketError('Failed to get messages: ${error.message}'));
         },
         (model) {
           Message message = Message(
@@ -83,12 +85,10 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
           );
-          emit(MessagesLoaded([message, ...currentMessages], false));
+         emit(MessagesLoaded([message, ...currentMessages], false));
         },
       );
-    } catch (e) {
-      emit(SocketError('Failed to send message: $e'));
-    }
+
   }
 
   void _loadInitialMessages(

@@ -1,4 +1,5 @@
 import 'package:chat_box/core/caching/cache_helper.dart';
+import 'package:chat_box/core/network/AppFailures/remote_failures.dart';
 import 'package:chat_box/core/network/api_manager/api_manager.dart';
 import 'package:chat_box/features/chat/data/data_source/remote_ds/chat_remote_ds.dart';
 import 'package:chat_box/features/chat/data/models/message.dart';
@@ -28,10 +29,10 @@ class ChatRemoteDsImpl extends ChatRemoteDs {
         if (response.data is Map<String, dynamic>) {
           errorMessage = response.data['error'] ?? errorMessage;
         }
-        throw ServerException(errorMessage);
+        throw RemoteFailures(errorMessage);
       }
     } on DioException catch (e) {
-      throw ServerException(e.message ?? "Network error");
+      throw RemoteFailures(e.message ?? "Network error");
     }
   }
 
@@ -59,10 +60,10 @@ class ChatRemoteDsImpl extends ChatRemoteDs {
         if (response.data is Map<String, dynamic>) {
           errorMessage = response.data['error'] ?? errorMessage;
         }
-        throw ServerException(errorMessage);
+        throw RemoteFailures(errorMessage);
       }
     } on DioException catch (e) {
-      throw ServerException(e.message ?? "Network error");
+      throw RemoteFailures(e.message ?? "Network error");
     }
   }
 
@@ -76,7 +77,6 @@ class ChatRemoteDsImpl extends ChatRemoteDs {
       "message": message,
       "file": await MultipartFile.fromFile(file, filename: file),
     });
-
     var response = await apiManager.postRequest(
       Endpoints.sendMessage(id),
       formData,
@@ -85,8 +85,8 @@ class ChatRemoteDsImpl extends ChatRemoteDs {
         'Content-Type': 'multipart/form-data',
       },
     );
-
     try {
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         SendMessageResponse sendMessageResponse = SendMessageResponse.fromJson(
           response.data,
@@ -97,10 +97,10 @@ class ChatRemoteDsImpl extends ChatRemoteDs {
         if (response.data is Map<String, dynamic>) {
           errorMessage = response.data['error'] ?? errorMessage;
         }
-        throw ServerException(errorMessage);
+       throw RemoteFailures(errorMessage);
       }
     } on DioException catch (e) {
-      throw ServerException(e.message ?? "Network error");
+      throw RemoteFailures(e.message ?? "Network error");
     }
   }
 }

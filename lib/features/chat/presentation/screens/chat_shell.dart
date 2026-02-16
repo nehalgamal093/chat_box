@@ -21,7 +21,7 @@ class ChatShell extends StatelessWidget {
       child: Scaffold(
         body: BlocProvider(
           create: (context) => getIt<SocketBloc>()
-            ..add(SocketConnect())
+             ..add(SocketConnect())
             ..add(
               LoadInitialMessage(
                 userId,

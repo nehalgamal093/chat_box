@@ -8,11 +8,12 @@ class CirclePicture extends StatelessWidget {
   final String imageUrl;
   final double radius;
   final bool isMyPicture;
+  final String userId;
   const CirclePicture(
       {super.key,
       required this.imageUrl,
       required this.radius,
-      this.isMyPicture = false});
+      this.isMyPicture = false,required this.userId});
 
   @override
   Widget build(BuildContext context) {

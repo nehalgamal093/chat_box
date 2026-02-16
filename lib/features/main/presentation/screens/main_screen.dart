@@ -75,6 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                       imageUrl: state.userProfile!.profilePicture!,
                       radius: 20,
                       isMyPicture: true,
+                      userId:  state.userProfile!.id!,
                     ),
                   );
                 } else {

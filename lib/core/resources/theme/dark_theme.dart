@@ -26,6 +26,7 @@ class DarkTheme extends BaseTheme {
       bodySmall: CustomFonts.small10(),
       titleLarge:CustomFonts.medium9(),
       titleSmall: CustomFonts.small9(),
+      labelLarge: CustomFonts.large8()
 
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
