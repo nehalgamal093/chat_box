@@ -33,9 +33,10 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   final int _limit = 15;
   bool _hasReachedMax = false;
   void _onConnect(SocketConnect event, Emitter<SocketState> emit) async {
+    print(' 🎨🎨🎨from connect');
     _messageSubscription = socketService.incomingMessages.listen(
       (message) {
-        print("🎄🎄🎄New message Received ${message}");
+        print('Here 🎪🎪🎪 ${message}');
         add(NewMessageReceived(message));
       },
     );
@@ -98,6 +99,8 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     emit(LoadingMessages());
     _hasReachedMax = false;
     var result = await chatUseCase.call(event.otherUserId, page.toString());
+    print('Hello there 🎎🎎');
+
     result.fold(
       (error) {
         emit(SocketError('Failed to get messages: $error'));
@@ -149,6 +152,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     if (state is MessagesLoaded) {
 
       final currentMessages = (state as MessagesLoaded).messages;
+      print('🎇🎇🎇🎇${event.message}');
       emit(MessagesLoaded([event.message, ...currentMessages], false));
     } else {
 

@@ -13,6 +13,7 @@ class ChatShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Hey 🧨🧨🧨 $userId');
     return WillPopScope(
       onWillPop: () async {
         _goBackToHome(context);
@@ -25,8 +26,9 @@ class ChatShell extends StatelessWidget {
             ..add(
               LoadInitialMessage(
                 userId,
-              ),
-            ),
+              )
+            )
+          ,
           child: Navigator(
             onGenerateRoute: (settings) {
               return MaterialPageRoute(

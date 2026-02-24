@@ -1,3 +1,4 @@
+import 'package:chat_box/core/common_widgets/full_image.dart';
 import 'package:chat_box/features/chat/data/models/message.dart';
 import 'package:chat_box/features/chat/presentation/widgets/text_message.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,15 @@ class MessageImageBubble extends StatelessWidget {
       children: [
         TextMessage(message: message.message??""),
         SizedBox(height: 10),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * .5,
-          height: MediaQuery.of(context).size.height * .3,
-          child: Image.network(message.mediaUrl!, fit: BoxFit.cover),
+        InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>FullImage(image: message.mediaUrl!)));
+          },
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * .5,
+            height: MediaQuery.of(context).size.height * .3,
+            child: Image.network(message.mediaUrl!, fit: BoxFit.cover),
+          ),
         ),
       ],
     );
