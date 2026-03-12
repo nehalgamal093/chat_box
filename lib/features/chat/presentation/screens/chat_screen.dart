@@ -23,23 +23,25 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return MyInheritedWidget(
       userId: widget.userId,
-      child: Scaffold(
-      appBar: chatAppBar(context, widget.userId),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-          child: Column(
-            children: [
-              MessagesList(
-                userId: widget.userId,
-                scrollController: _scrollController,
-              ),
-              SizedBox(height: 10),
-              ChatInput(),
-            ],
+      child: SafeArea(
+        child: Scaffold(
+        appBar: chatAppBar(context, widget.userId),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+            child: Column(
+              children: [
+                MessagesList(
+                  userId: widget.userId,
+                  scrollController: _scrollController,
+                ),
+                SizedBox(height: 10),
+                ChatInput(),
+              ],
+            ),
           ),
+          floatingActionButton:
+              LoadMoreButton(scrollController: _scrollController),
         ),
-        floatingActionButton:
-            LoadMoreButton(scrollController: _scrollController),
       ),
     );
   }
