@@ -1,3 +1,4 @@
+import 'package:chat_box/core/providers/set_volume.dart';
 import 'package:chat_box/core/services/notification_service/notification_service.dart';
 import 'package:chat_box/features/chat/presentation/bloc/socket_bloc.dart';
 import 'package:chat_box/features/chat/presentation/provider/chat_shell_provider.dart';
@@ -52,6 +53,7 @@ void main() async{
           ChangeNotifierProvider(create: (context) => UpdateMyData()),
           ChangeNotifierProvider(create: (context) => VideoControllers()),
           ChangeNotifierProvider(create: (context) => ChatShellProvider()),
+          ChangeNotifierProvider(create: (context) => SetVolumeProvider()),
         ],
         child: const MyApp(),
       ),
