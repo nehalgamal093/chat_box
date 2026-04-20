@@ -20,7 +20,7 @@ class RegisterButton extends StatelessWidget {
               text: StringsManager.createAccount,
               color: ColorsManager.cyan,
               onPressed: onPressed,
-              textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+              textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: ColorsManager.secondaryClr,
                 fontWeight: FontWeight.w500,
               ),

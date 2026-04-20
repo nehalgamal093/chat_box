@@ -2,7 +2,6 @@ import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/common_widgets/custom_divider.dart';
 import '../widgets/bold_title.dart';
 import '../widgets/login_text.dart';

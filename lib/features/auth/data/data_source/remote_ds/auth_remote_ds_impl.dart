@@ -6,7 +6,6 @@ import 'package:chat_box/features/auth/data/models/register_request.dart';
 import 'package:chat_box/features/auth/data/models/register_response.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../../core/network/api_manager/api_manager.dart';
 import '../../../../../core/services/notification_service/notification_service.dart';
 

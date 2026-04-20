@@ -5,10 +5,9 @@ class RegisterRequest {
   String? email;
   String? confirmPassword;
   String? gender;
-  String? fcmToken;
 
   RegisterRequest(
-      {this.fullName, this.username, this.password, this.email, this.confirmPassword, this.gender, this.fcmToken});
+      {this.fullName, this.username, this.password, this.email, this.confirmPassword, this.gender});
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -18,7 +17,6 @@ class RegisterRequest {
     map["email"] = email;
     map["confirmPassword"] = confirmPassword;
     map["gender"] = gender;
-    map["fcmToken"] = fcmToken;
     return map;
   }
 
@@ -29,6 +27,5 @@ class RegisterRequest {
     email = json["email"];
     confirmPassword = json["confirmPassword"];
     gender = json["gender"];
-    fcmToken = json["fcmToken"];
   }
 }

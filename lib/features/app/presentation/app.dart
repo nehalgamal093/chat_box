@@ -31,8 +31,8 @@ class _MyAppState extends State<MyApp> {
               ? StartingScreen.routeName
               : MainScreen.routeName,
       routes: {
-        MainScreen.routeName: (context) => MainScreen(),
         StartingScreen.routeName: (context) => StartingScreen(),
+        MainScreen.routeName: (context) => MainScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
         RegisterScreen.routeName: (context) => RegisterScreen(),
         // ChatScreen.routeName: (context) => ChatScreen(userId: '',),

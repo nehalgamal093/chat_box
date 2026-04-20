@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           Text('Home', style: Theme.of(context).textTheme.bodyLarge),
-          MultiBlocProvider(
+          CacheHelper.getUserId()!=null? MultiBlocProvider(
             providers: [
               BlocProvider(
                 create: (context) => getIt<UserProfileBloc>()
@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
                 }
               },
             ),
-          ),
+          ):SizedBox(),
         ],
       )),
       extendBody: true,
