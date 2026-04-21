@@ -24,4 +24,5 @@ class ImagesManager{
   static const String contact = "assets/icons/contact.png";
   static const String location = "assets/icons/location.png";
   static const String wallet = "assets/icons/wallet.png";
+  static const String inboxEmpty = "assets/icons/inbox_empty.png";
 }

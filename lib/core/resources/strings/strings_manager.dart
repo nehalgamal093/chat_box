@@ -38,6 +38,7 @@ class StringsManager {
   static const String photo ="Photo";
   static const String logout ="Logout";
   static const String editMyBio ="Edit my bio";
+  static const String emptyInbox ="Empty inbox";
 
 
   //routes Names

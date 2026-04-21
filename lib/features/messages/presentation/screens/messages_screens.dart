@@ -3,6 +3,7 @@ import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends/presentation/widgets/loading_list.dart';
 import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:chat_box/features/messages/presentation/bloc/chatted_users_bloc.dart';
+import 'package:chat_box/features/messages/presentation/widgets/no_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/chat_item.dart';
@@ -24,6 +25,9 @@ class MessagesScreens extends StatelessWidget {
               if (state is ChattedUsersLoading) {
                 return LoadingList();
               } else if (state is ChattedUsersLoaded) {
+                if(state.list.isEmpty){
+                  return NoMessages();
+                }
                 return ListView.builder(
                   itemCount: state.list.length,
                   itemBuilder: (context, index) {
