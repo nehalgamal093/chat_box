@@ -32,7 +32,7 @@ class AuthTextField extends StatelessWidget {
         ),
         SizedBox(height: 10),
         TextField(
-          // focusNode: focusNode,
+          focusNode: focusNode,
           textInputAction: TextInputAction.next,
           obscureText: isPassword,
           controller: controller,

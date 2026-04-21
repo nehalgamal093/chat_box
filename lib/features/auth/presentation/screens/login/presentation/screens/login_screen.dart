@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
-      create: (context)=>PasswordVisibilityProvider(),
+      create: (context) => PasswordVisibilityProvider(),
       child: Consumer<PasswordVisibilityProvider>(
         builder: (BuildContext context, value, Widget? child) {
           return Scaffold(
@@ -47,21 +47,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: BlocConsumer<LoginBloc, LoginState>(
                       builder: (context, state) {
                         return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 50),
+                            SizedBox(height: 10),
                             Text(
                               StringsManager.loginToChatBox,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 10),
                             WelcomeText(),
-                            SizedBox(height: 20),
+                            SizedBox(height: 60),
                             RowIcons(),
                             SizedBox(height: 20),
                             CustomDivider(),
-                            SizedBox(height: 20),
-
+                            SizedBox(height: 50),
                             AuthTextField(
                               focusNode: focusNodeEmail,
                               nextFocus: focusNodePassword,
@@ -75,26 +74,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: 20),
                             AuthTextField(
-
                               focusNode: focusNodePassword,
                               nextFocus: focusNodePassword,
-                              suffixIcon: value.visible?InkWell(
-                                onTap: (){
-                                  value.changeVisibility();
-                                },
-                                child: Icon(
-                                  Icons.visibility_outlined,
-                                  color: ColorsManager.whiteColor,
-                                ),
-                              ):InkWell(
-                                onTap: (){
-                                  value.changeVisibility();
-                                },
-                                child: Icon(
-                                  Icons.visibility_off_outlined,
-                                  color: ColorsManager.whiteColor,
-                                ),
-                              ),
+                              suffixIcon: value.visible
+                                  ? InkWell(
+                                      onTap: () {
+                                        value.changeVisibility();
+                                      },
+                                      child: Icon(
+                                        Icons.visibility_outlined,
+                                        color: ColorsManager.whiteColor,
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () {
+                                        value.changeVisibility();
+                                      },
+                                      child: Icon(
+                                        Icons.visibility_off_outlined,
+                                        color: ColorsManager.whiteColor,
+                                      ),
+                                    ),
                               isPassword: !value.visible,
                               controller: passwordController,
                               label: StringsManager.password,
@@ -102,7 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(height: 50),
                             LoginButton(
                               onPressed: () {
-
                                 BlocProvider.of<LoginBloc>(context).add(
                                   OnLoginEvent(
                                     emailController.text,
@@ -112,12 +111,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ),
                             SizedBox(height: 20),
-                            Text(
-                              StringsManager.forgetPassword,
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                fontSize: 14,
-                                color: ColorsManager.cyan,
-                                fontWeight: FontWeight.w700,
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                StringsManager.forgetPassword,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      fontSize: 14,
+                                      color: ColorsManager.cyan,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                               ),
                             ),
                             SizedBox(height: 20),
@@ -131,8 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pop(context);
                           Navigator.pushNamed(context, MainScreen.routeName);
                         } else if (state.loginStates == LoginStates.failed) {
-
-                        } else {}
+                        } else {
+                          Navigator.pop(context);
+                        }
                       },
                     ),
                   ),
@@ -141,7 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         },
-
       ),
     );
   }

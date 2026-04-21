@@ -12,9 +12,7 @@ class WelcomeText extends StatelessWidget {
       child: Text(
         StringsManager.welcomeLogin,
         maxLines: 2,
-        style: Theme.of(
-          context,
-        ).textTheme.titleSmall!.copyWith(fontSize: 14),
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }
