@@ -12,29 +12,34 @@ class DarkTheme extends BaseTheme {
 
   @override
   ThemeData get myThemeData => ThemeData(
-    scaffoldBackgroundColor: background,
-    appBarTheme: AppBarTheme(
-      centerTitle: true,
-      backgroundColor: background,
-      iconTheme: IconThemeData(color: textColor),
-    ),
-    textTheme: TextTheme(
-      headlineLarge: CustomFonts.large10(),
-      headlineMedium: CustomFonts.large9(),
-      bodyLarge:CustomFonts.medium10(),
-      bodyMedium:CustomFonts.medium7(),
-      bodySmall: CustomFonts.small10(),
-      titleLarge:CustomFonts.medium9(),
-      titleSmall: CustomFonts.small9(),
-      labelLarge: CustomFonts.large8()
-
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: ColorsManager.primaryColor,
-      unselectedItemColor: ColorsManager.medGrey,
-      selectedItemColor: ColorsManager.whiteColor,
-      elevation: 0,
-      type: BottomNavigationBarType.fixed
-    ),
-  );
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          },
+        ),
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        scaffoldBackgroundColor: background,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          backgroundColor: background,
+          iconTheme: IconThemeData(color: textColor),
+        ),
+        textTheme: TextTheme(
+            headlineLarge: CustomFonts.large10(),
+            headlineMedium: CustomFonts.large9(),
+            bodyLarge: CustomFonts.medium10(),
+            bodyMedium: CustomFonts.medium7(),
+            bodySmall: CustomFonts.small10(),
+            titleLarge: CustomFonts.medium9(),
+            titleSmall: CustomFonts.small9(),
+            labelLarge: CustomFonts.large8()),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: ColorsManager.primaryColor,
+            unselectedItemColor: ColorsManager.medGrey,
+            selectedItemColor: ColorsManager.whiteColor,
+            elevation: 0,
+            type: BottomNavigationBarType.fixed),
+      );
 }

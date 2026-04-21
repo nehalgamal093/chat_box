@@ -1,6 +1,7 @@
 import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends/presentation/screens/friends_tabs.dart';
+import 'package:chat_box/features/main/presentation/widgets/nav_icon.dart';
 import 'package:chat_box/features/settings/presentation/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +34,8 @@ class _MainScreenState extends State<MainScreen> {
           title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
+          GestureDetector(
+
             onTap: () {
               Navigator.push(
                 context,
@@ -100,21 +102,22 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
         child: BottomNavigationBar(
+          enableFeedback: false,
           currentIndex: provider.index,
           onTap: (index) {
             provider.changeIndex(index);
           },
           items: [
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(ImagesManager.chat)),
+              icon: NavIcon(image: ImagesManager.chat,isSelected:provider.index==0),
               label: StringsManager.messages,
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(ImagesManager.user)),
+              icon: NavIcon(image: ImagesManager.user,isSelected:provider.index==1),
               label: StringsManager.friends,
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(ImagesManager.settings)),
+              icon: NavIcon(image: ImagesManager.settings,isSelected:provider.index==2),
               label: StringsManager.settings,
             ),
           ],
