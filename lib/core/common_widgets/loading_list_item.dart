@@ -6,37 +6,15 @@ class LoadingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          radius: 40,
-          backgroundColor: ColorsManager.secondaryClr,
-        ),
-
-        SizedBox(width: 10,),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              width: 100,
-              height: 20,
-              decoration: BoxDecoration(
-                  color: ColorsManager.secondaryClr,
-                  borderRadius: BorderRadius.all(Radius.circular(2))
-              ),
-            ),
-            SizedBox(height: 10,),
-            Container(
-              width: 100,
-              height: 20,
-              decoration: BoxDecoration(
-                  color: ColorsManager.secondaryClr,
-                  borderRadius: BorderRadius.all(Radius.circular(2))
-              ),
-            ),
-          ],
-        )
-      ],
+    Size size = MediaQuery.sizeOf(context);
+    return Container(
+      height: size.height*.10,
+      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        border: Border.all(color: ColorsManager.secondaryClr),
+        borderRadius: BorderRadius.circular(20)
+      ),
     );
   }
 }

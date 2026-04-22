@@ -14,9 +14,7 @@ class FriendsTabs extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(
-              height: 10,
-            ),
+
             TabBar(
                 indicatorColor: ColorsManager.whiteColor,
                 unselectedLabelColor: ColorsManager.whiteColor,
@@ -24,23 +22,17 @@ class FriendsTabs extends StatelessWidget {
                 labelColor: ColorsManager.whiteColor,
                 padding: const EdgeInsets.all(10),
                 indicatorWeight: 2,
-                indicator: BoxDecoration(
-                  color: ColorsManager.cyan,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
                 dividerHeight: 0,
                 tabs: [
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                     child: Text(
                       StringsManager.friends,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                     child: Text(
                       StringsManager.friendsRequests,
                       style: Theme.of(context).textTheme.titleLarge,

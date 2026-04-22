@@ -10,31 +10,27 @@ class FriendsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
 
-      body: Container(
-        width: size.width*.8,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: BlocProvider(
-          create: (context) => getIt<FriendsBloc>()..add(LoadItems()),
-          child: BlocBuilder<FriendsBloc, FriendsState>(
-            builder: (context, state) {
-              if (state is FriendsLoading) {
-                return LoadingList();
-              } else if (state is FriendsLoaded) {
-                return ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 20),
-                  itemCount: state.list.length,
-                  itemBuilder: (context, index) {
-                    return FriendListItem(dataList: state.list[index]);
-                  },
-                );
-              } else {
-                return SizedBox();
-              }
-            },
-          ),
+      body: BlocProvider(
+        create: (context) => getIt<FriendsBloc>()..add(LoadItems()),
+        child: BlocBuilder<FriendsBloc, FriendsState>(
+          builder: (context, state) {
+            if (state is FriendsLoading) {
+              return LoadingList();
+            } else if (state is FriendsLoaded) {
+              return ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(height: 20),
+                itemCount: state.list.length,
+                itemBuilder: (context, index) {
+                  return FriendListItem(dataList: state.list[index]);
+                },
+              );
+            } else {
+              return SizedBox();
+            }
+          },
         ),
       ),
     );
