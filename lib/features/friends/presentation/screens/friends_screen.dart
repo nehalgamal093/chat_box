@@ -12,7 +12,6 @@ class FriendsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
       body: BlocProvider(
         create: (context) => getIt<FriendsBloc>()..add(LoadItems()),
         child: BlocBuilder<FriendsBloc, FriendsState>(

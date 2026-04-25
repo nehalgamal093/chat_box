@@ -14,7 +14,6 @@ class FriendsTabs extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-
             TabBar(
                 indicatorColor: ColorsManager.whiteColor,
                 unselectedLabelColor: ColorsManager.whiteColor,

@@ -22,14 +22,13 @@ class FriendListItem extends StatelessWidget {
       },
       child: Center(
         child: Container(
-          width: size.width*.9,
+          width: size.width*.8,
           decoration: BoxDecoration(
               border: Border.all(color: ColorsManager.medGrey),
               borderRadius: BorderRadius.circular(20)
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomImage(profilePicture:  dataList.profilePicture??""),

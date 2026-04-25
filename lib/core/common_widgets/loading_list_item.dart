@@ -8,9 +8,9 @@ class LoadingListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Container(
-      height: size.height*.10,
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-      margin: const EdgeInsets.only(bottom: 10),
+      height: size.height*.15,
+      width: size.width*.4,
+      margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
       decoration: BoxDecoration(
         border: Border.all(color: ColorsManager.secondaryClr),
         borderRadius: BorderRadius.circular(20)

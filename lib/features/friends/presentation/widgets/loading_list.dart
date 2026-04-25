@@ -7,7 +7,7 @@ class LoadingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30,right: 6,left: 6),
+      padding: const EdgeInsets.only(top: 5,right: 6,left: 6),
       child: ListView.separated(
         separatorBuilder: (context,index)=>SizedBox(height: 10,),
           itemCount: 3,

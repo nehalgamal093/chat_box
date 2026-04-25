@@ -1,4 +1,3 @@
-import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/core/common_widgets/custom_image.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
@@ -28,10 +27,11 @@ class FriendRequestItem extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
         child: Row(
+
           children: [
             // CirclePicture(imageUrl: dataList.profilePicture!,radius: 40,userId: dataList.id!,),
             CustomImage(profilePicture:dataList.profilePicture??""),
-            SizedBox(width: 50),
+            SizedBox(width: 40),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
