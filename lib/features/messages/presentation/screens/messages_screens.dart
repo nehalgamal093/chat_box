@@ -3,6 +3,7 @@ import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/friends/presentation/widgets/loading_list.dart';
 import 'package:chat_box/features/messages/data/models/chatted_users.dart';
 import 'package:chat_box/features/messages/presentation/bloc/chatted_users_bloc.dart';
+import 'package:chat_box/features/messages/presentation/widgets/friends_top_bar.dart';
 import 'package:chat_box/features/messages/presentation/widgets/no_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +14,8 @@ class MessagesScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.only(top: 30,right: 6,left: 6),
         child: BlocProvider(
@@ -28,16 +29,27 @@ class MessagesScreens extends StatelessWidget {
                 if(state.list.isEmpty){
                   return NoMessages();
                 }
-                return ListView.builder(
-                  itemCount: state.list.length,
-                  itemBuilder: (context, index) {
-                    return ChatItem(
-                      user: state.list[index].user!,
-                      time: state.list[index].user!.updatedAt!,
-                      lastMessage:
+                return Column(
+                  children: [
+                    SizedBox(
+                        width: size.width,
+                        height: size.height*.3,
+                        child: FriendsTopBar()),
+                    SizedBox(height: 20,),
+                    Expanded(
+
+                        child: ListView.builder(
+                      itemCount: state.list.length,
+                      itemBuilder: (context, index) {
+                        return ChatItem(
+                          user: state.list[index].user!,
+                          time: state.list[index].user!.updatedAt!,
+                          lastMessage:
                           isPhotoOrMsg(state.list[index].lastMessage),
-                    );
-                  },
+                        );
+                      },
+                    ))
+                  ],
                 );
               } else {
                 return Text(StringsManager.error);

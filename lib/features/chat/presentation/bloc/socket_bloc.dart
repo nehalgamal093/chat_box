@@ -33,10 +33,8 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   final int _limit = 15;
   bool _hasReachedMax = false;
   void _onConnect(SocketConnect event, Emitter<SocketState> emit) async {
-    print(' 🎨🎨🎨from connect');
     _messageSubscription = socketService.incomingMessages.listen(
       (message) {
-        print('Here 🎪🎪🎪 ${message}');
         add(NewMessageReceived(message));
       },
     );
@@ -53,7 +51,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     final currentMessages = (state as MessagesLoaded).messages;
     if (state is MessagesLoaded) {
       socketService.sendMessage(event.message);
-    emit(MessagesLoaded([event.message, ...currentMessages], false));
+    emit(MessagesLoaded([event.message, ...currentMessages], currentMessages.length<_limit));
     }
   }
 
@@ -63,7 +61,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   ) async {
     final currentMessages = (state as MessagesLoaded).messages;
     if (state is MessagesLoaded) {
-      emit(MessagesLoaded([event.message, ...currentMessages], false));
+      emit(MessagesLoaded([event.message, ...currentMessages],  currentMessages.length<_limit));
     }
 
       var result = await sendMessageUseCase.callWithFile(
@@ -86,7 +84,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
             createdAt: model.newMessage?.createdAt,
             updatedAt: model.newMessage?.updatedAt,
           );
-         emit(MessagesLoaded([message, ...currentMessages], false));
+         emit(MessagesLoaded([message, ...currentMessages], currentMessages.length<_limit));
         },
       );
 
@@ -99,8 +97,6 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     emit(LoadingMessages());
     _hasReachedMax = false;
     var result = await chatUseCase.call(event.otherUserId, page.toString());
-    print('Hello there 🎎🎎');
-
     result.fold(
       (error) {
         emit(SocketError('Failed to get messages: $error'));
@@ -133,6 +129,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
         },
         (model) {
           _hasReachedMax = model.messagesList!.length < _limit;
+          print('🎍🎍🎍 ${model.messagesList!.length < _limit}');
           emit(
             MessagesLoaded([
               ...currentState.messages,
@@ -152,8 +149,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     if (state is MessagesLoaded) {
 
       final currentMessages = (state as MessagesLoaded).messages;
-      print('🎇🎇🎇🎇${event.message}');
-      emit(MessagesLoaded([event.message, ...currentMessages], false));
+      emit(MessagesLoaded([event.message, ...currentMessages],  currentMessages.length<_limit));
     } else {
 
     }

@@ -31,98 +31,121 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BottomNavProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-          title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
+    return Container(
+      decoration: BoxDecoration(
+          gradient:LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.5,.8],
+            colors: ColorsManager.backGroundGradient,
+          )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: ColorsManager.black00,
+            title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
 
-            onTap: ()async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchScreen(),
-                ),
-              );
-            },
-            child: Image.asset(
-              ImagesManager.search,
-              width: 25,
+              onTap: ()async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchScreen(),
+                  ),
+                );
+              },
+              child: Image.asset(
+                ImagesManager.search,
+                width: 25,
+              ),
             ),
-          ),
-          Text('Home', style: Theme.of(context).textTheme.bodyLarge),
-          CacheHelper.getUserId()!=null? MultiBlocProvider(
+            Text('Home', style: Theme.of(context).textTheme.bodyLarge),
+            CacheHelper.getUserId()!=null? MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => getIt<UserProfileBloc>()
+                    ..add(GetUserProfileEvent(CacheHelper.getUserId()!)),
+                ),
+
+              ],
+              child: BlocBuilder<UserProfileBloc, UserProfileState>(
+                builder: (context, state) {
+                  if (state.profileStates == ProfileStates.success) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfileScreen(
+                              id: state.userProfile!.id!,
+                              isMyProfile: true,
+                            ),
+                          ),
+                        );
+                      },
+                      child: CirclePicture(
+                        imageUrl: state.userProfile!.profilePicture!,
+                        radius: 20,
+                        isMyPicture: true,
+                        userId:  state.userProfile!.id!,
+                      ),
+                    );
+                  } else {
+                    return CircleAvatar(
+                      backgroundColor: ColorsManager.secondaryClr,
+                      radius: 20,
+                    );
+                  }
+                },
+              ),
+            ):SizedBox(),
+          ],
+        )),
+        extendBody: true,
+        body: MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => getIt<UserProfileBloc>()
-                  ..add(GetUserProfileEvent(CacheHelper.getUserId()!)),
-              ),
-
+                create: (context) => getIt<LogoutBloc>(),
+              )
             ],
-            child: BlocBuilder<UserProfileBloc, UserProfileState>(
-              builder: (context, state) {
-                if (state.profileStates == ProfileStates.success) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserProfileScreen(
-                            id: state.userProfile!.id!,
-                            isMyProfile: true,
-                          ),
-                        ),
-                      );
-                    },
-                    child: CirclePicture(
-                      imageUrl: state.userProfile!.profilePicture!,
-                      radius: 20,
-                      isMyPicture: true,
-                      userId:  state.userProfile!.id!,
-                    ),
-                  );
-                } else {
-                  return CircleAvatar(
-                    backgroundColor: ColorsManager.secondaryClr,
-                    radius: 20,
-                  );
-                }
-              },
-            ),
-          ):SizedBox(),
-        ],
-      )),
-      extendBody: true,
-      body: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => getIt<LogoutBloc>(),
+            child: screens[provider.index]),
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.5,.8],
+              colors: ColorsManager.bottomNavGradient,
             )
-          ],
-          child: screens[provider.index]),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
-        child: BottomNavigationBar(
-          enableFeedback: false,
-          currentIndex: provider.index,
-          onTap: (index) {
-            provider.changeIndex(index);
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: NavIcon(image: ImagesManager.chat,isSelected:provider.index==0),
-              label: StringsManager.messages,
+           ),
+            child: BottomNavigationBar(
+              enableFeedback: false,
+              currentIndex: provider.index,
+              onTap: (index) {
+                provider.changeIndex(index);
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: NavIcon(image: ImagesManager.chat,isSelected:provider.index==0),
+                  label: StringsManager.messages,
+                ),
+                BottomNavigationBarItem(
+                  icon: NavIcon(image: ImagesManager.user,isSelected:provider.index==1),
+                  label: StringsManager.friends,
+                ),
+                BottomNavigationBarItem(
+                  icon: NavIcon(image: ImagesManager.settings,isSelected:provider.index==2),
+                  label: StringsManager.settings,
+                ),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: NavIcon(image: ImagesManager.user,isSelected:provider.index==1),
-              label: StringsManager.friends,
-            ),
-            BottomNavigationBarItem(
-              icon: NavIcon(image: ImagesManager.settings,isSelected:provider.index==2),
-              label: StringsManager.settings,
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class DarkTheme extends BaseTheme {
   @override
-  Color get background => ColorsManager.primaryColor;
+  Color get background => ColorsManager.transparent;
 
   @override
   Color get textColor => ColorsManager.whiteColor;
@@ -20,7 +20,7 @@ class DarkTheme extends BaseTheme {
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         hoverColor: Colors.transparent,
-        scaffoldBackgroundColor: background,
+         scaffoldBackgroundColor: background,
         appBarTheme: AppBarTheme(
           centerTitle: true,
           backgroundColor: background,
@@ -36,7 +36,7 @@ class DarkTheme extends BaseTheme {
             titleSmall: CustomFonts.small9(),
             labelLarge: CustomFonts.large8()),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: ColorsManager.primaryColor,
+             backgroundColor: Colors.transparent,
             unselectedItemColor: ColorsManager.medGrey,
             selectedItemColor: ColorsManager.whiteColor,
             elevation: 0,

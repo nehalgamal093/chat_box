@@ -21,4 +21,21 @@ class ColorsManager {
   static const Color redColor = Color(0x70FF0425);
   static const Color greenColor = Color(0x700C6E04);
   static const Color transparentBlack = Color(0x840B0B0B);
+
+  //new
+  static const Color black00 = Color(0xFF121111);
+  static const Color purple81 = Color(0xCF29084A);
+  static const Color purple00 = Color(0xFF7C01F6);
+  static const Color grey00 = Color(0xFF222222);
+  static const Color grey01 = Color(0xFF2C2C2C);
+  static const Color grey02 = Color(0xFFC8C8C8);
+  static const List<Color> backGroundGradient = [
+   black00,
+    purple81
+  ];
+
+  static const List<Color> bottomNavGradient = [
+    grey00,
+    grey01
+  ];
 }

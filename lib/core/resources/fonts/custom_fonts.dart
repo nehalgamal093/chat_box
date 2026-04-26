@@ -36,4 +36,14 @@ class CustomFonts {
     return GoogleFonts.cabin(
         fontSize: 12, fontWeight: FontWeight.w400, color: fontColor);
   }
+
+  static TextStyle med00({Color fontColor = ColorsManager.grey02}) {
+    return GoogleFonts.montserrat(
+        fontSize: 15, fontWeight: FontWeight.w400, color: fontColor);
+  }
+  static TextStyle med01({Color fontColor = ColorsManager.whiteColor}) {
+    return GoogleFonts.montserrat(
+        fontSize: 12, fontWeight: FontWeight.w800, color: fontColor);
+  }
+
 }

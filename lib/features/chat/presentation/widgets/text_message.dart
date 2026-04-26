@@ -1,4 +1,5 @@
 import 'package:chat_box/core/extensions/capitalize.dart';
+import 'package:chat_box/core/resources/fonts/custom_fonts.dart';
 import 'package:flutter/material.dart';
 
 class TextMessage extends StatelessWidget {
@@ -9,7 +10,7 @@ class TextMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       message.isEmpty ? message : message.capitalize(),
-      style: Theme.of(context).textTheme.bodyMedium,
+      style:CustomFonts.med01(),
     );
   }
 }
