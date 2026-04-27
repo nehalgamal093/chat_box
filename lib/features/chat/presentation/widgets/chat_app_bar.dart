@@ -1,5 +1,8 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
+import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/core/resources/fonts/custom_fonts.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
+import 'package:chat_box/features/chat/presentation/widgets/active_now.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/di.dart';
@@ -9,6 +12,8 @@ import '../../../user_profile/presentation/screens/user_profile_screen.dart';
 
 PreferredSizeWidget chatAppBar(BuildContext context, String id) {
   return AppBar(
+    toolbarHeight: 80,
+    backgroundColor: ColorsManager.grey03,
     title: InkWell(
       onTap: () {
         Navigator.push(
@@ -26,21 +31,15 @@ PreferredSizeWidget chatAppBar(BuildContext context, String id) {
           if (state.profileStates == ProfileStates.loading) {
             return SizedBox();
           } else if (state.profileStates == ProfileStates.success) {
-            print('🎆🎆🎆 ID2 ${state.userProfile!.id}');
             return Row(
               children: [
-            Badge(
-                    backgroundColor: Colors.green,
-                    smallSize: 10,
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: CirclePicture(
-                          imageUrl: state.userProfile!.profilePicture ?? "",
-                          radius: 20,
-                          userId: id),
-                    ),
-                  ),
-
+                Material(
+                  type: MaterialType.transparency,
+                  child: CirclePicture(
+                      imageUrl: state.userProfile!.profilePicture ?? "",
+                      radius: 20,
+                      userId: id),
+                ),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,8 +50,10 @@ PreferredSizeWidget chatAppBar(BuildContext context, String id) {
                         context,
                       ).textTheme.bodyMedium!.copyWith(fontSize: 16),
                     ),
-                    Text(StringsManager.activeNow,
-                        style: Theme.of(context).textTheme.bodySmall),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    ActiveNow()
                   ],
                 ),
               ],

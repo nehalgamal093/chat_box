@@ -11,22 +11,18 @@ class ProfileLoading extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        Container(
-          width: size.width,
-          decoration: BoxDecoration(color: ColorsManager.primaryColor),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                backgroundColor: ColorsManager.secondaryClr,
-                radius: 70,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              loadingRows(),
-            ],
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              backgroundColor: ColorsManager.black00,
+              radius: 70,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            loadingRows(),
+          ],
         ),
         SizedBox(
           height: size.height * .65,
@@ -37,28 +33,11 @@ class ProfileLoading extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: ColorsManager.secondaryClr,
+                    color: ColorsManager.black00,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(14),
                       topRight: Radius.circular(14),
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 50,
-                      ),
-                      LoadingText(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                     LoadingText(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      LoadingText()
-                    ],
                   ),
                 ),
               ),
@@ -75,21 +54,21 @@ Widget loadingRows() {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       CircleAvatar(
-        backgroundColor: ColorsManager.secondaryClr,
+        backgroundColor: ColorsManager.black00,
         radius: 20,
       ),
       SizedBox(
         width: 10,
       ),
       CircleAvatar(
-        backgroundColor: ColorsManager.secondaryClr,
+        backgroundColor: ColorsManager.black00,
         radius: 20,
       ),
       SizedBox(
         width: 10,
       ),
       CircleAvatar(
-        backgroundColor: ColorsManager.secondaryClr,
+        backgroundColor: ColorsManager.black00,
         radius: 20,
       ),
       SizedBox(

@@ -7,8 +7,9 @@ import '../provider/file_picker_provider.dart';
 toolsBottomNav(BuildContext context, String userId,FilePickerProvider provider) {
 
   Size size = MediaQuery.sizeOf(context);
-  return showBottomSheet(
+  return showModalBottomSheet(
       context: context,
+      isDismissible: true,
       sheetAnimationStyle: AnimationStyle(duration: Duration(milliseconds: 1000),reverseCurve: Curves.easeInOut,),
       backgroundColor: Colors.transparent,
       builder: (context) {

@@ -9,7 +9,7 @@ loadingDialog(BuildContext context) {
       return AlertDialog(
         backgroundColor: Colors.transparent,
         content: Center(
-          child: CircularProgressIndicator(color: ColorsManager.cyan),
+          child: CircularProgressIndicator(color: ColorsManager.purple02),
         ),
       );
     },

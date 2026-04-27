@@ -29,6 +29,11 @@ class ColorsManager {
   static const Color grey00 = Color(0xFF222222);
   static const Color grey01 = Color(0xFF2C2C2C);
   static const Color grey02 = Color(0xFFC8C8C8);
+  static const Color grey03 = Color(0xFF1F1F1F);
+  static const Color grey04 = Color(0xffBABABA);
+  static const Color purple01 = Color(0xff830EF7);
+  static const Color purple02 = Color(0xffAC5BFD);
+  static const Color activeColor = Color(0xff00FF85);
   static const List<Color> backGroundGradient = [
    black00,
     purple81
@@ -37,5 +42,15 @@ class ColorsManager {
   static const List<Color> bottomNavGradient = [
     grey00,
     grey01
+  ];
+
+  static const List<Color> myChatBubble = [
+    purple02,
+    purple01,
+
+  ];
+  static const List<Color> senderChatBubble = [
+    grey03,
+    grey03,
   ];
 }

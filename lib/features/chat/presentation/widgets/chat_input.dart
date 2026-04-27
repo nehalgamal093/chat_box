@@ -59,7 +59,7 @@ class _ChatInputState extends State<ChatInput> {
                   hintStyle: Theme.of(
                     context,
                   ).textTheme.bodySmall!.copyWith(color: ColorsManager.medGrey),
-                  fillColor: ColorsManager.darkBlue,
+                  fillColor: ColorsManager.grey03,
                   contentPadding: EdgeInsets.only(bottom: 10, left: 10),
                   filled: true,
                   suffixIcon: InkWell(
@@ -98,7 +98,7 @@ class _ChatInputState extends State<ChatInput> {
                 children: [
                   SizedBox(width: 10),
                   CircleAvatar(
-                    backgroundColor: ColorsManager.cyan,
+                    backgroundColor: ColorsManager.purple01,
                     child: Image.asset(ImagesManager.send),
                   ),
                 ],

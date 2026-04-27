@@ -15,7 +15,7 @@ class NavIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: isSelected ?ColorsManager.lightBlue:Colors.transparent
       ),
-      child: ImageIcon(AssetImage(image),size: 20,),
+      child: ImageIcon(AssetImage(image),size: 30,),
     );
   }
 }

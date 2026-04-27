@@ -1,6 +1,8 @@
 import 'package:chat_box/core/common_widgets/circle_picture.dart';
 import 'package:chat_box/features/user_profile/presentation/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/resources/colors/colors_manager.dart';
+import '../../../../core/resources/fonts/custom_fonts.dart';
 import '../../../search/data/models/search_result.dart';
 
 class SearchedUserItem extends StatelessWidget {
@@ -25,7 +27,7 @@ class SearchedUserItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(dataList.fullName!),
+              Text(dataList.fullName!,style: CustomFonts.med02(fontColor: ColorsManager.whiteColor),),
               SizedBox(height: 5),
               Text(
                 dataList.bio!,

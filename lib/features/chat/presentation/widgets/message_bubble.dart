@@ -27,6 +27,17 @@ class _MessageBubbleState extends State<MessageBubble>
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
+            gradient: isSender ?LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.0,.8],
+              colors: ColorsManager.myChatBubble,
+            ):LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.6,.3],
+              colors: ColorsManager.senderChatBubble,
+            ),
             color: isSender ? ColorsManager.senderColor : ColorsManager.receiverColor,
             borderRadius: BorderRadius.only(
               topRight: isSender ? Radius.circular(0) : Radius.circular(15),

@@ -6,20 +6,45 @@ class LoadingChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(itemBuilder: (context,index){
-      return Align(
-        alignment: index%2==0?Alignment.centerRight:Alignment.centerLeft,
-        child: loadingChatBubble(),
-      );
-    }, separatorBuilder: (index,context)=>SizedBox(height: 10,), itemCount: 7);
+    return Container(
+      margin: EdgeInsets.only(top: 30),
+      child: ListView(
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: loadingChatBubble(150,50),
+          ),
+          SizedBox(height: 10,),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: loadingChatBubble(200,100),
+          ),
+          SizedBox(height: 10,),
+          Align(
+            alignment: Alignment.centerRight,
+            child: loadingChatBubble(100,50),
+          ),
+          SizedBox(height: 10,),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: loadingChatBubble(200,50),
+          ),
+          SizedBox(height: 10,),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: loadingChatBubble(250,150),
+          ),
+        ],
+      )
+    );
   }
 }
-Widget loadingChatBubble(){
+Widget loadingChatBubble(double width, double height){
   return Container(
-    width: 100,
-    height: 50,
+    width: width,
+    height: height,
     decoration: BoxDecoration(
-      color: ColorsManager.chatInputColor,
+      color: ColorsManager.grey03,
       borderRadius: BorderRadius.circular(15)
 
     ),

@@ -1,4 +1,5 @@
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
+import 'package:chat_box/core/resources/fonts/custom_fonts.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
@@ -24,11 +25,7 @@ class AuthTextField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                fontSize: 14,
-                color: ColorsManager.cyan,
-                fontWeight: FontWeight.w700,
-              ),
+          style: CustomFonts.med02(),
         ),
         SizedBox(height: 10),
         TextField(

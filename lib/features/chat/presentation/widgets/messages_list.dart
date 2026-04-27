@@ -85,7 +85,7 @@ class _MessagesListState extends State<MessagesList> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CircularProgressIndicator(
-                      color: ColorsManager.cyan,
+                      color: ColorsManager.purple01,
                     ),
                   ),
                 );

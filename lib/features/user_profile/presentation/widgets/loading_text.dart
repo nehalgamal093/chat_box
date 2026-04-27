@@ -12,7 +12,7 @@ class LoadingText extends StatelessWidget {
       height: 50,
       width: size.width * .8,
       decoration: BoxDecoration(
-          color: ColorsManager.primaryColor,
+          color: ColorsManager.black00,
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),),

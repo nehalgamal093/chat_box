@@ -5,18 +5,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/di.dart';
 import '../bloc/socket_bloc.dart';
 
-class ChatShell extends StatelessWidget {
+class ChatShell extends StatefulWidget {
   final bool fromNotification;
   final String userId;
   const ChatShell(
       {super.key, required this.userId, this.fromNotification = false});
 
   @override
+  State<ChatShell> createState() => _ChatShellState();
+}
+
+class _ChatShellState extends State<ChatShell> {
+  final GlobalKey<NavigatorState> _nestedNavigatorKey = GlobalKey<NavigatorState>();
+  @override
   Widget build(BuildContext context) {
-    print('Hey 🧨🧨🧨 $userId');
+
     return WillPopScope(
       onWillPop: () async {
-        _goBackToHome(context);
+        final nestedNavigatorState = _nestedNavigatorKey.currentState;
+
+        if (nestedNavigatorState != null && nestedNavigatorState.canPop()) {
+          nestedNavigatorState.pop();
+        } else {
+          _goBackToHome(context);
+        }
         return false;
       },
       child: Scaffold(
@@ -25,14 +37,15 @@ class ChatShell extends StatelessWidget {
              ..add(SocketConnect())
             ..add(
               LoadInitialMessage(
-                userId,
+                widget.userId,
               )
             )
           ,
           child: Navigator(
+            key: _nestedNavigatorKey,
             onGenerateRoute: (settings) {
               return MaterialPageRoute(
-                builder: (_) => ChatScreen(userId: userId),
+                builder: (_) => ChatScreen(userId: widget.userId),
               );
             },
           ),
@@ -42,7 +55,7 @@ class ChatShell extends StatelessWidget {
   }
 
   void _goBackToHome(BuildContext context) {
-    if (fromNotification) {
+    if (widget.fromNotification) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => MainScreen()), (route) => false);
     } else {

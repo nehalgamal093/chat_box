@@ -10,7 +10,6 @@ import '../../../../core/caching/cache_helper.dart';
 import '../../../../core/common_widgets/circle_picture.dart';
 import '../../../../core/di/di.dart';
 import '../../../../core/resources/colors/colors_manager.dart';
-import '../../../../core/services/notification_service/notification_service.dart';
 import '../../../messages/presentation/screens/messages_screens.dart';
 import '../../../search/presentation/screens/search_screen.dart';
 import '../../../settings/bloc/logout_bloc/logout_bloc.dart';

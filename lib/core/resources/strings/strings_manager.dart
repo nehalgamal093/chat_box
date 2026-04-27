@@ -23,7 +23,7 @@ class StringsManager {
   static const String fullName = "Your full name";
   static const String messages = "Messages";
   static const String search = "Search here...";
-  static const String writeMessage ="Write your message";
+  static const String writeMessage ="Type your message";
   static const String gender ="Gender";
 
   static const String viewImage ="View Image";

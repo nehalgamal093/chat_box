@@ -17,7 +17,7 @@ class LoginButton extends StatelessWidget {
         Expanded(
           child: CustomButton(
             text: StringsManager.login,
-            color: ColorsManager.cyan,
+            color: ColorsManager.purple02,
             onPressed: onPressed,
             textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: ColorsManager.secondaryClr,

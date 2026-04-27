@@ -5,19 +5,21 @@ import 'package:flutter/material.dart';
 
 class FriendsOfUserList extends StatelessWidget {
   final List<Friends> friends;
-  const FriendsOfUserList({super.key,required this.friends});
+  const FriendsOfUserList({super.key, required this.friends});
 
   @override
   Widget build(BuildContext context) {
-    return  friends.isEmpty?SizedBox():GridView.builder(
-      itemCount: friends.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 5/3
-      ),
-      itemBuilder: (context, index) {
-        return FriendWidget(friend: friends[index]);
-      },
-    );
+    return friends.isEmpty
+        ? SizedBox()
+        : ListView.separated(
+            itemCount: friends.length,
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (context, index) => SizedBox(
+              width: 15,
+            ),
+            itemBuilder: (context, index) {
+              return FriendWidget(friend: friends[index]);
+            },
+          );
   }
 }

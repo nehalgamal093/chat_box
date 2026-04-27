@@ -1,6 +1,7 @@
 import 'package:chat_box/core/di/di.dart';
 import 'package:chat_box/features/friends/presentation/widgets/loading_list.dart';
 import 'package:chat_box/features/friends_requests/presentation/bloc/friend_requests_bloc/friend_requests_bloc.dart';
+import 'package:chat_box/features/messages/presentation/widgets/loading_vert_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +19,7 @@ class FriendsRequestsScreens extends StatelessWidget {
         child: BlocBuilder<FriendRequestsBloc, FriendRequestsState>(
           builder: (context, state) {
             if (state is FriendRequestsLoading) {
-              return LoadingList();
+              return LoadingVertList();
             } else if (state is FriendRequestsLoaded) {
               return ListView.separated(
                 itemCount: state.list.length,

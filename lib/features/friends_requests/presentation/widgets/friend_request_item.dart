@@ -6,6 +6,9 @@ import 'package:chat_box/features/friends_requests/presentation/bloc/friend_requ
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/common_widgets/circle_picture.dart';
+import '../../../../core/resources/fonts/custom_fonts.dart';
+
 class FriendRequestItem extends StatelessWidget {
   final DataList dataList;
   final String status;
@@ -20,42 +23,48 @@ class FriendRequestItem extends StatelessWidget {
     Size size = MediaQuery.sizeOf(context);
     return Center(
       child: Container(
-        width: size.width*.8,
+        width: size.width * .8,
         decoration: BoxDecoration(
-          border: Border.all(color: ColorsManager.medGrey),
-          borderRadius: BorderRadius.circular(20)
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+            color: ColorsManager.grey00,
+            borderRadius: BorderRadius.circular(22)),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Row(
-
           children: [
-            // CirclePicture(imageUrl: dataList.profilePicture!,radius: 40,userId: dataList.id!,),
-            CustomImage(profilePicture:dataList.profilePicture??""),
+            CirclePicture(
+              imageUrl: dataList.profilePicture!,
+              radius: 40,
+              userId: dataList.id!,
+            ),
             SizedBox(width: 40),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(dataList.fullName!,style: Theme.of(context).textTheme.bodyLarge,),
-                Text("@laila",style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: ColorsManager.medGrey),),
+                Text(dataList.fullName!,
+                    style:
+                        CustomFonts.med02(fontColor: ColorsManager.whiteColor)),
+                Text("@laila",
+                    style:
+                        CustomFonts.small00(fontColor: ColorsManager.grey02)),
                 SizedBox(height: 5),
-                Text("This my new account",style: Theme.of(context).textTheme.bodyMedium,),
+                Text("This my new account",
+                    style:
+                        CustomFonts.med02(fontColor: ColorsManager.whiteColor)),
                 SizedBox(height: 10),
                 Row(
                   children: [
                     ElevatedButton(
                       onPressed: () {
                         context.read<FriendRequestsBloc>().add(
-                          AcceptRequestEvent(dataList.id!),
-                        );
+                              AcceptRequestEvent(dataList.id!),
+                            );
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0),
+                          borderRadius: BorderRadius.circular(0),
                         ),
-                        backgroundColor:
-                            status == StringsManager.accepted
-                                ? ColorsManager.greenColor
-                                : ColorsManager.lightBlue,
+                        backgroundColor: status == StringsManager.accepted
+                            ? ColorsManager.greenColor
+                            : ColorsManager.lightBlue,
                       ),
                       child: Text(
                         StringsManager.accept,
@@ -66,8 +75,8 @@ class FriendRequestItem extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         context.read<FriendRequestsBloc>().add(
-                          DeclineRequestEvent(dataList.id!),
-                        );
+                              DeclineRequestEvent(dataList.id!),
+                            );
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

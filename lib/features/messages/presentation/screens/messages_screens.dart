@@ -16,6 +16,7 @@ class MessagesScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Scaffold(
+
       body: Padding(
         padding: const EdgeInsets.only(top: 30,right: 6,left: 6),
         child: BlocProvider(

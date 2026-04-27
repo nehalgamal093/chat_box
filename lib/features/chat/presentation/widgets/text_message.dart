@@ -10,7 +10,7 @@ class TextMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       message.isEmpty ? message : message.capitalize(),
-      style:CustomFonts.med01(),
+      style:CustomFonts.med02(),
     );
   }
 }
