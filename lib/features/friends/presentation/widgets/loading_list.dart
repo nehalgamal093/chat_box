@@ -1,4 +1,5 @@
-import 'package:chat_box/core/common_widgets/loading_list_item.dart';
+import 'package:chat_box/features/messages/presentation/widgets/loading_top_bar.dart';
+import 'package:chat_box/features/messages/presentation/widgets/loading_vert_list.dart';
 import 'package:flutter/material.dart';
 
 class LoadingList extends StatelessWidget {
@@ -6,14 +7,15 @@ class LoadingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 5,right: 6,left: 6),
-      child: ListView.separated(
-        separatorBuilder: (context,index)=>SizedBox(height: 10,),
-          itemCount: 3,
-          itemBuilder: (context,index){
-        return LoadingListItem();
-      }),
+    Size size = MediaQuery.sizeOf(context);
+    return Column(
+      children: [
+        SizedBox(
+            width: size.width,
+            height: size.height * .3,
+            child: LoadingTopBar()),
+        Expanded(child: LoadingVertList()),
+      ],
     );
   }
 }

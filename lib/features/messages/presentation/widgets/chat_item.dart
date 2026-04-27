@@ -4,8 +4,6 @@ import 'package:chat_box/core/resources/fonts/custom_fonts.dart';
 import 'package:chat_box/features/chat/presentation/screens/chat_shell.dart';
 import 'package:chat_box/features/chat/presentation/widgets/text_message.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/inherited_widgets/inherited_user.dart';
-import '../../../user_profile/presentation/screens/user_profile_screen.dart';
 import '../../data/models/chatted_users.dart';
 
 class ChatItem extends StatelessWidget {
@@ -19,7 +17,6 @@ class ChatItem extends StatelessWidget {
       required this.user});
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
     return InkWell(
         onTap: () {
           Navigator.of(context).push(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/resources/images/images_manager.dart';
 
 class FriendBarItem extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:chat_box/features/messages/presentation/widgets/friend_bar_item.dart';
+import 'package:chat_box/features/messages/presentation/widgets/loading_top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,14 +17,14 @@ class FriendsTopBar extends StatelessWidget {
       child: BlocBuilder<FriendsBloc, FriendsState>(
         builder: (context, state) {
           if (state is FriendsLoading) {
-            return LoadingList();
+            return LoadingTopBar();
           } else if (state is FriendsLoaded) {
             return ListView.separated(
               scrollDirection: Axis.horizontal,
               separatorBuilder: (context, index) => SizedBox(width: 20),
               itemCount: state.list.length,
               itemBuilder: (context, index) {
-                return FriendBarItem(image:state.list[index].profilePicture!);
+                return FriendBarItem(image: state.list[index].profilePicture!);
               },
             );
           } else {
@@ -31,7 +32,6 @@ class FriendsTopBar extends StatelessWidget {
           }
         },
       ),
-    )
-;
+    );
   }
 }
