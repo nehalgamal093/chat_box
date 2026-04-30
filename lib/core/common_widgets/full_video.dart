@@ -45,9 +45,8 @@ class _FullVideoState extends State<FullVideo> {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: SizedBox(
-            width: size.width,
-            height: size.height * .4,
+          child: AspectRatio(
+            aspectRatio: 5/3,
             child: Stack(
               children: [
                 Align(

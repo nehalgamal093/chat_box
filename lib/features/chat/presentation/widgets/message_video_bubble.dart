@@ -28,6 +28,7 @@ class _MessageVideoBubbleState extends State<MessageVideoBubble> {
   }
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return  Column(
       children: [
         SizedBox(

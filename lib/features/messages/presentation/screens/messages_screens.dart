@@ -39,8 +39,9 @@ class MessagesScreens extends StatelessWidget {
                     SizedBox(height: 20,),
                     Expanded(
 
-                        child: ListView.builder(
+                        child: ListView.separated(
                       itemCount: state.list.length,
+                      separatorBuilder: (context,index)=>SizedBox(height: 10,),
                       itemBuilder: (context, index) {
                         return ChatItem(
                           user: state.list[index].user!,
