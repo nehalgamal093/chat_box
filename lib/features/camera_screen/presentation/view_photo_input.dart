@@ -73,7 +73,7 @@ class _ViewPhotoInputState extends State<ViewPhotoInput> {
                 children: [
                   SizedBox(width: 10),
                   CircleAvatar(
-                    backgroundColor: ColorsManager.senderColor,
+                    backgroundColor: ColorsManager.purple02,
                     child: Image.asset(ImagesManager.send),
                   ),
                 ],

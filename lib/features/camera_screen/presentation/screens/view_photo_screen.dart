@@ -11,20 +11,22 @@ class ViewPhotoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringsManager.viewImage,
-            style: Theme.of(context).textTheme.bodyLarge),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Image.file(
-              File(path),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringsManager.viewImage,
+              style: Theme.of(context).textTheme.bodyLarge),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Image.file(
+                File(path),
+              ),
             ),
-          ),
-          ViewPhotoInput(path: path, userId: userId),
-        ],
+            ViewPhotoInput(path: path, userId: userId),
+          ],
+        ),
       ),
     );
   }
