@@ -62,9 +62,7 @@ class FriendRequestItem extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(0),
                         ),
-                        backgroundColor: status == StringsManager.accepted
-                            ? ColorsManager.greenColor
-                            : ColorsManager.lightBlue,
+                        backgroundColor:  ColorsManager.lightBlue,
                       ),
                       child: Text(
                         StringsManager.accept,

@@ -37,7 +37,7 @@ class MessagesScreens extends StatelessWidget {
                         height: size.height*.3,
                         child: FriendsTopBar()),
                     SizedBox(height: 20,),
-                    Expanded(
+                    state.list.isNotEmpty?  Expanded(
 
                         child: ListView.separated(
                       itemCount: state.list.length,
@@ -50,11 +50,11 @@ class MessagesScreens extends StatelessWidget {
                           isPhotoOrMsg(state.list[index].lastMessage),
                         );
                       },
-                    ))
+                    )):NoMessages()
                   ],
                 );
               } else {
-                return Text(StringsManager.error);
+                return Text("");
               }
             },
           ),

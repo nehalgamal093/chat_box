@@ -18,7 +18,10 @@ class FullImage extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                ImageDownloader.saveGif(image);
+                ImageDownloader.saveGif(image,(){
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Saved")));
+                });
+
               },
               icon: Icon(
                 Icons.arrow_downward,

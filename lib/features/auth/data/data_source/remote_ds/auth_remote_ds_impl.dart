@@ -42,6 +42,7 @@ class AuthRemoteDsImpl extends AuthRemoteDs {
       "password": password,
       "fcmToken":token
     });
+    print("Token fcm is $token");
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
@@ -55,6 +56,7 @@ class AuthRemoteDsImpl extends AuthRemoteDs {
         }
         throw ServerException(errorMessage);
       }
+
     } on DioException catch (e) {
       throw ServerException(e.message ?? "Network error");
     }

@@ -30,6 +30,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BottomNavProvider>(context);
+
     return Container(
       decoration: BoxDecoration(
           gradient:LinearGradient(

@@ -126,7 +126,7 @@ class UserProfileScreen extends StatelessWidget {
                                     child: ListTile(
                                       leading: Icon(Icons.email,color: Colors.white,),
                                       title: Text(
-                                        'nehal@email.com',
+                                        state.userProfile!.email??"",
                                         style:
                                         Theme.of(context).textTheme.bodySmall,
                                       ),

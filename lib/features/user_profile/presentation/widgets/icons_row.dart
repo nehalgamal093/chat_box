@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common_widgets/circle_icon.dart';
 import '../../../../core/resources/colors/colors_manager.dart';
 import '../../../../core/resources/images/images_manager.dart';
+import '../../../chat/presentation/screens/chat_shell.dart';
 
 class IconsRow extends StatelessWidget {
   final String friendStatus;
@@ -16,7 +17,15 @@ class IconsRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircleIcon(icon: Image.asset( ImagesManager.chat,color: ColorsManager.whiteColor,width: 25,)),
+        InkWell(
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ChatShell(userId: id),
+                ),
+              );
+            },
+            child: CircleIcon(icon: Image.asset( ImagesManager.chat,color: ColorsManager.whiteColor,width: 25,))),
         SizedBox(width: 30),
         CircleIcon(icon: Image.asset( ImagesManager.video,color: ColorsManager.whiteColor,width: 25,)),
         SizedBox(width: 30),

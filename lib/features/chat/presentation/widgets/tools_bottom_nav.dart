@@ -44,6 +44,7 @@ toolsBottomNav(BuildContext context, String userId,FilePickerProvider provider) 
                   SizedBox(width: 50),
                   InkWell(
                     onTap: () {
+                      Navigator.pop(context);
                       provider.pickFile();
                     },
                     child: toolWidget(ImagesManager.clip, 'Files'),

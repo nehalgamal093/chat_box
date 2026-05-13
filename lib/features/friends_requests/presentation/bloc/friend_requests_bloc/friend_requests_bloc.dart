@@ -41,7 +41,9 @@ class FriendRequestsBloc
   ) async {
     if (state is FriendRequestsLoaded) {
       var list = (state as FriendRequestsLoaded).list;
-      List<DataList> friendRequests = List.of(list);
+      // List<DataList> friendRequests = List.of(list);
+      int index = list.indexWhere((e) => e.id == event.id);
+      List<DataList> friendRequests = List.of(list)..removeAt(index);
       emit(FriendRequestsLoaded(friendRequests, "accepted"));
     }
     var result = await friendRequestUseCase.accept(event.id);
