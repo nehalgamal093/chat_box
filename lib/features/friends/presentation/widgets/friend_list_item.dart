@@ -41,14 +41,14 @@ class FriendListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(dataList.fullName!,style: CustomFonts.med02(fontColor: ColorsManager.whiteColor)),
-                    Text("@laila",style: CustomFonts.small00(fontColor: ColorsManager.grey02)),
+                    Text(dataList.username!,style: CustomFonts.small00(fontColor: ColorsManager.grey02)),
                     SizedBox(height: 10),
                     Text("This my new account",style:CustomFonts.med02(fontColor: ColorsManager.whiteColor)),
-                    SizedBox(height: 5),
-                    Text(
-                      dataList.bio!,
-                      style: CustomFonts.med00(),
-                    ),
+                    // SizedBox(height: 5),
+                    // Text(
+                    //   dataList.bio!,
+                    //   style: CustomFonts.med00(),
+                    // ),
                   ],
                 ),
               ],

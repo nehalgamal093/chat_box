@@ -3,7 +3,7 @@ import 'package:chat_box/core/resources/images/images_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../features/chat/presentation/provider/file_picker_provider.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 class CirclePicture extends StatelessWidget {
   final String imageUrl;
   final double radius;
@@ -29,7 +29,9 @@ class CirclePicture extends StatelessWidget {
       if (imageUrl.isEmpty || imageUrl == null) {
         return AssetImage(ImagesManager.avatar);
       } else {
-        return NetworkImage(imageUrl);
+        return  CachedNetworkImageProvider(
+          imageUrl,
+        );
       }
     } else if (pickFile.file.path.isNotEmpty && isMyPicture) {
       return FileImage(File(pickFile.file.path));

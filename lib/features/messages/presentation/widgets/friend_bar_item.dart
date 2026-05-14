@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/resources/images/images_manager.dart';
 
@@ -22,6 +23,6 @@ getPicture(String profilePicture) {
   if (profilePicture.isEmpty) {
     return AssetImage(ImagesManager.sea);
   } else {
-    return NetworkImage(profilePicture);
+    return CachedNetworkImageProvider(profilePicture);
   }
 }

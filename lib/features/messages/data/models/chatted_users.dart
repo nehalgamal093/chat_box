@@ -134,7 +134,6 @@ class DataList {
 
 class ChattedUsers {
   List<DataList>? dataListList;
-
   ChattedUsers({this.dataListList});
 
   Map<String, dynamic> toJson() {

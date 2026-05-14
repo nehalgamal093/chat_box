@@ -35,6 +35,10 @@ import '../../features/chat/domain/use_cases/chat_use_case.dart' as _i1039;
 import '../../features/chat/domain/use_cases/send_message_usecase.dart'
     as _i703;
 import '../../features/chat/presentation/bloc/socket_bloc.dart' as _i16;
+import '../../features/friends/data/data_source/friends_local_ds/friends_local_ds.dart'
+    as _i427;
+import '../../features/friends/data/data_source/friends_local_ds/friends_local_ds_impl.dart'
+    as _i453;
 import '../../features/friends/data/data_source/remote_data_source/friends_remote_ds.dart'
     as _i68;
 import '../../features/friends/data/data_source/remote_data_source/friends_remote_ds_impl.dart'
@@ -56,6 +60,10 @@ import '../../features/friends_requests/domain/use_cases/friend_requests_use_cas
     as _i230;
 import '../../features/friends_requests/presentation/bloc/friend_requests_bloc/friend_requests_bloc.dart'
     as _i847;
+import '../../features/messages/data/data_source/local_data_source/chatted_users_local_ds.dart'
+    as _i405;
+import '../../features/messages/data/data_source/local_data_source/chatted_users_local_ds_impl.dart'
+    as _i773;
 import '../../features/messages/data/data_source/remote_data_source/chatted_users_remote_ds.dart'
     as _i726;
 import '../../features/messages/data/data_source/remote_data_source/chatted_users_remote_ds_impl.dart'
@@ -98,6 +106,7 @@ import '../../features/user_profile/domain/use_cases/user_profile_use_case.dart'
 import '../../features/user_profile/presentation/bloc/user_profile_bloc.dart'
     as _i989;
 import '../network/api_manager/api_manager.dart' as _i576;
+import '../network/hive_manager/hive_manager.dart' as _i830;
 import '../resources/socket/socket_service.dart' as _i439;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -113,16 +122,29 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i439.SocketService>(() => _i439.SocketService());
     gh.lazySingleton<_i576.APIManager>(() => _i576.APIManager());
-    gh.factory<_i68.FriendsRemoteDs>(
-        () => _i740.FriendsRemoteDsImpl(gh<_i576.APIManager>()));
+    gh.lazySingleton<_i830.HiveManager>(() => _i830.HiveManager());
+    gh.factory<_i405.ChattedUsersLocalDs>(
+        () => _i773.ChattedUsersLocalDsImpl(gh<_i830.HiveManager>()));
+    gh.factory<_i726.ChattedUsersRemoteDs>(() => _i315.ChattedUsersRemoteDsImpl(
+          gh<_i576.APIManager>(),
+          gh<_i405.ChattedUsersLocalDs>(),
+        ));
+    gh.factory<_i427.FriendsLocalDs>(
+        () => _i453.FriendsLocalDsImpl(gh<_i830.HiveManager>()));
     gh.factory<_i843.AuthRemoteDs>(
         () => _i541.AuthRemoteDsImpl(gh<_i576.APIManager>()));
+    gh.factory<_i45.ChattedUsersRepo>(
+        () => _i358.ChattedUsersRepoImpl(gh<_i726.ChattedUsersRemoteDs>()));
     gh.factory<_i753.FriendRequestRemoteDs>(
         () => _i1028.FriendRequestRemoteDsImpl(gh<_i576.APIManager>()));
-    gh.factory<_i726.ChattedUsersRemoteDs>(
-        () => _i315.ChattedUsersRemoteDsImpl(gh<_i576.APIManager>()));
+    gh.factory<_i1068.ChattedUsersUseCase>(
+        () => _i1068.ChattedUsersUseCase(gh<_i45.ChattedUsersRepo>()));
     gh.factory<_i943.FriendRequestsRepo>(
         () => _i472.FriendRequestsRepoImpl(gh<_i753.FriendRequestRemoteDs>()));
+    gh.factory<_i68.FriendsRemoteDs>(() => _i740.FriendsRemoteDsImpl(
+          gh<_i576.APIManager>(),
+          gh<_i427.FriendsLocalDs>(),
+        ));
     gh.factory<_i47.SearchRemoteDs>(
         () => _i568.SearchRemoteDsImpl(gh<_i576.APIManager>()));
     gh.factory<_i820.UserProfileRemoteDs>(
@@ -133,6 +155,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i751.AuthRepoImpl(gh<_i843.AuthRemoteDs>()));
     gh.factory<_i359.ChatRepo>(
         () => _i67.ChatRepoImpl(gh<_i458.ChatRemoteDs>()));
+    gh.factory<_i806.ChattedUsersBloc>(
+        () => _i806.ChattedUsersBloc(gh<_i1068.ChattedUsersUseCase>()));
     gh.factory<_i230.FriendRequestUseCase>(
         () => _i230.FriendRequestUseCase(gh<_i943.FriendRequestsRepo>()));
     gh.factory<_i661.FriendsRepo>(
@@ -149,12 +173,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i940.UserProfileRepoImpl(gh<_i820.UserProfileRemoteDs>()));
     gh.factory<_i119.GetFriendsUseCase>(
         () => _i119.GetFriendsUseCase(gh<_i661.FriendsRepo>()));
-    gh.factory<_i45.ChattedUsersRepo>(
-        () => _i358.ChattedUsersRepoImpl(gh<_i726.ChattedUsersRemoteDs>()));
     gh.factory<_i763.RegisterBloc>(
         () => _i763.RegisterBloc(gh<_i957.RegisterUseCase>()));
-    gh.factory<_i1068.ChattedUsersUseCase>(
-        () => _i1068.ChattedUsersUseCase(gh<_i45.ChattedUsersRepo>()));
     gh.factory<_i1033.FriendsBloc>(
         () => _i1033.FriendsBloc(gh<_i119.GetFriendsUseCase>()));
     gh.factory<_i847.FriendRequestsBloc>(
@@ -181,8 +201,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i211.SearchBloc(gh<_i601.SearchUseCase>()));
     gh.factory<_i971.LoginBloc>(
         () => _i971.LoginBloc(gh<_i1012.LoginUseCase>()));
-    gh.factory<_i806.ChattedUsersBloc>(
-        () => _i806.ChattedUsersBloc(gh<_i1068.ChattedUsersUseCase>()));
     gh.factory<_i989.UserProfileBloc>(() => _i989.UserProfileBloc(
           gh<_i537.UserProfileUseCase>(),
           gh<_i9.SendFriendRequestUseCase>(),
