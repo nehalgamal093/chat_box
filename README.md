@@ -1,16 +1,38 @@
-# chat_box
+# Chat Box
 
-A new Flutter project.
+Flutter application for Chatting
 
-## Getting Started
+## Tools
+- Bloc
+- Clean Architecture
+- Provider
+- Socket.io
+- File picker
+- Firebase cloud messaging
+- Camera
+- Video player
+- Authentication
+- Qr code
+- Injectable
+- Animations
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Features
+ - Authentication and Authorization.  
+ - Sending and Receiving messages, images and videos. 
+ - Friend Request and Friend List.
+ - Find users by scanning a QR code or entering their username. 
+   in the search bar.
+ - Smooth and engaging UI animations for an enhanced user experience.
+ - Camera for taking photos and sending it.
+ - Video player.
+ - Caching and updating data.
+ - Push notifications for all app lifecycle states.
+ - High performance.
+ - Testable.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+ 
+
+
