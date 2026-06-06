@@ -1,8 +1,10 @@
 # Chat Box
 
-Flutter application for Chatting
+A Flutter chat application that enables real-time messaging, image and video sharing using Socket.IO.
+Built with Clean Architecture and Bloc to ensure scalable, maintainable, and testable code
 
-## Tools
+
+## Tools & Technologies
 - Bloc
 - Clean Architecture
 - Provider
@@ -20,17 +22,18 @@ Flutter application for Chatting
 
 ## Features
  - Authentication and Authorization.  
- - Sending and Receiving messages, images and videos. 
- - Friend Request and Friend List.
- - Find users by scanning a QR code or entering their username. 
+ - Send and Receive messages,images and videos. 
+ - Friend Request and Friend management.
+ - Search for users by username or scanning a QR code. 
    in the search bar.
  - Smooth and engaging UI animations for an enhanced user experience.
- - Camera for taking photos and sending it.
- - Video player.
- - Caching and updating data.
+ - Capture and share photos using the device camera.
+ - Video player support.
+ - Local data caching and synchronization.
  - Push notifications for all app lifecycle states.
- - High performance.
- - Testable.
+ - High-performance and responsive user experience.
+ - Scalable, maintainable, and testable architecture.
+   
 
 
 <img src="https://github.com/nehalgamal093/chat_box/blob/970a2aa1ed86772d4aa1c10eaedf86c59e53d754/screenshots/chat_screenshot%201%23.png" width="300">
