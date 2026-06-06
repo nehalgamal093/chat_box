@@ -35,6 +35,8 @@ Flutter application for Chatting
 
 <img src="https://github.com/nehalgamal093/chat_box/blob/970a2aa1ed86772d4aa1c10eaedf86c59e53d754/screenshots/chat_screenshot%201%23.png" width="300">
 
+<img src="https://github.com/nehalgamal093/chat_box/blob/5aa2fdb43f9e9f073fdba83086ec74629379b627/screenshots/chat_screenshot%202%23.png" width="300">
+
 
  
 
