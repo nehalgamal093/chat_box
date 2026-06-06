@@ -33,7 +33,7 @@ Flutter application for Chatting
  - Testable.
 
 
-![Chat Screen](https://github.com/nehalgamal093/chat_box/blob/88df1f0f54ad2ef187bdbb6c779bec09b124c8c7/screenshots/chat_screenshot%201%23.png)
+<img src="https://github.com/nehalgamal093/chat_box/blob/970a2aa1ed86772d4aa1c10eaedf86c59e53d754/screenshots/chat_screenshot%201%23.png" width="300">
 
 
  
