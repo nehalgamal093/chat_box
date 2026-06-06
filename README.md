@@ -24,8 +24,7 @@ Built with Clean Architecture and Bloc to ensure scalable, maintainable, and tes
  - Authentication and Authorization.  
  - Send and Receive messages,images and videos. 
  - Friend Request and Friend management.
- - Search for users by username or scanning a QR code. 
-   in the search bar.
+ - Search for users by username or scanning a QR code.
  - Smooth and engaging UI animations for an enhanced user experience.
  - Capture and share photos using the device camera.
  - Video player support.
