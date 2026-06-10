@@ -2,7 +2,7 @@ name: Build and Upload to Appetize.io
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -39,9 +39,21 @@ jobs:
           flutter-version: '3.35.6'
 
       - run: flutter pub get
-      - run: cd ios && pod install || true
-      - run: flutter build ios --no-codesign
-      - run: cd build/ios/iphonesimulator && zip -r ../../../ios-simulator.zip Runner.app
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install --repo-update
+          cd ..
+
+      - name: Build for iOS Simulator
+        run: flutter build ios --simulator --no-codesign
+
+      - name: Zip the iOS Simulator build
+        run: |
+          cd build/ios/iphonesimulator
+          zip -r ../../../ios-simulator.zip Runner.app
+          cd ../../..
 
       - name: Upload iOS to Appetize
         id: ios_upload
