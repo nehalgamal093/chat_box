@@ -36,6 +36,9 @@ jobs:
           zip -r ../../../ios-simulator.zip Runner.app
           cd ../../..
 
+      - name: Install jq
+        run: brew install jq
+
       - name: Upload iOS to Appetize
         id: ios_upload
         run: |
