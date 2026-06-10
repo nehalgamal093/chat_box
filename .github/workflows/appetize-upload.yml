@@ -13,7 +13,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.5'
+          flutter-version: '3.35.6'
 
       - run: flutter pub get
       - run: flutter build apk --debug
@@ -33,18 +33,29 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.6'
 
       - run: flutter pub get
 
-      - name: Install CocoaPods dependencies
+      # --- Start of the Cleanup & Fix Section ---
+      - name: Clean Flutter build cache
+        run: flutter clean
+
+      - name: Clean CocoaPods cache
         run: |
           cd ios
+          rm -rf Pods Podfile.lock Runner.xcworkspace .symlinks
+          cd ..
+
+      - name: Update CocoaPods repo and install pods
+        run: |
+          cd ios
+          pod repo update
           pod install --repo-update
           cd ..
+      # --- End of Cleanup Section ---
 
       - name: Build for iOS Simulator
         run: flutter build ios --simulator --no-codesign
