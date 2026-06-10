@@ -1,0 +1,55 @@
+name: Build and Upload to Appetize.io
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.5'
+
+      - run: flutter pub get
+      - run: flutter build apk --debug
+
+      - name: Upload Android to Appetize
+        id: android_upload
+        run: |
+          RESPONSE=$(curl --silent --http1.1 \
+            "https://api.appetize.io/v2/apps" \
+            -H "Authorization: Bearer ${{ secrets.APPETIZE_API_TOKEN }}" \
+            -F "file=@build/app/outputs/flutter-apk/app-debug.apk" \
+            -F "platform=android")
+          echo "Android Public Key: $(echo $RESPONSE | jq -r '.publicKey')"
+          echo "Android URL: https://appetize.io/app/$(echo $RESPONSE | jq -r '.publicKey')"
+
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.6'
+
+      - run: flutter pub get
+      - run: cd ios && pod install || true
+      - run: flutter build ios --no-codesign
+      - run: cd build/ios/iphonesimulator && zip -r ../../../ios-simulator.zip Runner.app
+
+      - name: Upload iOS to Appetize
+        id: ios_upload
+        run: |
+          RESPONSE=$(curl --silent --http1.1 \
+            "https://api.appetize.io/v2/apps" \
+            -H "Authorization: Bearer ${{ secrets.APPETIZE_API_TOKEN }}" \
+            -F "file=@ios-simulator.zip" \
+            -F "platform=ios")
+          echo "iOS Public Key: $(echo $RESPONSE | jq -r '.publicKey')"
+          echo "iOS URL: https://appetize.io/app/$(echo $RESPONSE | jq -r '.publicKey')"
