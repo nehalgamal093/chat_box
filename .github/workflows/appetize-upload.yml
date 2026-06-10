@@ -43,8 +43,8 @@ jobs:
         id: ios_upload
         run: |
           RESPONSE=$(curl --silent --http1.1 \
-            "https://api.appetize.io/v2/apps" \
-            -H "Authorization: Bearer ${{ secrets.APPETIZE_API_TOKEN }}" \
+            "https://api.appetize.io/v1/apps" \
+            -H "X-API-KEY: ${{ secrets.APPETIZE_API_TOKEN }}" \
             -F "file=@ios-simulator.zip" \
             -F "platform=ios")
           echo "iOS Public Key: $(echo $RESPONSE | jq -r '.publicKey')"
