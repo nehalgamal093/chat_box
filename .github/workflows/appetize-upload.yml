@@ -33,29 +33,22 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.6'
 
       - run: flutter pub get
 
-      # --- Start of the Cleanup & Fix Section ---
-      - name: Clean Flutter build cache
-        run: flutter clean
+      - name: Create .env file for iOS build
+        run: |
+          echo "FIREBASE_API_KEY=dummy_build_key" > .env
 
-      - name: Clean CocoaPods cache
+      - name: Install CocoaPods dependencies
         run: |
           cd ios
-          rm -rf Pods Podfile.lock Runner.xcworkspace .symlinks
-          cd ..
-
-      - name: Update CocoaPods repo and install pods
-        run: |
-          cd ios
-          pod repo update
           pod install --repo-update
           cd ..
-      # --- End of Cleanup Section ---
 
       - name: Build for iOS Simulator
         run: flutter build ios --simulator --no-codesign
