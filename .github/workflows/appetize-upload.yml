@@ -16,7 +16,19 @@ jobs:
           flutter-version: '3.35.6'
 
       - run: flutter pub get
-
+      - name: Fix Firebase plist path in Xcode project
+        run: |
+          # Add the plist file to the Xcode project
+          ruby -e "
+            require 'xcodeproj'
+            project_path = 'ios/Runner.xcodeproj'
+            project = Xcodeproj::Project.open(project_path)
+            target = project.targets.first
+            group = project.main_group['Runner']
+            file_ref = group.new_file('GoogleService-Info.plist')
+            target.add_resources([file_ref])
+            project.save
+          "
       - name: Create .env file for iOS build
         run: |
           echo "FIREBASE_API_KEY=dummy_build_key" > .env
