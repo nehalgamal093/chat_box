@@ -26,7 +26,15 @@ jobs:
           cd ios
           pod install --repo-update
           cd ..
-
+      - name: Verify Firebase plist exists
+        run: |
+          if [ -f "ios/Runner/GoogleService-Info.plist" ]; then
+            echo "✅ File exists"
+            cat ios/Runner/GoogleService-Info.plist | head -20
+          else
+            echo "❌ File missing!"
+            exit 1
+          fi
       - name: Build for iOS Simulator
         run: flutter build ios --simulator --no-codesign
 
