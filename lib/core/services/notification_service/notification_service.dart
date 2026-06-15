@@ -10,10 +10,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 class NotificationService {
-  NotificationService._();
+  late final FirebaseMessaging _messaging;
+  NotificationService._() {
+    _messaging = FirebaseMessaging.instance;
+  }
   static final NotificationService instance = NotificationService._();
 
-  final _messaging = FirebaseMessaging.instance;
+  // final _messaging = FirebaseMessaging.instance;
+
   final _localNotifications = FlutterLocalNotificationsPlugin();
   bool _isFlutterLocalNotificationsInitialized = false;
   Future<String?> getToken() async {
