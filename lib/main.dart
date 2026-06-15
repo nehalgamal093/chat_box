@@ -25,17 +25,17 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
-  // if (Firebase.apps.isEmpty) {
-  //   await  Firebase.initializeApp(
-  //       options:  FirebaseOptions(
-  //         apiKey: "AIzaSyBGfbEwwTxmUEHP9_ix49-6ADLtgIMaZNo",
-  //         appId: '1:620208401268:android:8a3476f21886ed12cf9a21',
-  //         messagingSenderId: '620208401268',
-  //         projectId: 'chat-pro-91296',
-  //         storageBucket: 'chat-pro-91296.firebasestorage.app',
-  //       )
-  //   );
-  // }
+  if (Firebase.apps.isEmpty) {
+    await  Firebase.initializeApp(
+        options:  FirebaseOptions(
+          apiKey: "AIzaSyBGfbEwwTxmUEHP9_ix49-6ADLtgIMaZNo",
+          appId: '1:620208401268:android:8a3476f21886ed12cf9a21',
+          messagingSenderId: '620208401268',
+          projectId: 'chat-pro-91296',
+          storageBucket: 'chat-pro-91296.firebasestorage.app',
+        )
+    );
+  }
   await NotificationService.instance.initialize();
   Hive.registerAdapter(ChattedUserTypeAdapter());
   Hive.registerAdapter(DataListTypeAdapter());
