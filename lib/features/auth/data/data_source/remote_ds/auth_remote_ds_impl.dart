@@ -37,12 +37,8 @@ class AuthRemoteDsImpl extends AuthRemoteDs {
   @override
   Future<LoginResponse> login(String email, String password) async {
     String? token = await NotificationService.instance.getToken();
-    var response = await apiManager.postRequest(Endpoints.login, {
-      "email": email,
-      "password": password,
-      "fcmToken":token
-    });
-    print("Token fcm is $token");
+    var response = await apiManager.postRequest(Endpoints.login,
+        {"email": email, "password": password, "fcmToken": token});
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
         LoginResponse loginResponse = LoginResponse.fromJson(response.data);
@@ -56,15 +52,20 @@ class AuthRemoteDsImpl extends AuthRemoteDs {
         }
         throw ServerException(errorMessage);
       }
-
     } on DioException catch (e) {
       throw ServerException(e.message ?? "Network error");
+    } catch (e) {
+      rethrow;
     }
   }
 
   @override
-  Future<String> logout() async{
-    var response = await apiManager.postRequest(Endpoints.logout,{}, headers: {"token": CacheHelper.getToken()},);
+  Future<String> logout() async {
+    var response = await apiManager.postRequest(
+      Endpoints.logout,
+      {},
+      headers: {"token": CacheHelper.getToken()},
+    );
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
         String message = response.data['message'];

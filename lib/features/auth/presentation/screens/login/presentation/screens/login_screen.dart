@@ -140,6 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pop(context);
                             Navigator.pushNamedAndRemoveUntil(context, MainScreen.routeName,(route)=>false);
                           } else if (state.loginStates == LoginStates.failed) {
+                            Navigator.pop(context);
+                            final snackBar = SnackBar(
+                              content:  Text(state.failures?.message??"Something went wrong"),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           } else {
                             Navigator.pop(context);
                           }

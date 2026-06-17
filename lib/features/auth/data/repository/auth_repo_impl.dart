@@ -33,11 +33,13 @@ class AuthRepoImpl extends AuthRepo {
     String email,
     String password,
   ) async {
-    var result = await authRemoteDs.login(email, password);
+
     try {
+      var result = await authRemoteDs.login(email, password);
       return Right(result);
     } on ServerException catch (e) {
       return Left(RemoteFailures(e.message));
+
     } catch (e) {
       return Left(RemoteFailures("An unexpected error occurred"));
     }

@@ -24,8 +24,6 @@ import 'features/main/presentation/provider/bottom_nav_provider.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-
-
     await  Firebase.initializeApp(
         options:  FirebaseOptions(
           apiKey: "AIzaSyBGfbEwwTxmUEHP9_ix49-6ADLtgIMaZNo",
