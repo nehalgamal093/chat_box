@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../../core/common_widgets/auth_text_field.dart';
 import '../../../../../../../core/common_widgets/custom_divider.dart';
+import '../../../../../../../core/common_widgets/error_widget.dart';
 import '../../../../../../../core/common_widgets/loading_dialog.dart';
 import '../../../../../../main/presentation/screens/main_screen.dart';
 import '../../../../../../starting/presentation/widgets/row_icons.dart';
@@ -38,13 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (BuildContext context, value, Widget? child) {
           return Container(
             decoration: BoxDecoration(
-                gradient:LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.5,.8],
-                  colors: ColorsManager.backGroundGradient,
-                )
-            ),
+                gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.5, .8],
+              colors: ColorsManager.backGroundGradient,
+            )),
             child: Scaffold(
               backgroundColor: ColorsManager.transparent,
               appBar: AppBar(),
@@ -110,7 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: passwordController,
                                 label: StringsManager.password,
                               ),
-                              SizedBox(height: 50),
+                              SizedBox(height: 30),
+                              if (state.loginStates == LoginStates.failed)...[
+                                CustomErrorWidget(
+                                    message: state.failures?.message ??
+                                        StringsManager.error)
+                              ],
+                              SizedBox(height: 20),
                               LoginButton(
                                 onPressed: () {
                                   BlocProvider.of<LoginBloc>(context).add(
@@ -124,10 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(height: 20),
                               Align(
                                 alignment: Alignment.center,
-                                child: Text(
-                                  StringsManager.forgetPassword,
-                                  style: CustomFonts.small00(fontColor: ColorsManager.purple02)
-                                ),
+                                child: Text(StringsManager.forgetPassword,
+                                    style: CustomFonts.small00(
+                                        fontColor: ColorsManager.purple02)),
                               ),
                               SizedBox(height: 20),
                             ],
@@ -138,13 +143,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             loadingDialog(context);
                           } else if (state.loginStates == LoginStates.success) {
                             Navigator.pop(context);
-                            Navigator.pushNamedAndRemoveUntil(context, MainScreen.routeName,(route)=>false);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                MainScreen.routeName, (route) => false);
                           } else if (state.loginStates == LoginStates.failed) {
                             Navigator.pop(context);
                             final snackBar = SnackBar(
-                              content:  Text(state.failures?.message??"Something went wrong"),
+                              content: Text(state.failures?.message ??
+                                  "Something went wrong"),
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           } else {
                             Navigator.pop(context);
                           }
