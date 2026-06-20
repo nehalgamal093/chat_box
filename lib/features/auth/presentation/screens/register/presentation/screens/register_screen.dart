@@ -7,6 +7,7 @@ import 'package:chat_box/features/auth/presentation/screens/register/bloc/regist
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../core/common_widgets/auth_text_field.dart';
+import '../../../../../../../core/common_widgets/error_widget.dart';
 import '../../../../../../../core/di/di.dart';
 import '../../../../../../../core/providers/password_visibility_provider.dart';
 import '../../../../../../../core/resources/colors/colors_manager.dart';
@@ -178,6 +179,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: genderController,
                             label: StringsManager.gender,
                           ),
+                          SizedBox(height: 30),
+                          if (state.registerStates == RegisterStates.failed)...[
+                            CustomErrorWidget(
+                                message: state.failures?.message ??
+                                    StringsManager.error)
+                          ],
+                          SizedBox(height: 20),
                           RegisterButton(
                             onPressed: () async {
                               RegisterRequest request = RegisterRequest(
@@ -204,6 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, LoginScreen.routeName);
                       } else if (state.registerStates == RegisterStates.failed) {
+                        Navigator.pop(context);
                       } else {
                         Navigator.pop(context);
                       }

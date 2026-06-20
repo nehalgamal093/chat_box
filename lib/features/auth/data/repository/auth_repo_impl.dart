@@ -18,8 +18,8 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<AppFailures, RegisterResponse>> register({
     RegisterRequest? request,
   }) async {
-    var result = await authRemoteDs.register(request: request);
     try {
+      var result = await authRemoteDs.register(request: request);
       return Right(result);
     } on ServerException catch (e) {
       return Left(RemoteFailures(e.message));
@@ -33,22 +33,20 @@ class AuthRepoImpl extends AuthRepo {
     String email,
     String password,
   ) async {
-
     try {
       var result = await authRemoteDs.login(email, password);
       return Right(result);
     } on ServerException catch (e) {
       return Left(RemoteFailures(e.message));
-
     } catch (e) {
       return Left(RemoteFailures("An unexpected error occurred"));
     }
   }
 
   @override
-  Future<Either<AppFailures, String>> logout() async{
-    var result = await authRemoteDs.logout();
+  Future<Either<AppFailures, String>> logout() async {
     try {
+      var result = await authRemoteDs.logout();
       return Right(result);
     } on ServerException catch (e) {
       return Left(RemoteFailures(e.message));

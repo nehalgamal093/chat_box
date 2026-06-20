@@ -9,6 +9,8 @@ class AuthTextField extends StatelessWidget {
   final Widget suffixIcon;
   final FocusNode focusNode;
   final FocusNode nextFocus;
+  final String? errorText;
+  final void Function(String)? onChanged;
   const AuthTextField(
       {super.key,
       required this.controller,
@@ -16,7 +18,7 @@ class AuthTextField extends StatelessWidget {
       required this.isPassword,
       required this.suffixIcon,
       required this.focusNode,
-      required this.nextFocus});
+      required this.nextFocus,this.onChanged,this.errorText});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class AuthTextField extends StatelessWidget {
         ),
         SizedBox(height: 10),
         TextField(
+
           focusNode: focusNode,
           textInputAction: TextInputAction.next,
           obscureText: isPassword,
@@ -37,12 +40,20 @@ class AuthTextField extends StatelessWidget {
           onSubmitted: (_) {
             FocusScope.of(context).requestFocus(nextFocus);
           },
+          onChanged:onChanged,
           decoration: InputDecoration(
+            errorText:errorText ,
             suffixIcon: suffixIcon,
             border: UnderlineInputBorder(
               borderSide: BorderSide(width: 2.0, color: ColorsManager.grey),
             ),
             enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: 2.0, color: ColorsManager.grey),
+            ),
+            errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: 2.0, color: ColorsManager.grey),
+            ),
+            focusedErrorBorder: UnderlineInputBorder(
               borderSide: BorderSide(width: 2.0, color: ColorsManager.grey),
             ),
             focusedBorder: UnderlineInputBorder(

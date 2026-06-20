@@ -3,6 +3,7 @@ import 'package:chat_box/core/providers/password_visibility_provider.dart';
 import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/fonts/custom_fonts.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
+import 'package:chat_box/features/auth/presentation/providers/login_email_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodePassword = FocusNode();
+
+
   @override
   Widget build(BuildContext context) {
+    LoginEmailProvider emailValidationProvider = Provider.of<LoginEmailProvider>(context);
     Size size = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (context) => PasswordVisibilityProvider(),
@@ -82,6 +86,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 isPassword: false,
                                 controller: emailController,
                                 label: StringsManager.yourEmail,
+                                errorText: emailValidationProvider.errorEmailText,
+                                onChanged: (val){
+                                  emailValidationProvider.validateEmail(val);
+                                },
                               ),
                               SizedBox(height: 20),
                               AuthTextField(
@@ -147,12 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 MainScreen.routeName, (route) => false);
                           } else if (state.loginStates == LoginStates.failed) {
                             Navigator.pop(context);
-                            final snackBar = SnackBar(
-                              content: Text(state.failures?.message ??
-                                  "Something went wrong"),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
                           } else {
                             Navigator.pop(context);
                           }

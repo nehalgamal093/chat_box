@@ -1,5 +1,7 @@
+import 'package:chat_box/core/providers/email_mixin_provider.dart';
 import 'package:chat_box/core/providers/set_volume.dart';
 import 'package:chat_box/core/services/notification_service/notification_service.dart';
+import 'package:chat_box/features/auth/presentation/providers/login_email_provider.dart';
 import 'package:chat_box/features/chat/presentation/bloc/socket_bloc.dart';
 import 'package:chat_box/features/chat/presentation/provider/chat_shell_provider.dart';
 import 'package:chat_box/features/chat/presentation/provider/file_picker_provider.dart';
@@ -66,6 +68,7 @@ void main() async{
           ChangeNotifierProvider(create: (context) => VideoControllers()),
           ChangeNotifierProvider(create: (context) => ChatShellProvider()),
           ChangeNotifierProvider(create: (context) => SetVolumeProvider()),
+          ChangeNotifierProvider(create: (context) => LoginEmailProvider()),
         ],
         child: const MyApp(),
       ),
