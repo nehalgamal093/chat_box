@@ -2,6 +2,10 @@ import 'package:chat_box/core/common_widgets/loading_dialog.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/auth/data/models/register_request.dart';
 import 'package:chat_box/features/auth/presentation/screens/login/presentation/screens/login_screen.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_confirm_password_provider.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_email_provider.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_password_provider.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_user_name_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/bloc/register_bloc.dart';
 import 'package:flutter/material.dart';
@@ -39,19 +43,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    RegisterEmailProvider emailProvider =
+        Provider.of<RegisterEmailProvider>(context);
+    RegisterPasswordProvider passwordProvider =
+        Provider.of<RegisterPasswordProvider>(context);
+    RegisterConfirmPasswordProvider confirmPasswordProvider =
+        Provider.of<RegisterConfirmPasswordProvider>(context);
+    RegisterUserNameProvider userNameProvider = Provider.of<RegisterUserNameProvider>(context);
     return ChangeNotifierProvider(
       create: (context) => PasswordVisibilityProvider(),
       child: Consumer<PasswordVisibilityProvider>(
           builder: (BuildContext context, value, Widget? child) {
         return Container(
           decoration: BoxDecoration(
-              gradient:LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.5,.8],
-                colors: ColorsManager.backGroundGradient,
-              )
-          ),
+              gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.5, .8],
+            colors: ColorsManager.backGroundGradient,
+          )),
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(),
@@ -99,9 +109,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Icons.account_circle_outlined,
                               color: ColorsManager.whiteColor,
                             ),
+                            errorText: userNameProvider.errorUserNameText,
                             isPassword: false,
                             controller: usernameController,
                             label: StringsManager.username,
+                            onChanged: (val) {
+                              userNameProvider.validateUsername(val);
+                            },
                           ),
                           SizedBox(height: 20),
                           AuthTextField(
@@ -112,11 +126,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             isPassword: false,
                             controller: emailController,
                             label: StringsManager.yourEmail,
+                            errorText: emailProvider.errorEmailText,
+                            onChanged: (val) {
+                              emailProvider.validateEmail(val);
+                            },
                           ),
                           SizedBox(height: 20),
                           AuthTextField(
                             focusNode: focusNodePassword,
                             nextFocus: focusNodeConfirmPassword,
+                            errorText: passwordProvider.errorPasswordText,
+                            onChanged: (val) {
+                              passwordProvider.validatePassword(val);
+                            },
                             suffixIcon: value.visible
                                 ? InkWell(
                                     onTap: () {
@@ -144,6 +166,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           AuthTextField(
                             focusNode: focusNodeConfirmPassword,
                             nextFocus: focusNodeGender,
+                            errorText:
+                                confirmPasswordProvider.errorPasswordText,
+                            onChanged: (val) {
+                              confirmPasswordProvider.validatePassword(val);
+                            },
                             suffixIcon: value.visible
                                 ? InkWell(
                                     onTap: () {
@@ -180,7 +207,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             label: StringsManager.gender,
                           ),
                           SizedBox(height: 30),
-                          if (state.registerStates == RegisterStates.failed)...[
+                          if (state.registerStates ==
+                              RegisterStates.failed) ...[
                             CustomErrorWidget(
                                 message: state.failures?.message ??
                                     StringsManager.error)
@@ -208,10 +236,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     listener: (BuildContext context, RegisterState state) {
                       if (state.registerStates == RegisterStates.loading) {
                         loadingDialog(context);
-                      } else if (state.registerStates == RegisterStates.success) {
+                      } else if (state.registerStates ==
+                          RegisterStates.success) {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, LoginScreen.routeName);
-                      } else if (state.registerStates == RegisterStates.failed) {
+                      } else if (state.registerStates ==
+                          RegisterStates.failed) {
                         Navigator.pop(context);
                       } else {
                         Navigator.pop(context);

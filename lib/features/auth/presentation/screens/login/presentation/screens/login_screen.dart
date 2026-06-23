@@ -4,6 +4,7 @@ import 'package:chat_box/core/resources/colors/colors_manager.dart';
 import 'package:chat_box/core/resources/fonts/custom_fonts.dart';
 import 'package:chat_box/core/resources/strings/strings_manager.dart';
 import 'package:chat_box/features/auth/presentation/providers/login_email_provider.dart';
+import 'package:chat_box/features/auth/presentation/providers/login_password_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     LoginEmailProvider emailValidationProvider = Provider.of<LoginEmailProvider>(context);
+    LoginPasswordProvider passwordProvider = Provider.of<LoginPasswordProvider>(context);
     Size size = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (context) => PasswordVisibilityProvider(),
@@ -95,6 +97,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               AuthTextField(
                                 focusNode: focusNodePassword,
                                 nextFocus: focusNodePassword,
+                                errorText: passwordProvider.errorPasswordText,
+                                onChanged: (val){
+                                  passwordProvider.validatePassword(val);
+                                },
                                 suffixIcon: value.visible
                                     ? InkWell(
                                         onTap: () {

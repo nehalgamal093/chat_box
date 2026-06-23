@@ -31,7 +31,7 @@ class AuthTextField extends StatelessWidget {
         ),
         SizedBox(height: 10),
         TextField(
-
+          cursorErrorColor: Colors.white,
           focusNode: focusNode,
           textInputAction: TextInputAction.next,
           obscureText: isPassword,
