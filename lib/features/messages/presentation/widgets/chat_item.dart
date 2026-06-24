@@ -46,7 +46,7 @@ class ChatItem extends StatelessWidget {
                 children: [
                   Text(
                     user.fullName!,
-                    style: CustomFonts.med00(),
+                    style: CustomFonts.medium9(),
                   ),
                   SizedBox(
                     height: 10,
