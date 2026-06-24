@@ -4,6 +4,8 @@ import 'package:chat_box/features/auth/presentation/providers/login_email_provid
 import 'package:chat_box/features/auth/presentation/providers/login_password_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_confirm_password_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_email_provider.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_full_name_provider.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_gender_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_password_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_user_name_provider.dart';
 import 'package:chat_box/features/chat/presentation/bloc/socket_bloc.dart';
@@ -78,6 +80,8 @@ void main() async{
           ChangeNotifierProvider(create: (context) => RegisterPasswordProvider()),
           ChangeNotifierProvider(create: (context) => RegisterConfirmPasswordProvider()),
           ChangeNotifierProvider(create: (context) => RegisterUserNameProvider()),
+          ChangeNotifierProvider(create: (context) => RegisterFullNameProvider()),
+          ChangeNotifierProvider(create: (context) => RegisterGenderProvider()),
         ],
         child: const MyApp(),
       ),

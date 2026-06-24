@@ -4,6 +4,8 @@ import 'package:chat_box/features/auth/data/models/register_request.dart';
 import 'package:chat_box/features/auth/presentation/screens/login/presentation/screens/login_screen.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_confirm_password_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_email_provider.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_full_name_provider.dart';
+import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_gender_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_password_provider.dart';
 import 'package:chat_box/features/auth/presentation/screens/register/presentation/providers/register_user_name_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +52,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     RegisterConfirmPasswordProvider confirmPasswordProvider =
         Provider.of<RegisterConfirmPasswordProvider>(context);
     RegisterUserNameProvider userNameProvider = Provider.of<RegisterUserNameProvider>(context);
+    RegisterFullNameProvider fullNameProvider = Provider.of<RegisterFullNameProvider>(context);
+    RegisterGenderProvider genderProvider = Provider.of<RegisterGenderProvider>(context);
+
     return ChangeNotifierProvider(
       create: (context) => PasswordVisibilityProvider(),
       child: Consumer<PasswordVisibilityProvider>(
@@ -100,7 +105,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 color: ColorsManager.whiteColor),
                             isPassword: false,
                             controller: fullNameController,
+                            errorText: fullNameProvider.errorValueText,
                             label: StringsManager.fullName,
+                            onChanged: (val){
+                              fullNameProvider.validateValue(val);
+                            },
                           ),
                           AuthTextField(
                             focusNode: focusNodeUserName,
@@ -109,12 +118,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Icons.account_circle_outlined,
                               color: ColorsManager.whiteColor,
                             ),
-                            errorText: userNameProvider.errorUserNameText,
+                            errorText: userNameProvider.errorValueText,
                             isPassword: false,
                             controller: usernameController,
                             label: StringsManager.username,
                             onChanged: (val) {
-                              userNameProvider.validateUsername(val);
+                              userNameProvider.validateValue(val);
                             },
                           ),
                           SizedBox(height: 20),
@@ -205,6 +214,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             isPassword: false,
                             controller: genderController,
                             label: StringsManager.gender,
+                            errorText: genderProvider.errorValueText,
+                            onChanged: (val){
+                              genderProvider.validateValue(val);
+                            },
                           ),
                           SizedBox(height: 30),
                           if (state.registerStates ==
