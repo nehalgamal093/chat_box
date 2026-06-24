@@ -228,7 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                           SizedBox(height: 20),
                           RegisterButton(
-                            onPressed: () async {
+                            onPressed: fullNameProvider.isValueValid&& userNameProvider.isValueValid&&genderProvider.isValueValid&&emailProvider.isEmailValid&&passwordProvider.isPasswordValid&&confirmPasswordProvider.isPasswordValid?() async {
                               RegisterRequest request = RegisterRequest(
                                 email: emailController.text,
                                 password: passwordController.text,
@@ -240,7 +240,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               BlocProvider.of<RegisterBloc>(
                                 context,
                               ).add(OnRegisterEvent(request));
-                            },
+                            }:null,
                           ),
                           SizedBox(height: 50),
                         ],

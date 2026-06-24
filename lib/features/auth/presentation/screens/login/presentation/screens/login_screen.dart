@@ -33,11 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodePassword = FocusNode();
 
-
   @override
   Widget build(BuildContext context) {
-    LoginEmailProvider emailValidationProvider = Provider.of<LoginEmailProvider>(context);
-    LoginPasswordProvider passwordProvider = Provider.of<LoginPasswordProvider>(context);
+    LoginEmailProvider emailValidationProvider =
+        Provider.of<LoginEmailProvider>(context);
+    LoginPasswordProvider passwordProvider =
+        Provider.of<LoginPasswordProvider>(context);
     Size size = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (context) => PasswordVisibilityProvider(),
@@ -88,8 +89,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 isPassword: false,
                                 controller: emailController,
                                 label: StringsManager.yourEmail,
-                                errorText: emailValidationProvider.errorEmailText,
-                                onChanged: (val){
+                                errorText:
+                                    emailValidationProvider.errorEmailText,
+                                onChanged: (val) {
                                   emailValidationProvider.validateEmail(val);
                                 },
                               ),
@@ -98,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 focusNode: focusNodePassword,
                                 nextFocus: focusNodePassword,
                                 errorText: passwordProvider.errorPasswordText,
-                                onChanged: (val){
+                                onChanged: (val) {
                                   passwordProvider.validatePassword(val);
                                 },
                                 suffixIcon: value.visible
@@ -125,21 +127,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                 label: StringsManager.password,
                               ),
                               SizedBox(height: 30),
-                              if (state.loginStates == LoginStates.failed)...[
+                              if (state.loginStates == LoginStates.failed) ...[
                                 CustomErrorWidget(
                                     message: state.failures?.message ??
                                         StringsManager.error)
                               ],
                               SizedBox(height: 20),
                               LoginButton(
-                                onPressed: () {
-                                  BlocProvider.of<LoginBloc>(context).add(
-                                    OnLoginEvent(
-                                      emailController.text,
-                                      passwordController.text,
-                                    ),
-                                  );
-                                },
+                                onPressed: emailValidationProvider
+                                            .isEmailValid &&
+                                        passwordProvider.isPasswordValid
+                                    ? () {
+                                        BlocProvider.of<LoginBloc>(context).add(
+                                          OnLoginEvent(
+                                            emailController.text,
+                                            passwordController.text,
+                                          ),
+                                        );
+                                      }
+                                    : null,
                               ),
                               SizedBox(height: 20),
                               Align(
